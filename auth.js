@@ -14,11 +14,48 @@ function signOut(){
   window.location.href = 'index.html';
 }
 
-function getActiveGift(){
-  try{ return JSON.parse(localStorage.getItem('bp_active_gift') || 'null'); }catch(e){ return null; }
+// A donor can have more than one gift running at once (e.g. a monthly student
+// sponsorship plus a separate one-off top-up) — these all live in one array so
+// "Give again" adds a new gift instead of silently overwriting an existing one.
+function getActiveGifts(){
+  try{
+    var raw = localStorage.getItem('bp_active_gifts');
+    if(raw) return JSON.parse(raw) || [];
+    var legacy = JSON.parse(localStorage.getItem('bp_active_gift') || 'null');
+    if(legacy){
+      legacy.id = legacy.id || ('g_' + Date.now());
+      localStorage.setItem('bp_active_gifts', JSON.stringify([legacy]));
+      localStorage.removeItem('bp_active_gift');
+      return [legacy];
+    }
+    return [];
+  }catch(e){ return []; }
 }
-function setActiveGift(gift){
-  try{ localStorage.setItem('bp_active_gift', JSON.stringify(gift)); }catch(e){}
+function setActiveGifts(list){
+  try{ localStorage.setItem('bp_active_gifts', JSON.stringify(list)); }catch(e){}
+}
+function addActiveGift(gift){
+  var list = getActiveGifts();
+  gift.id = gift.id || ('g_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+  list.push(gift);
+  setActiveGifts(list);
+  return gift;
+}
+function updateActiveGift(id, patch){
+  var list = getActiveGifts();
+  var gift = list.find(function(g){ return g.id === id; });
+  if(!gift) return null;
+  Object.keys(patch).forEach(function(k){ gift[k] = patch[k]; });
+  setActiveGifts(list);
+  return gift;
+}
+function getGiftById(id){
+  return getActiveGifts().find(function(g){ return g.id === id; }) || null;
+}
+// The gift nav CTAs and empty-states care about when they just need to know
+// "does this donor have any giving going at all" — the first non-cancelled one.
+function getPrimaryActiveGift(){
+  return getActiveGifts().filter(function(g){ return g.status !== 'cancelled'; })[0] || null;
 }
 
 // A gift is "pending match" when the donor has already paid and committed to
@@ -109,7 +146,7 @@ function renderAccountNav(){
   var menu = document.getElementById('account-menu');
   if(session && session.name){
     if(loginLink) loginLink.style.display = 'none';
-    if(startLink) startLink.textContent = getActiveGift() ? 'Give again' : 'Start giving';
+    if(startLink) startLink.textContent = getPrimaryActiveGift() ? 'Give again' : 'Start giving';
     if(menu){
       menu.style.display = 'inline-block';
       var trigger = document.getElementById('account-trigger');

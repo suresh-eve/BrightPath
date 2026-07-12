@@ -366,7 +366,7 @@
 
       <div class="receipt-card" id="pick-later-card" style="display:none;">
         <p style="font-size:14px;margin-bottom:14px;">Now let's find the right match for your gift.</p>
-        <a href="students.html" class="btn btn-primary btn-block" style="margin-bottom:10px;">Choose your student now →</a>
+        <a href="students.html" id="pick-later-link" class="btn btn-primary btn-block" style="margin-bottom:10px;">Choose your student now →</a>
         <a href="dashboard.html" class="guest-link" style="margin:0;">I'll pick later from my dashboard</a>
       </div>
 
@@ -670,7 +670,7 @@
     };
 
     if(!state.isGuest){
-      setActiveGift({
+      var newGift = addActiveGift({
         target: targetLabel(),
         giveType: state.giveType,
         studentId: state.studentId || null,
@@ -682,6 +682,8 @@
         status: 'active',
         startedAt: nowIso
       });
+      var pickLaterLink = document.getElementById('pick-later-link');
+      if(pickLaterLink) pickLaterLink.href = 'students.html?forGift=' + newGift.id;
       addTransaction({
         receiptNo: receiptNo,
         date: nowIso,

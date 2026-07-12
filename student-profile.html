@@ -151,26 +151,23 @@
   var s = getStudentById(id) || STUDENTS[0];
   var g = gradientFor(s.id);
   var pct = pctFunded(s);
-  var activeGift = getSession() ? getActiveGift() : null;
+  var forGiftId = params.get('forGift');
+  var activeGift = forGiftId ? getGiftById(forGiftId) : (getSession() ? getPrimaryActiveGift() : null);
   var pendingGift = isPendingMatch(activeGift) ? activeGift : null;
 
   function assignStudentToGift(studentId){
-    var gift = getActiveGift();
-    if(!gift) return;
+    if(!pendingGift) return;
     var target = getStudentById(studentId);
-    gift.studentId = studentId;
-    gift.target = target ? (target.name + ', ' + target.state) : gift.target;
-    setActiveGift(gift);
-    window.location.href = 'dashboard.html?matched=1';
+    updateActiveGift(pendingGift.id, {
+      studentId: studentId,
+      target: target ? (target.name + ', ' + target.state) : pendingGift.target
+    });
+    window.location.href = 'dashboard.html?matched=1&giftId=' + encodeURIComponent(pendingGift.id);
   }
   function convertGiftToGeneral(){
-    var gift = getActiveGift();
-    if(!gift) return;
-    gift.studentId = null;
-    gift.giveType = 'general';
-    gift.target = 'General fund';
-    setActiveGift(gift);
-    window.location.href = 'dashboard.html?matched=1';
+    if(!pendingGift) return;
+    updateActiveGift(pendingGift.id, { studentId: null, giveType: 'general', target: 'General fund' });
+    window.location.href = 'dashboard.html?matched=1&giftId=' + encodeURIComponent(pendingGift.id);
   }
 
   document.title = s.name + ' — BrightPath';
@@ -258,8 +255,8 @@
       '<div class="sponsor-stat-row"><span>' + pct + '% funded</span><span>' + s.interested + ' considering</span></div>' +
       (pendingGift
         ? (
-          '<div class="pay-note" style="margin-bottom:14px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Your ' + fmtRM(pendingGift.amount) + (pendingGift.freq === 'monthly' ? '/month' : ' one-off') + ' gift is already in — this just tells us where it goes. No new payment.</div>' +
-          '<button type="button" class="btn btn-primary btn-block" onclick="assignStudentToGift(' + s.id + ')">Choose ' + s.name.split(' ')[0] + ' as my student →</button>' +
+          '<div class="pay-note" style="margin-bottom:14px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Your ' + fmtRM(pendingGift.amount) + (pendingGift.freq === 'monthly' ? '/month' : ' one-off') + (pendingGift.giveType === 'mentor' ? ' mentoring gift' : ' gift') + ' is already in — this just tells us where it goes. No new payment.</div>' +
+          '<button type="button" class="btn btn-primary btn-block" onclick="assignStudentToGift(' + s.id + ')">Choose ' + s.name.split(' ')[0] + (pendingGift.giveType === 'mentor' ? ' as my mentee →' : ' as my student →') + '</button>' +
           '<a href="#" class="sponsor-secondary" onclick="convertGiftToGeneral();return false;">Or move my gift to the general fund instead</a>'
         )
         : (
@@ -291,7 +288,7 @@
   document.getElementById('similar-grid').innerHTML = similar.map(function(o){
     var og = gradientFor(o.id);
     var opct = pctFunded(o);
-    return '<a href="student-profile.html?id=' + o.id + '" class="similar-card">' +
+    return '<a href="student-profile.html?id=' + o.id + (forGiftId ? '&forGift=' + encodeURIComponent(forGiftId) : '') + '" class="similar-card">' +
       '<div class="avatar-block similar-photo" style="background:linear-gradient(135deg,' + og[0] + ',' + og[1] + ');"><div class="avatar-initials">' + o.name.charAt(0) + '</div></div>' +
       '<div class="similar-body">' +
         '<div class="similar-name">' + o.name + ', ' + o.age + '</div>' +

@@ -231,17 +231,7 @@
 
     var statusLabels = {active:['status-active','Active'], paused:['status-paused','Paused'], cancelled:['status-cancelled','Cancelled']};
 
-    function renderGiving(){
-      var gift = getActiveGift();
-      var el = document.getElementById('giving-content');
-      if(!gift){
-        el.innerHTML = '<div class="panel-card empty-panel">' +
-          '<p>You haven\'t started a gift yet.</p>' +
-          '<a href="join.html" class="btn btn-primary">Start giving →</a>' +
-        '</div>';
-        return;
-      }
-
+    function giftCardHtml(gift){
       var badge = statusLabels[gift.status] || statusLabels.active;
       var nextDate = '—';
       if(gift.freq === 'monthly' && gift.status === 'active'){
@@ -251,10 +241,10 @@
       }
 
       var pendingBanner = isPendingMatch(gift)
-        ? '<div class="pay-note" style="margin-bottom:16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V12L14.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'your student') + ' yet. <a href="students.html" style="color:var(--teal-dark);font-weight:600;">Browse and choose now →</a></div>'
+        ? '<div class="pay-note" style="margin-bottom:16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V12L14.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'your student') + ' yet. <a href="students.html?forGift=' + gift.id + '" style="color:var(--teal-dark);font-weight:600;">Browse and choose now →</a></div>'
         : '';
 
-      el.innerHTML = '<div class="panel-card">' +
+      return '<div class="panel-card">' +
         pendingBanner +
         '<div class="gift-summary">' +
           '<div><div class="gift-target">' + gift.target + '</div><div class="gift-meta">' + fmtRM(gift.amount) + (gift.freq === 'monthly' ? '/month' : ' one-off') + '</div></div>' +
@@ -263,51 +253,63 @@
         '<div class="gift-row"><span>Payment method</span><span>' + (gift.pay ? gift.pay.toUpperCase() : '—') + '</span></div>' +
         (nextDate !== '—' ? '<div class="gift-row"><span>Next payment</span><span>' + nextDate + '</span></div>' : '') +
         '<div class="gift-actions">' +
-          '<button class="btn btn-ghost btn-sm" onclick="togglePmForm()">Update payment method</button>' +
+          '<button class="btn btn-ghost btn-sm" onclick="togglePmForm(\'' + gift.id + '\')">Update payment method</button>' +
           (gift.status === 'active'
-            ? '<button class="btn btn-ghost btn-sm" onclick="setGiftStatus(\'paused\')">Pause giving</button><button class="btn btn-danger-ghost btn-sm" onclick="setGiftStatus(\'cancelled\')">Cancel giving</button>'
-            : '<button class="btn btn-primary btn-sm" onclick="setGiftStatus(\'active\')">Resume giving</button>') +
+            ? '<button class="btn btn-ghost btn-sm" onclick="setGiftStatus(\'' + gift.id + '\',\'paused\')">Pause giving</button><button class="btn btn-danger-ghost btn-sm" onclick="setGiftStatus(\'' + gift.id + '\',\'cancelled\')">Cancel giving</button>'
+            : '<button class="btn btn-primary btn-sm" onclick="setGiftStatus(\'' + gift.id + '\',\'active\')">Resume giving</button>') +
         '</div>' +
         '<p class="reassure-note">You can pause, resume, or cancel anytime — no calls, no forms.</p>' +
-        '<div class="pm-form" id="pm-form">' +
-          '<div class="pay-methods" id="pm-methods">' +
+        '<div class="pm-form" id="pm-form-' + gift.id + '">' +
+          '<div class="pay-methods" id="pm-methods-' + gift.id + '">' +
             ['fpx','duitnow','tng','grabpay','shopeepay','card'].map(function(pm){
               var labels = {fpx:'FPX', duitnow:'DuitNow', tng:"Touch \'n Go", grabpay:'GrabPay', shopeepay:'ShopeePay', card:'Card'};
-              return '<div class="pay-method' + (gift.pay === pm ? ' selected' : '') + '" data-pm="' + pm + '" onclick="selectPmMethod(\'' + pm + '\')">' + labels[pm] + '</div>';
+              return '<div class="pay-method' + (gift.pay === pm ? ' selected' : '') + '" data-pm="' + pm + '" onclick="selectPmMethod(\'' + gift.id + '\',\'' + pm + '\')">' + labels[pm] + '</div>';
             }).join('') +
           '</div>' +
-          '<button class="btn btn-primary btn-sm" onclick="savePmMethod()">Save payment method</button>' +
-          '<p class="save-note" id="pm-saved">Payment method updated.</p>' +
+          '<button class="btn btn-primary btn-sm" onclick="savePmMethod(\'' + gift.id + '\')">Save payment method</button>' +
+          '<p class="save-note" id="pm-saved-' + gift.id + '">Payment method updated.</p>' +
         '</div>' +
       '</div>';
     }
 
-    window.togglePmForm = function(){
-      document.getElementById('pm-form').classList.toggle('open');
+    function renderGiving(){
+      var gifts = getActiveGifts();
+      var el = document.getElementById('giving-content');
+      if(gifts.length === 0){
+        el.innerHTML = '<div class="panel-card empty-panel">' +
+          '<p>You haven\'t started a gift yet.</p>' +
+          '<a href="join.html" class="btn btn-primary">Start giving →</a>' +
+        '</div>';
+        return;
+      }
+      el.innerHTML = gifts.map(giftCardHtml).join('') +
+        '<a href="join.html" class="btn btn-ghost btn-sm">+ Start another gift</a>';
+    }
+
+    window.togglePmForm = function(giftId){
+      var form = document.getElementById('pm-form-' + giftId);
+      if(form) form.classList.toggle('open');
     };
-    window.selectPmMethod = function(pm){
-      document.querySelectorAll('#pm-methods .pay-method').forEach(function(m){ m.classList.toggle('selected', m.dataset.pm === pm); });
-      var gift = getActiveGift();
-      gift.pendingPay = pm;
-      setActiveGift(gift);
+    window.selectPmMethod = function(giftId, pm){
+      document.querySelectorAll('#pm-methods-' + giftId + ' .pay-method').forEach(function(m){ m.classList.toggle('selected', m.dataset.pm === pm); });
+      updateActiveGift(giftId, {pendingPay: pm});
     };
-    window.savePmMethod = function(){
-      var gift = getActiveGift();
-      if(gift.pendingPay){ gift.pay = gift.pendingPay; delete gift.pendingPay; setActiveGift(gift); }
-      var note = document.getElementById('pm-saved');
-      note.style.display = 'block';
-      setTimeout(function(){ note.style.display = 'none'; renderGiving(); }, 1400);
+    window.savePmMethod = function(giftId){
+      var gift = getGiftById(giftId);
+      if(gift && gift.pendingPay){ updateActiveGift(giftId, {pay: gift.pendingPay, pendingPay: null}); }
+      var note = document.getElementById('pm-saved-' + giftId);
+      if(note){
+        note.style.display = 'block';
+        setTimeout(function(){ note.style.display = 'none'; renderGiving(); }, 1400);
+      }
     };
-    window.setGiftStatus = function(status){
-      var gift = getActiveGift();
-      if(!gift) return;
-      gift.status = status;
-      setActiveGift(gift);
+    window.setGiftStatus = function(giftId, status){
+      updateActiveGift(giftId, {status: status});
       renderGiving();
     };
 
     function seedHistoryIfThin(){
-      var gift = getActiveGift();
+      var gift = getPrimaryActiveGift();
       var tx = getTransactions();
       if(gift && gift.freq === 'monthly' && tx.length < 2){
         var base = new Date(gift.startedAt);
@@ -326,22 +328,13 @@
       }
     }
 
-    function renderUpdates(){
-      var gift = getActiveGift();
-      var el = document.getElementById('updates-content');
-      if(!gift){
-        el.innerHTML = '<div class="panel-card empty-panel">' +
-          '<p>Updates from your coordinator will show up here once you start giving.</p>' +
-          '<a href="join.html" class="btn btn-primary">Start giving →</a>' +
-        '</div>';
-        return;
-      }
+    function giftUpdatesHtml(gift, showLabel){
+      var label = showLabel ? '<h3 style="font-size:14px;margin:26px 0 10px;">' + gift.target + '</h3>' : '';
       if(isPendingMatch(gift)){
-        el.innerHTML = '<div class="panel-card empty-panel">' +
-          '<p>You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'a student') + ' yet, so there\'s nothing to show here. Updates start once you pick who your gift goes to.</p>' +
-          '<a href="students.html" class="btn btn-primary">Choose now →</a>' +
+        return label + '<div class="panel-card empty-panel">' +
+          '<p>You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'a student') + ' yet, so there\'s nothing to show here. Updates start once you pick who this gift goes to.</p>' +
+          '<a href="students.html?forGift=' + gift.id + '" class="btn btn-primary">Choose now →</a>' +
         '</div>';
-        return;
       }
 
       var updates, note;
@@ -365,24 +358,38 @@
       var mentorHtml = '';
       if(gift.giveType === 'mentor'){
         mentorHtml = '<div class="panel-card">' +
-          '<h2>Message your coordinator</h2>' +
+          '<h2>Message your coordinator' + (showLabel ? ' — ' + gift.target : '') + '</h2>' +
           '<p style="font-size:13px;color:var(--ink-soft);margin-bottom:14px;">We don\'t connect mentors directly with mentees until a match is confirmed — for now, anything you write here is relayed by your BrightPath coordinator.</p>' +
-          '<div class="msg-thread" id="msg-thread"></div>' +
+          '<div class="msg-thread" id="msg-thread-' + gift.id + '"></div>' +
           '<div class="msg-compose">' +
-            '<textarea id="msg-input" rows="2" placeholder="Write a note for your coordinator to pass along…"></textarea>' +
-            '<button class="btn btn-primary btn-sm" onclick="sendMentorMessage()">Send</button>' +
+            '<textarea id="msg-input-' + gift.id + '" rows="2" placeholder="Write a note for your coordinator to pass along…"></textarea>' +
+            '<button class="btn btn-primary btn-sm" onclick="sendMentorMessage(\'' + gift.id + '\')">Send</button>' +
           '</div>' +
         '</div>';
       }
 
-      el.innerHTML = '<p class="update-note">' + note + '</p>' + mentorHtml + cardsHtml;
-      if(gift.giveType === 'mentor') renderMentorThread();
+      return label + '<p class="update-note">' + note + '</p>' + mentorHtml + cardsHtml;
     }
 
-    function renderMentorThread(){
-      var thread = document.getElementById('msg-thread');
+    function renderUpdates(){
+      var gifts = getActiveGifts().filter(function(g){ return g.status !== 'cancelled'; });
+      var el = document.getElementById('updates-content');
+      if(gifts.length === 0){
+        el.innerHTML = '<div class="panel-card empty-panel">' +
+          '<p>Updates from your coordinator will show up here once you start giving.</p>' +
+          '<a href="join.html" class="btn btn-primary">Start giving →</a>' +
+        '</div>';
+        return;
+      }
+      var showLabel = gifts.length > 1;
+      el.innerHTML = gifts.map(function(g){ return giftUpdatesHtml(g, showLabel); }).join('');
+      gifts.forEach(function(g){ if(g.giveType === 'mentor') renderMentorThread(g.id); });
+    }
+
+    function renderMentorThread(giftId){
+      var thread = document.getElementById('msg-thread-' + giftId);
       if(!thread) return;
-      var messages = getMessages();
+      var messages = getMessages().filter(function(m){ return !m.giftId || m.giftId === giftId; });
       if(messages.length === 0){
         thread.innerHTML = '<p style="font-size:13px;color:var(--ink-soft);">No messages yet — say hello and your coordinator will relay it once a mentee match is confirmed.</p>';
         return;
@@ -395,14 +402,14 @@
       }).join('');
     }
 
-    window.sendMentorMessage = function(){
-      var input = document.getElementById('msg-input');
+    window.sendMentorMessage = function(giftId){
+      var input = document.getElementById('msg-input-' + giftId);
       var text = (input.value || '').trim();
       if(!text) return;
-      addMessage({from:'you', text: text});
-      addMessage({from:'coordinator', text: "Thanks — we've noted this and will pass it along as soon as your mentee match is confirmed."});
+      addMessage({from:'you', text: text, giftId: giftId});
+      addMessage({from:'coordinator', text: "Thanks — we've noted this and will pass it along as soon as your mentee match is confirmed.", giftId: giftId});
       input.value = '';
-      renderMentorThread();
+      renderMentorThread(giftId);
     };
 
     function renderReceipts(){
@@ -447,7 +454,8 @@
     renderReceipts();
 
     if(new URLSearchParams(window.location.search).get('matched') === '1'){
-      var gift = getActiveGift();
+      var matchedGiftId = new URLSearchParams(window.location.search).get('giftId');
+      var gift = (matchedGiftId && getGiftById(matchedGiftId)) || getPrimaryActiveGift();
       var banner = document.getElementById('matched-banner');
       if(gift && banner){
         banner.style.display = 'block';
