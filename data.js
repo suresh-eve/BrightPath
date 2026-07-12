@@ -38,3 +38,36 @@ function fmtRM(n){ return 'RM' + Math.round(n).toLocaleString('en-MY'); }
 function pctFunded(s){ return Math.min(100, Math.round((s.raised / s.goal) * 100)); }
 function gradientFor(id){ return GRADIENTS[(id - 1) % GRADIENTS.length]; }
 function getStudentById(id){ return STUDENTS.find(function(s){ return s.id === Number(id); }); }
+
+// Mock coordinator-moderated updates — stands in for the "termly update" the
+// student verification checklist already promises sponsors (see student-profile.html).
+function getUpdatesForStudent(id){
+  var s = getStudentById(id);
+  if(!s) return [];
+  var first = s.name.split(' ')[0];
+  return [
+    {
+      date: '2026-06-18T00:00:00Z',
+      title: 'Coordinator note — semester progress',
+      body: first + ' completed this semester of ' + s.course + ' and passed every core module. Coordinator note: "' + first + ' has settled in well and is active in class discussions."'
+    },
+    {
+      date: '2026-03-02T00:00:00Z',
+      title: 'A note from ' + first,
+      body: '"Thank you for believing in me. ' + s.story + '" — ' + first
+    }
+  ];
+}
+
+var GENERAL_FUND_UPDATES = [
+  {
+    date: '2026-06-01T00:00:00Z',
+    title: 'June general fund update',
+    body: '18 students in the pool crossed 50% funded this month, and 3 completed their programs. General fund gifts like yours closed the remaining gap for two students who had been waiting the longest.'
+  },
+  {
+    date: '2026-05-01T00:00:00Z',
+    title: 'May general fund update',
+    body: 'The general fund fully closed a bursary gap for a Kedah-based Education (TESL) student this month — she starts her teaching placement in July.'
+  }
+];

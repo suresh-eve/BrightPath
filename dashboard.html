@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My account — BrightPath</title>
+<meta name="description" content="Manage your BrightPath giving, payment method, and receipts in one place.">
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -58,6 +60,20 @@
 
   .empty-panel{text-align:center;padding:40px 20px;}
   .empty-panel p{font-size:14px;color:var(--ink-soft);margin-bottom:18px;}
+
+  .update-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:22px 24px;margin-bottom:16px;}
+  .update-date{font-size:12px;color:var(--ink-soft);font-weight:600;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:6px;}
+  .update-title{font-family:'Fraunces',serif;font-size:17px;font-weight:600;margin-bottom:8px;}
+  .update-body{font-size:14px;color:var(--ink-soft);line-height:1.65;}
+  .update-note{font-size:12.5px;color:var(--ink-soft);margin-bottom:18px;}
+
+  .msg-thread{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+  .msg-bubble{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.5;}
+  .msg-bubble.you{align-self:flex-end;background:var(--teal);color:#fff;border-bottom-right-radius:4px;}
+  .msg-bubble.coordinator{align-self:flex-start;background:var(--cream);border:1px solid var(--line);border-bottom-left-radius:4px;}
+  .msg-sender{font-size:11px;font-weight:600;opacity:0.75;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.02em;}
+  .msg-compose{display:flex;gap:8px;margin-top:4px;}
+  .msg-compose textarea{flex-grow:1;resize:none;padding:10px 12px;border-radius:var(--radius-sm);border:1px solid var(--line);font-family:'Inter',sans-serif;font-size:13.5px;background:var(--cream);}
 
   table.receipts{width:100%;border-collapse:collapse;font-size:13.5px;}
   table.receipts th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:0.03em;color:var(--ink-soft);padding:0 0 10px;border-bottom:1px solid var(--line);}
@@ -120,6 +136,7 @@
     <div class="tab-bar">
       <button class="tab-btn active" data-tab="profile" onclick="showTab('profile')">Profile</button>
       <button class="tab-btn" data-tab="giving" onclick="showTab('giving')">Giving &amp; payment</button>
+      <button class="tab-btn" data-tab="updates" onclick="showTab('updates')">Updates</button>
       <button class="tab-btn" data-tab="receipts" onclick="showTab('receipts')">Receipts</button>
     </div>
 
@@ -140,6 +157,10 @@
 
     <div class="tab-panel" id="tab-giving">
       <div id="giving-content"></div>
+    </div>
+
+    <div class="tab-panel" id="tab-updates">
+      <div id="updates-content"></div>
     </div>
 
     <div class="tab-panel" id="tab-receipts">
@@ -295,6 +316,77 @@
       }
     }
 
+    function renderUpdates(){
+      var gift = getActiveGift();
+      var el = document.getElementById('updates-content');
+      if(!gift){
+        el.innerHTML = '<div class="panel-card empty-panel">' +
+          '<p>Updates from your coordinator will show up here once you start giving.</p>' +
+          '<a href="join.html" class="btn btn-primary">Start giving →</a>' +
+        '</div>';
+        return;
+      }
+      var updates, note;
+      if(gift.studentId){
+        var s = getStudentById(gift.studentId);
+        updates = getUpdatesForStudent(gift.studentId);
+        note = 'Coordinator-reviewed updates on ' + (s ? s.name.split(' ')[0] : 'your student') + "'s progress — shared roughly once a term.";
+      } else {
+        updates = GENERAL_FUND_UPDATES;
+        note = "You're funding the general pool, so updates here cover the whole cohort rather than one student.";
+      }
+      var cardsHtml = updates.map(function(u){
+        var d = new Date(u.date).toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'});
+        return '<div class="update-card">' +
+          '<div class="update-date">' + d + '</div>' +
+          '<div class="update-title">' + u.title + '</div>' +
+          '<p class="update-body">' + u.body + '</p>' +
+        '</div>';
+      }).join('');
+
+      var mentorHtml = '';
+      if(gift.giveType === 'mentor'){
+        mentorHtml = '<div class="panel-card">' +
+          '<h2>Message your coordinator</h2>' +
+          '<p style="font-size:13px;color:var(--ink-soft);margin-bottom:14px;">We don\'t connect mentors directly with mentees until a match is confirmed — for now, anything you write here is relayed by your BrightPath coordinator.</p>' +
+          '<div class="msg-thread" id="msg-thread"></div>' +
+          '<div class="msg-compose">' +
+            '<textarea id="msg-input" rows="2" placeholder="Write a note for your coordinator to pass along…"></textarea>' +
+            '<button class="btn btn-primary btn-sm" onclick="sendMentorMessage()">Send</button>' +
+          '</div>' +
+        '</div>';
+      }
+
+      el.innerHTML = '<p class="update-note">' + note + '</p>' + mentorHtml + cardsHtml;
+      if(gift.giveType === 'mentor') renderMentorThread();
+    }
+
+    function renderMentorThread(){
+      var thread = document.getElementById('msg-thread');
+      if(!thread) return;
+      var messages = getMessages();
+      if(messages.length === 0){
+        thread.innerHTML = '<p style="font-size:13px;color:var(--ink-soft);">No messages yet — say hello and your coordinator will relay it once a mentee match is confirmed.</p>';
+        return;
+      }
+      thread.innerHTML = messages.map(function(m){
+        return '<div class="msg-bubble ' + (m.from === 'you' ? 'you' : 'coordinator') + '">' +
+          '<div class="msg-sender">' + (m.from === 'you' ? 'You' : 'Coordinator') + '</div>' +
+          m.text +
+        '</div>';
+      }).join('');
+    }
+
+    window.sendMentorMessage = function(){
+      var input = document.getElementById('msg-input');
+      var text = (input.value || '').trim();
+      if(!text) return;
+      addMessage({from:'you', text: text});
+      addMessage({from:'coordinator', text: "Thanks — we've noted this and will pass it along as soon as your mentee match is confirmed."});
+      input.value = '';
+      renderMentorThread();
+    };
+
     function renderReceipts(){
       var list = getTransactions();
       var el = document.getElementById('receipts-content');
@@ -302,21 +394,38 @@
         el.innerHTML = '<p style="font-size:14px;color:var(--ink-soft);">No receipts yet — they will appear here after your first gift.</p>';
         return;
       }
-      var rows = list.map(function(tx){
+      var rows = list.map(function(tx, i){
         var d = new Date(tx.date).toLocaleDateString('en-MY', {day:'numeric', month:'short', year:'numeric'});
         return '<tr>' +
           '<td>' + d + '</td>' +
           '<td>' + tx.target + '</td>' +
           '<td>' + fmtRM(tx.amount) + (tx.freq === 'monthly' ? '/mo' : '') + '</td>' +
           '<td>' + tx.receiptNo + '</td>' +
-          '<td><a href="#" onclick="return false;">Download</a></td>' +
+          '<td><a href="#" onclick="downloadTxReceipt(' + i + ');return false;">Download</a></td>' +
         '</tr>';
       }).join('');
       el.innerHTML = '<table class="receipts"><thead><tr><th>Date</th><th>Giving to</th><th>Amount</th><th>Receipt no.</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
     }
 
+    window.downloadTxReceipt = function(i){
+      var tx = getTransactions()[i];
+      if(!tx) return;
+      var d = new Date(tx.date).toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'});
+      printReceipt({
+        receiptNo: tx.receiptNo,
+        dateLabel: d,
+        donorName: tx.donorName || session.name,
+        target: tx.target,
+        amountLabel: fmtRM(tx.amount) + (tx.freq === 'monthly' ? '/month' : ''),
+        feeLabel: tx.fee ? fmtRM(tx.fee) : null,
+        totalLabel: tx.fee ? (fmtRM(tx.total || (tx.amount + tx.fee)) + (tx.freq === 'monthly' ? '/month' : '')) : null,
+        freqLabel: tx.freq === 'monthly' ? 'Monthly, cancel anytime' : 'One-off'
+      });
+    };
+
     seedHistoryIfThin();
     renderGiving();
+    renderUpdates();
     renderReceipts();
   }
 </script>

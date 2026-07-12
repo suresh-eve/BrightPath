@@ -21,6 +21,16 @@ function setActiveGift(gift){
   try{ localStorage.setItem('bp_active_gift', JSON.stringify(gift)); }catch(e){}
 }
 
+function getMessages(){
+  try{ return JSON.parse(localStorage.getItem('bp_messages') || '[]'); }catch(e){ return []; }
+}
+function addMessage(msg){
+  var list = getMessages();
+  list.push(msg);
+  try{ localStorage.setItem('bp_messages', JSON.stringify(list)); }catch(e){}
+  return list;
+}
+
 function getTransactions(){
   try{ return JSON.parse(localStorage.getItem('bp_transactions') || '[]'); }catch(e){ return []; }
 }
@@ -29,6 +39,38 @@ function addTransaction(tx){
   list.unshift(tx);
   try{ localStorage.setItem('bp_transactions', JSON.stringify(list)); }catch(e){}
   return list;
+}
+
+function printReceipt(r){
+  var win = window.open('', '_blank', 'width=480,height=640');
+  if(!win) return;
+  var rows = [
+    ['Receipt No.', r.receiptNo || '—'],
+    ['Date', r.dateLabel || '—'],
+    ['Donor', r.donorName || 'Guest'],
+    ['Giving to', r.target || '—'],
+    ['Amount', r.amountLabel || '—']
+  ];
+  if(r.feeLabel){ rows.push(['Fee covered', r.feeLabel]); rows.push(['Total charged', r.totalLabel]); }
+  rows.push(['Frequency', r.freqLabel || '—']);
+  var rowsHtml = rows.map(function(row){
+    return '<tr><td>' + row[0] + '</td><td style="text-align:right;font-weight:600;">' + row[1] + '</td></tr>';
+  }).join('');
+  win.document.write(
+    '<!DOCTYPE html><html><head><title>Receipt ' + (r.receiptNo || '') + ' — BrightPath</title>' +
+    '<style>body{font-family:-apple-system,\'Segoe UI\',Arial,sans-serif;padding:32px;color:#1F2A24;}' +
+    'h1{font-size:18px;margin-bottom:4px;}.sub{color:#4B5750;font-size:13px;margin-bottom:24px;}' +
+    'table{width:100%;border-collapse:collapse;}td{padding:8px 0;border-top:1px solid #E4DAC7;font-size:14px;}' +
+    'tr:first-child td{border-top:none;}.foot{margin-top:28px;font-size:11.5px;color:#4B5750;}</style>' +
+    '</head><body>' +
+    '<h1>BrightPath</h1><div class="sub">Official donation receipt — a HalaTuju initiative</div>' +
+    '<table>' + rowsHtml + '</table>' +
+    '<p class="foot">This receipt confirms your contribution to BrightPath. Keep it for your records. Questions? Contact your BrightPath coordinator.</p>' +
+    '</body></html>'
+  );
+  win.document.close();
+  win.focus();
+  setTimeout(function(){ win.print(); }, 300);
 }
 
 function toggleAccountDropdown(){

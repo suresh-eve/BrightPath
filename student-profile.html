@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student profile — BrightPath</title>
+<meta name="description" content="Meet a verified B40 student on BrightPath — see their story, funding progress, and exactly how your gift will be used.">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="BrightPath">
+<meta property="og:title" content="A BrightPath student is waiting for a sponsor">
+<meta property="og:description" content="See their story, funding progress, and exactly how your gift will be used.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A BrightPath student is waiting for a sponsor">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -144,6 +151,13 @@
   var pct = pctFunded(s);
 
   document.title = s.name + ' — BrightPath';
+  var ogDesc = s.name + ', ' + s.age + ' — ' + s.state + ', ' + s.institution + ' in ' + s.course + '. ' + pct + '% funded toward their ' + fmtRM(s.goal) + ' bursary.';
+  var ogTitleTag = document.querySelector('meta[property="og:title"]');
+  var ogDescTag = document.querySelector('meta[property="og:description"]');
+  var twTitleTag = document.querySelector('meta[name="twitter:title"]');
+  if(ogTitleTag) ogTitleTag.setAttribute('content', 'Sponsor ' + s.name + ' — BrightPath');
+  if(ogDescTag) ogDescTag.setAttribute('content', ogDesc);
+  if(twTitleTag) twTitleTag.setAttribute('content', 'Sponsor ' + s.name + ' — BrightPath');
 
   var checklistItems = [
     { done:true, label:'Malaysian citizen, completed SPM/STPM' },

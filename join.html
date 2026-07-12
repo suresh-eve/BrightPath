@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Start giving — BrightPath</title>
+<meta name="description" content="Start giving to a BrightPath student in under a minute. No password required — sign in, choose the general fund, a student, or a mentor match, then decide the details after your gift is confirmed.">
+<link rel="canonical" href="https://brightpath-sureshdhynnas-projects.vercel.app/join.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BrightPath">
+<meta property="og:title" content="Start giving — BrightPath">
+<meta property="og:description" content="No password, no research required. Choose how you give, then pick who it goes to after your gift is confirmed.">
+<meta property="og:url" content="https://brightpath-sureshdhynnas-projects.vercel.app/join.html">
+<meta name="twitter:card" content="summary">
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -302,6 +311,7 @@
           <button class="amount-chip" data-amt="250" onclick="selectAmount(250)">RM250</button>
           <input type="number" placeholder="Custom" id="amount-custom" style="width:100px;padding:10px 12px;border-radius:100px;border:1.5px solid var(--line);font-size:14px;font-weight:600;" oninput="selectAmount(this.value)">
         </div>
+        <p class="give-hint" id="amount-caption" style="margin:0 0 14px;text-align:left;"></p>
         <div class="freq-toggle" id="freq-toggle">
           <button data-freq="once" onclick="selectFreq('once')">One-off</button>
           <button data-freq="monthly" class="active" onclick="selectFreq('monthly')">Monthly</button>
@@ -316,11 +326,16 @@
           <div class="pay-method" data-pm="card" onclick="selectPay('card')">Card</div>
         </div>
         <div id="pay-extra"></div>
+        <label class="check-row" style="display:flex;align-items:flex-start;gap:10px;margin-top:16px;font-size:13.5px;cursor:pointer;">
+          <input type="checkbox" id="cover-fee" style="width:16px;height:16px;margin-top:2px;flex-shrink:0;" onchange="toggleCoverFee(this.checked)">
+          <span>Add <b id="cover-fee-amt">RM0</b> so BrightPath keeps 100% of your gift after processing fees</span>
+        </label>
       </div>
       <div class="summary-card">
         <div class="summary-row"><span>Giving to</span><span id="sum-target">—</span></div>
         <div class="summary-row"><span>Frequency</span><span id="sum-freq">Monthly</span></div>
         <div class="summary-row"><span>Payment method</span><span id="sum-pay">—</span></div>
+        <div class="summary-row" id="sum-fee-row" style="display:none;"><span>Covering fees</span><span id="sum-fee">RM0</span></div>
         <div class="summary-row total"><span>Total today</span><span id="sum-total">RM0</span></div>
         <button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="handleCheckoutSubmit()">Give now →</button>
         <p style="font-size:11.5px;color:var(--ink-soft);margin-top:10px;text-align:center;">Receipt issued immediately. Cancel or edit anytime from your dashboard.</p>
@@ -337,9 +352,11 @@
       <h2 id="confirm-heading">You're in!</h2>
       <p id="confirm-message"></p>
 
-      <div class="receipt-card">
+      <div class="receipt-card" id="receipt-card">
         <div class="summary-row"><span>Receipt no.</span><span id="receipt-no">—</span></div>
         <div class="summary-row"><span>Amount</span><span id="receipt-amt">—</span></div>
+        <div class="summary-row" id="receipt-fee-row" style="display:none;"><span>Fee covered</span><span id="receipt-fee">—</span></div>
+        <div class="summary-row" id="receipt-total-row" style="display:none;font-weight:700;"><span>Total charged</span><span id="receipt-total">—</span></div>
         <div class="summary-row"><span>Frequency</span><span id="receipt-freq">—</span></div>
         <div class="summary-row"><span>Date</span><span id="receipt-date">—</span></div>
       </div>
@@ -351,7 +368,7 @@
       </div>
 
       <div class="confirm-actions">
-        <a href="#" class="btn btn-ghost">Download receipt</a>
+        <a href="#" class="btn btn-ghost" onclick="downloadCurrentReceipt();return false;">Download receipt</a>
         <a href="dashboard.html" class="btn btn-ghost">Go to my dashboard</a>
         <a href="index.html" class="btn btn-primary">Back to home</a>
       </div>
@@ -363,11 +380,12 @@
 <script src="data.js"></script>
 <script src="auth.js"></script>
 <script>
+  var FEE_RATE = 0.035;
   var state = {
     step:1, accountName:'Guest', authMethod:null, email:null, isGuest:false, loggedIn:false,
     quiz:{1:null,2:null,3:null}, archetype:null,
     giveType:null, studentId:null,
-    amount:100, freq:'monthly', pay:null
+    amount:100, freq:'monthly', pay:null, coverFee:false
   };
 
   var params = new URLSearchParams(window.location.search);
@@ -516,15 +534,28 @@
 
   function handleStep3Continue(){ goToStep(4); }
 
+  var AMOUNT_CAPTIONS = {
+    50: 'Roughly covers a month of travel & books',
+    100: 'Roughly a month of food & lodging',
+    250: 'A meaningful share of one term\'s tuition fees'
+  };
   function selectAmount(val){
     state.amount = Number(val) || 0;
     document.querySelectorAll('.amount-chip').forEach(function(c){ c.classList.toggle('selected', Number(c.dataset.amt) === state.amount); });
+    document.getElementById('amount-caption').textContent = AMOUNT_CAPTIONS[state.amount] || '';
     updateSummary();
   }
   function selectFreq(f){
     state.freq = f;
     document.querySelectorAll('#freq-toggle button').forEach(function(b){ b.classList.toggle('active', b.dataset.freq === f); });
     updateSummary();
+  }
+  function toggleCoverFee(checked){
+    state.coverFee = checked;
+    updateSummary();
+  }
+  function feeAmount(){
+    return Math.round((state.amount || 0) * FEE_RATE * 100) / 100;
   }
   function selectPay(p){
     state.pay = p;
@@ -559,6 +590,7 @@
     if(state.isGuest){
       document.getElementById('freq-toggle').querySelectorAll('button').forEach(function(b){ b.disabled = b.dataset.freq !== 'once'; });
     }
+    document.getElementById('amount-caption').textContent = AMOUNT_CAPTIONS[state.amount] || '';
     updateSummary();
   }
 
@@ -566,7 +598,16 @@
     document.getElementById('sum-target').textContent = targetLabel();
     document.getElementById('sum-freq').textContent = state.freq === 'monthly' ? 'Monthly' : 'One-off';
     document.getElementById('sum-pay').textContent = state.pay ? state.pay.toUpperCase() : '—';
-    document.getElementById('sum-total').textContent = fmtRM(state.amount || 0);
+    var fee = feeAmount();
+    document.getElementById('cover-fee-amt').textContent = fmtRM(fee);
+    document.getElementById('sum-fee-row').style.display = state.coverFee ? 'flex' : 'none';
+    document.getElementById('sum-fee').textContent = fmtRM(fee);
+    var total = (state.amount || 0) + (state.coverFee ? fee : 0);
+    document.getElementById('sum-total').textContent = fmtRM(total);
+  }
+
+  function downloadCurrentReceipt(){
+    if(state.lastReceipt) printReceipt(state.lastReceipt);
   }
 
   function handleCheckoutSubmit(){
@@ -590,11 +631,28 @@
     }
     var receiptNo = 'BP-' + Math.floor(100000 + Math.random()*900000);
     var nowIso = new Date().toISOString();
+    var fee = state.coverFee ? feeAmount() : 0;
+    var total = (state.amount || 0) + fee;
     document.getElementById('confirm-message').textContent = msg;
     document.getElementById('receipt-no').textContent = receiptNo;
     document.getElementById('receipt-amt').textContent = fmtRM(state.amount || 0) + (state.freq === 'monthly' ? '/month' : '');
+    document.getElementById('receipt-fee-row').style.display = fee ? 'flex' : 'none';
+    document.getElementById('receipt-fee').textContent = fmtRM(fee);
+    document.getElementById('receipt-total-row').style.display = fee ? 'flex' : 'none';
+    document.getElementById('receipt-total').textContent = fmtRM(total) + (state.freq === 'monthly' ? '/month' : '');
     document.getElementById('receipt-freq').textContent = state.freq === 'monthly' ? 'Monthly, cancel anytime' : 'One-off';
     document.getElementById('receipt-date').textContent = new Date().toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'});
+
+    state.lastReceipt = {
+      receiptNo: receiptNo,
+      dateLabel: new Date().toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'}),
+      donorName: state.accountName,
+      target: targetLabel(),
+      amountLabel: fmtRM(state.amount || 0) + (state.freq === 'monthly' ? '/month' : ''),
+      feeLabel: fee ? fmtRM(fee) : null,
+      totalLabel: fee ? (fmtRM(total) + (state.freq === 'monthly' ? '/month' : '')) : null,
+      freqLabel: state.freq === 'monthly' ? 'Monthly, cancel anytime' : 'One-off'
+    };
 
     if(!state.isGuest){
       setActiveGift({
@@ -604,6 +662,8 @@
         amount: state.amount,
         freq: state.freq,
         pay: state.pay,
+        coverFee: state.coverFee,
+        fee: fee,
         status: 'active',
         startedAt: nowIso
       });
@@ -613,7 +673,10 @@
         target: targetLabel(),
         amount: state.amount,
         freq: state.freq,
-        pay: state.pay
+        pay: state.pay,
+        fee: fee,
+        total: total,
+        donorName: state.accountName
       });
     }
     goToStep(5);
