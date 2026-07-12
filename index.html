@@ -42,11 +42,8 @@
     position:relative;overflow:hidden;margin-bottom:16px;
   }
   .hero-card-photo .initials{
-    position:absolute;bottom:16px;left:16px;
-    width:52px;height:52px;border-radius:50%;
-    background:rgba(255,255,255,0.92);color:var(--coral-dark);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Fraunces',serif;font-weight:600;font-size:19px;
+    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:132px;height:146px;border-radius:50% 50% 10px 10px;overflow:hidden;
   }
   .hero-card-photo .blob{position:absolute;border-radius:50%;background:rgba(255,255,255,0.16);}
   .hero-card-body{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
@@ -119,11 +116,10 @@
   @media (max-width:900px){ .pool-grid{grid-template-columns:1fr 1fr;} }
   @media (max-width:640px){ .pool-grid{grid-template-columns:1fr;} }
   .student-card{background:var(--white);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
-  .student-photo{height:150px;position:relative;}
+  .student-photo{height:150px;position:relative;overflow:hidden;}
   .student-photo .initials{
-    position:absolute;bottom:14px;left:14px;width:44px;height:44px;border-radius:50%;
-    background:rgba(255,255,255,0.94);display:flex;align-items:center;justify-content:center;
-    font-family:'Fraunces',serif;font-weight:600;font-size:16px;
+    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:114px;height:126px;border-radius:50% 50% 10px 10px;overflow:hidden;
   }
   .student-body{padding:18px;}
   .student-name{font-family:'Fraunces',serif;font-size:16.5px;font-weight:600;margin-bottom:2px;}
@@ -201,6 +197,8 @@
   </nav>
 </header>
 
+<script src="data.js"></script>
+<script src="avatars.js"></script>
 <script src="auth.js"></script>
 <script>renderAccountNav();</script>
 
@@ -232,7 +230,7 @@
             <div class="hero-card-photo">
               <div class="blob" style="width:120px;height:120px;top:-40px;right:-30px;"></div>
               <div class="blob" style="width:70px;height:70px;bottom:-20px;right:40px;"></div>
-              <div class="initials">A.</div>
+              <div class="initials" id="hero-avatar-slot" data-student-id="1">A.</div>
             </div>
             <div class="hero-card-body">
               <div>
@@ -347,7 +345,7 @@
       <div class="pool-grid">
         <div class="student-card">
           <div class="student-photo" style="background:linear-gradient(135deg,#F4DCC5,#1F5C4E);">
-            <div class="initials">A.</div>
+            <div class="initials" data-student-id="1">A.</div>
           </div>
           <div class="student-body">
             <div class="student-name">Ain, 19</div>
@@ -360,7 +358,7 @@
         </div>
         <div class="student-card">
           <div class="student-photo" style="background:linear-gradient(135deg,#E7D3EF,#153F35);">
-            <div class="initials">D.</div>
+            <div class="initials" data-student-id="2">D.</div>
           </div>
           <div class="student-body">
             <div class="student-name">Danial, 18</div>
@@ -373,7 +371,7 @@
         </div>
         <div class="student-card">
           <div class="student-photo" style="background:linear-gradient(135deg,#F0DCC0,#E2704A);">
-            <div class="initials">S.</div>
+            <div class="initials" data-student-id="3">S.</div>
           </div>
           <div class="student-body">
             <div class="student-name">Siti, 19</div>
@@ -472,6 +470,11 @@
 </footer>
 
 <script>
+  document.querySelectorAll('.initials[data-student-id]').forEach(function(el){
+    var s = getStudentById(Number(el.dataset.studentId));
+    if(s) el.innerHTML = studentAvatarSvg(s);
+  });
+
   document.querySelectorAll('a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
       var id = link.getAttribute('href').slice(1);

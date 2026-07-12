@@ -38,8 +38,11 @@
   @media (max-width:640px){ .pool-grid{grid-template-columns:1fr;} }
 
   .student-card{background:var(--white);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);display:flex;flex-direction:column;}
-  .student-photo{height:140px;position:relative;}
-  .student-photo .avatar-initials{width:44px;height:44px;font-size:16px;}
+  .student-photo{height:140px;position:relative;overflow:hidden;}
+  .student-avatar-illustration{
+    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:112px;height:124px;border-radius:50% 50% 10px 10px;overflow:hidden;
+  }
   .student-badge-top{position:absolute;top:12px;right:12px;}
   .student-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex-grow:1;}
   .student-name{font-family:'Fraunces',serif;font-size:16.5px;font-weight:600;}
@@ -133,6 +136,7 @@
 </footer>
 
 <script src="data.js"></script>
+<script src="avatars.js"></script>
 <script>
   var stateSelect = document.getElementById('filter-state');
   var courseSelect = document.getElementById('filter-course');
@@ -162,7 +166,7 @@
     return '' +
       '<div class="student-card">' +
         '<div class="student-photo" style="background:linear-gradient(135deg,' + g[0] + ',' + g[1] + ');">' +
-          '<div class="avatar-initials" style="width:44px;height:44px;font-size:16px;">' + s.name.charAt(0) + '</div>' +
+          '<div class="student-avatar-illustration">' + studentAvatarSvg(s) + '</div>' +
           (s.interviewDone ? '<span class="badge badge-verified student-badge-top">Verified</span>' : '<span class="badge badge-locked student-badge-top">Interview pending</span>') +
         '</div>' +
         '<div class="student-body">' +
