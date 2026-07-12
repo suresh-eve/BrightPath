@@ -22,17 +22,9 @@
   .profile-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:start;}
   @media (max-width:900px){ .profile-grid{grid-template-columns:1fr;} }
 
-  .hero-photo{height:260px;margin-bottom:20px;position:relative;overflow:hidden;}
-  .hero-photo .avatar-illustration{
-    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-    width:198px;height:218px;border-radius:50% 50% 12px 12px;overflow:hidden;
-  }
+  .hero-photo{height:260px;margin-bottom:20px;position:relative;}
+  .hero-photo .avatar-initials{width:60px;height:60px;font-size:22px;bottom:18px;left:18px;}
   .hero-photo .stamp-row{position:absolute;top:16px;right:16px;justify-content:flex-end;max-width:calc(100% - 32px);}
-
-  .similar-photo .avatar-illustration{
-    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-    width:78px;height:86px;border-radius:50% 50% 6px 6px;overflow:hidden;
-  }
 
   .profile-title-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
   .profile-title-row h1{font-size:26px;}
@@ -83,6 +75,7 @@
   @media (max-width:820px){ .similar-grid{grid-template-columns:1fr;} }
   .similar-card{background:var(--white);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
   .similar-photo{height:100px;position:relative;}
+  .similar-photo .avatar-initials{width:34px;height:34px;font-size:13px;bottom:10px;left:10px;}
   .similar-body{padding:14px 16px;}
   .similar-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;}
   .similar-meta{font-size:12.5px;color:var(--ink-soft);margin-bottom:10px;}
@@ -153,7 +146,6 @@
 </footer>
 
 <script src="data.js"></script>
-<script src="avatars.js"></script>
 <script>
   var params = new URLSearchParams(window.location.search);
   var id = Number(params.get('id')) || 1;
@@ -221,7 +213,7 @@
       '<div class="avatar-block hero-photo" style="background:linear-gradient(135deg,' + g[0] + ',' + g[1] + ');">' +
         '<div class="blob" style="width:150px;height:150px;top:-50px;right:-30px;"></div>' +
         '<div class="blob" style="width:90px;height:90px;bottom:-30px;right:60px;"></div>' +
-        '<div class="avatar-illustration">' + studentAvatarSvg(s) + '</div>' +
+        '<div class="avatar-initials">' + s.name.charAt(0) + '</div>' +
         '<div class="stamp-row">' +
           (s.interviewDone ? '<span class="badge badge-verified">Verified profile</span>' : '<span class="badge badge-locked">Interview pending</span>') +
           (s.mentor ? '<span class="badge badge-mentor">Adopted by a mentor</span>' : '') +
@@ -298,7 +290,7 @@
     var og = gradientFor(o.id);
     var opct = pctFunded(o);
     return '<a href="student-profile.html?id=' + o.id + (forGiftId ? '&forGift=' + encodeURIComponent(forGiftId) : '') + '" class="similar-card">' +
-      '<div class="avatar-block similar-photo" style="background:linear-gradient(135deg,' + og[0] + ',' + og[1] + ');"><div class="avatar-illustration">' + studentAvatarSvg(o) + '</div></div>' +
+      '<div class="avatar-block similar-photo" style="background:linear-gradient(135deg,' + og[0] + ',' + og[1] + ');"><div class="avatar-initials">' + o.name.charAt(0) + '</div></div>' +
       '<div class="similar-body">' +
         '<div class="similar-name">' + o.name + ', ' + o.age + '</div>' +
         '<div class="similar-meta">' + o.state + ' &middot; ' + o.course + '</div>' +
