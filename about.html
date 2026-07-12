@@ -31,8 +31,8 @@
 
   .photo-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;}
   @media (max-width:760px){ .photo-gallery{grid-template-columns:1fr 1fr;} }
-  .photo-gallery figure{margin:0;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
-  .photo-gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 18%;display:block;}
+  .photo-gallery figure{margin:0;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);position:relative;aspect-ratio:4/5;background:var(--cream-2);}
+  .photo-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;}
   .gallery-caption{font-size:13px;font-style:italic;color:var(--ink-soft);margin-top:16px;max-width:640px;}
   .gallery-caption a{text-decoration:underline;}
 
@@ -142,7 +142,7 @@
         <figure><img src="assets/student-ai-3.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
         <figure><img src="assets/student-ai-4.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
       </div>
-      <p class="gallery-caption">AI-generated illustrations, shown only to represent BrightPath's students as a community — never real photos of real, individually identified students. See <a href="#safety">how we protect students</a> below.</p>
+      <p class="gallery-caption">AI-generated illustrations.</p>
     </div>
   </section>
 
