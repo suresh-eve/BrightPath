@@ -151,6 +151,8 @@
     courseSelect.appendChild(opt);
   });
 
+  var pendingGift = isPendingMatch(getSession() ? getActiveGift() : null);
+
   function cardHtml(s){
     var g = gradientFor(s.id);
     var pct = pctFunded(s);
@@ -173,7 +175,7 @@
             '<div class="progress-label"><span>' + pct + '% funded</span><span>' + fmtRM(s.raised) + ' of ' + fmtRM(s.goal) + '</span></div>' +
           '</div>' +
           '<div class="student-interest">' + s.interested + ' people considering sponsoring</div>' +
-          '<a href="student-profile.html?id=' + s.id + '" class="btn btn-ghost btn-sm btn-block">View profile &amp; sponsor</a>' +
+          '<a href="student-profile.html?id=' + s.id + '" class="btn btn-ghost btn-sm btn-block">' + (pendingGift ? 'View profile &amp; choose' : 'View profile &amp; sponsor') + '</a>' +
         '</div>' +
       '</div>';
   }

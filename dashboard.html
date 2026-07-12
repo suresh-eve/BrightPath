@@ -134,6 +134,8 @@
       <p style="color:var(--ink-soft);font-size:14.5px;">Manage your profile, giving, and receipts in one place.</p>
     </div>
 
+    <div class="panel-card" id="matched-banner" style="display:none;background:var(--teal-light);"></div>
+
     <div class="tab-bar">
       <button class="tab-btn active" data-tab="profile" onclick="showTab('profile')">Profile</button>
       <button class="tab-btn" data-tab="giving" onclick="showTab('giving')">Giving &amp; payment</button>
@@ -248,7 +250,12 @@
         nextDate = d.toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'});
       }
 
+      var pendingBanner = isPendingMatch(gift)
+        ? '<div class="pay-note" style="margin-bottom:16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V12L14.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'your student') + ' yet. <a href="students.html" style="color:var(--teal-dark);font-weight:600;">Browse and choose now →</a></div>'
+        : '';
+
       el.innerHTML = '<div class="panel-card">' +
+        pendingBanner +
         '<div class="gift-summary">' +
           '<div><div class="gift-target">' + gift.target + '</div><div class="gift-meta">' + fmtRM(gift.amount) + (gift.freq === 'monthly' ? '/month' : ' one-off') + '</div></div>' +
           '<span class="status-badge ' + badge[0] + '">' + badge[1] + '</span>' +
@@ -329,6 +336,14 @@
         '</div>';
         return;
       }
+      if(isPendingMatch(gift)){
+        el.innerHTML = '<div class="panel-card empty-panel">' +
+          '<p>You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'a student') + ' yet, so there\'s nothing to show here. Updates start once you pick who your gift goes to.</p>' +
+          '<a href="students.html" class="btn btn-primary">Choose now →</a>' +
+        '</div>';
+        return;
+      }
+
       var updates, note;
       if(gift.studentId){
         var s = getStudentById(gift.studentId);
@@ -430,6 +445,17 @@
     renderGiving();
     renderUpdates();
     renderReceipts();
+
+    if(new URLSearchParams(window.location.search).get('matched') === '1'){
+      var gift = getActiveGift();
+      var banner = document.getElementById('matched-banner');
+      if(gift && banner){
+        banner.style.display = 'block';
+        banner.innerHTML = '<strong>You\'re all set — your gift is now going to ' + gift.target + '.</strong>' +
+          '<a href="dashboard.html" style="float:right;color:var(--teal-dark);font-weight:600;" onclick="document.getElementById(\'matched-banner\').style.display=\'none\';return false;">Dismiss</a>';
+        showTab('updates');
+      }
+    }
   }
 </script>
 

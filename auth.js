@@ -21,6 +21,13 @@ function setActiveGift(gift){
   try{ localStorage.setItem('bp_active_gift', JSON.stringify(gift)); }catch(e){}
 }
 
+// A gift is "pending match" when the donor has already paid and committed to
+// giving to a student or mentee, but hasn't picked who that is yet — this is
+// the state that needs a lightweight "assign", never a second checkout.
+function isPendingMatch(gift){
+  return !!(gift && gift.status !== 'cancelled' && !gift.studentId && (gift.giveType === 'student' || gift.giveType === 'mentor'));
+}
+
 function getCorporateLeads(){
   try{ return JSON.parse(localStorage.getItem('bp_corporate_leads') || '[]'); }catch(e){ return []; }
 }
