@@ -150,6 +150,7 @@
   .freq-toggle button{flex:1;padding:10px;border-radius:100px;border:1.5px solid var(--line);background:var(--cream);font-weight:600;font-size:13.5px;cursor:pointer;color:var(--ink-soft);}
   .freq-toggle button.active{background:var(--teal);border-color:var(--teal);color:#fff;}
   .pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media (max-width:400px){ .pay-methods{grid-template-columns:repeat(2,1fr);} }
   .pay-method{
     border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:12px 8px;text-align:center;
     font-size:12px;font-weight:600;cursor:pointer;background:var(--cream);
@@ -174,7 +175,7 @@
   <div class="wrap mini-header">
     <a href="index.html" class="logo">
       <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
-      BrightPath
+      <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </a>
     <div style="display:flex;align-items:center;gap:18px;">
       <span class="signed-in-badge" id="signed-in-badge" style="display:none;"></span>

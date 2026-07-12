@@ -65,6 +65,11 @@
     .hero h1{font-size:34px;}
     .hero-visual{max-width:420px;margin:0 auto;}
   }
+  @media (max-width:400px){
+    .float-badge.b2{left:0;}
+    .float-badge{padding:9px 12px;font-size:12px;}
+    .float-badge i{width:26px;height:26px;}
+  }
 
   /* STATS */
   .stats{background:var(--teal);color:#fff;padding:44px 0;margin-top:64px;}
@@ -111,6 +116,8 @@
   /* STUDENT POOL */
   .pool-section{background:var(--cream-2);}
   .pool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:900px){ .pool-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:640px){ .pool-grid{grid-template-columns:1fr;} }
   .student-card{background:var(--white);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
   .student-photo{height:150px;position:relative;}
   .student-photo .initials{
@@ -141,11 +148,18 @@
   .quote-attr .role{font-size:12.5px;color:var(--ink-soft);}
   @media (max-width:860px){ .trust-grid{grid-template-columns:1fr;} }
 
-  .belief-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:36px;padding-top:32px;border-top:1px solid var(--line);}
+  .belief-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;padding-top:32px;border-top:1px solid var(--line);}
   @media (max-width:760px){ .belief-row{grid-template-columns:1fr 1fr;} }
-  .belief-item{display:flex;flex-direction:column;align-items:flex-start;gap:10px;}
-  .belief-item i{width:36px;height:36px;border-radius:10px;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .belief-item p{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.4;}
+  @media (max-width:480px){ .belief-row{grid-template-columns:1fr;} }
+  .belief-item{
+    display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;
+    background:var(--white);border-radius:var(--radius-md);padding:28px 18px;box-shadow:var(--shadow-card);
+    transition:transform .15s ease;
+  }
+  .belief-item:hover{transform:translateY(-3px);}
+  .belief-item i{width:60px;height:60px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .belief-item i svg{width:26px;height:26px;}
+  .belief-item p{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.4;}
 
   /* FINAL CTA */
   .final-cta{
@@ -164,7 +178,7 @@
   <nav class="wrap">
     <div class="logo">
       <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
-      BrightPath
+      <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </div>
     <div class="nav-links">
       <a href="students.html">Our students</a>
@@ -442,10 +456,9 @@
   <div class="wrap footer-grid">
     <div>
       <div class="logo" style="margin-bottom:10px;">
-        <span class="logo-mark" style="width:24px;height:24px;"><img src="assets/logo-icon.png" alt="BrightPath"></span>
-        <span style="font-size:16px;">BrightPath</span>
+        <span class="logo-mark" style="width:31px;height:31px;"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+        <span class="logo-text"><span class="logo-name" style="font-size:16px;">BrightPath</span><span class="logo-sub">Bursary</span></span>
       </div>
-      <div class="logo-sub" style="margin:0 0 10px 33px;">BURSARY</div>
       <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM. PDPA-compliant · guardian consent required for all minors.</p>
       <p class="logo-tagline" style="margin-top:10px;">Together, we make the <b>next step</b> possible.</p>
     </div>

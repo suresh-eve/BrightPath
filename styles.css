@@ -89,12 +89,14 @@ header{
   border-bottom:1px solid var(--line);
 }
 nav.wrap{display:flex;align-items:center;justify-content:space-between;height:74px;}
-.logo{display:flex;align-items:center;gap:9px;font-family:'Fraunces',serif;font-size:20px;font-weight:600;}
-.logo-mark{width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-mark{width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .logo-mark img{width:100%;height:100%;object-fit:contain;}
+.logo-text{display:flex;flex-direction:column;line-height:1.05;}
+.logo-name{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--ink);}
+.logo-sub{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:1px;}
 .logo-tagline{font-family:'Fraunces',serif;font-style:italic;font-size:12.5px;color:var(--ink-soft);}
 .logo-tagline b{color:var(--brand-gold);font-weight:600;font-style:normal;}
-.logo-sub{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.14em;color:var(--ink-soft);margin-top:1px;}
 .nav-links{display:flex;align-items:center;gap:30px;}
 .nav-links a{font-size:14.5px;font-weight:500;color:var(--ink-soft);}
 .nav-links a:hover,.nav-links a.active{color:var(--ink);}
@@ -114,6 +116,19 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;height:74
 .status-paused{background:var(--amber-light);color:var(--amber-dark);}
 .status-cancelled{background:var(--cream-2);color:var(--ink-soft);}
 @media (max-width:780px){ .nav-links{display:none;} }
+@media (max-width:480px){
+  .wrap,.wrap-narrow{padding:0 16px;}
+  .logo-mark{width:34px;height:34px;}
+  .logo-name{font-size:17px;}
+  .logo-sub{display:none;}
+  .nav-cta{gap:8px;}
+  #nav-login{display:none;}
+  .nav-cta .btn-sm{padding:8px 12px;font-size:12.5px;}
+}
+@media (max-width:360px){
+  .hi-prefix{display:none;}
+  .nav-cta .btn-sm{padding:7px 10px;font-size:12px;}
+}
 
 section{padding:76px 0;}
 .section-head{max-width:560px;margin-bottom:44px;}

@@ -106,7 +106,7 @@ function renderAccountNav(){
     if(menu){
       menu.style.display = 'inline-block';
       var trigger = document.getElementById('account-trigger');
-      if(trigger) trigger.textContent = 'Hi, ' + session.name.split(' ')[0] + ' ▾';
+      if(trigger) trigger.innerHTML = '<span class="hi-prefix">Hi, </span>' + session.name.split(' ')[0] + ' ▾';
     }
     var eyebrow = document.querySelector('.hero .eyebrow');
     if(eyebrow) eyebrow.textContent = 'Welcome back, ' + session.name.split(' ')[0];
