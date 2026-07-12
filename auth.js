@@ -21,6 +21,16 @@ function setActiveGift(gift){
   try{ localStorage.setItem('bp_active_gift', JSON.stringify(gift)); }catch(e){}
 }
 
+function getCorporateLeads(){
+  try{ return JSON.parse(localStorage.getItem('bp_corporate_leads') || '[]'); }catch(e){ return []; }
+}
+function addCorporateLead(lead){
+  var list = getCorporateLeads();
+  list.push(lead);
+  try{ localStorage.setItem('bp_corporate_leads', JSON.stringify(list)); }catch(e){}
+  return list;
+}
+
 function getMessages(){
   try{ return JSON.parse(localStorage.getItem('bp_messages') || '[]'); }catch(e){ return []; }
 }

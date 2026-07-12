@@ -24,7 +24,7 @@
 
   .hero-photo{height:260px;margin-bottom:20px;position:relative;}
   .hero-photo .avatar-initials{width:60px;height:60px;font-size:22px;bottom:18px;left:18px;}
-  .hero-photo .badge{position:absolute;top:16px;right:16px;}
+  .hero-photo .stamp-row{position:absolute;top:16px;right:16px;justify-content:flex-end;max-width:calc(100% - 32px);}
 
   .profile-title-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
   .profile-title-row h1{font-size:26px;}
@@ -136,6 +136,7 @@
       <a href="index.html">About</a>
       <a href="students.html">Our students</a>
       <a href="#">For coordinators</a>
+      <a href="corporate.html">For companies</a>
       <a href="#">Privacy & PDPA</a>
       <a href="#">Contact</a>
     </div>
@@ -193,7 +194,11 @@
         '<div class="blob" style="width:150px;height:150px;top:-50px;right:-30px;"></div>' +
         '<div class="blob" style="width:90px;height:90px;bottom:-30px;right:60px;"></div>' +
         '<div class="avatar-initials">' + s.name.charAt(0) + '</div>' +
-        (s.interviewDone ? '<span class="badge badge-verified">Verified profile</span>' : '<span class="badge badge-locked">Interview pending</span>') +
+        '<div class="stamp-row">' +
+          (s.interviewDone ? '<span class="badge badge-verified">Verified profile</span>' : '<span class="badge badge-locked">Interview pending</span>') +
+          (s.mentor ? '<span class="badge badge-mentor">Adopted by a mentor</span>' : '') +
+          (s.corporateSponsor ? '<span class="badge badge-corporate">Sponsored by ' + s.corporateSponsor.name + '</span>' : '') +
+        '</div>' +
       '</div>' +
       '<div class="profile-title-row"><h1>' + s.name + ', ' + s.age + '</h1></div>' +
       '<div class="profile-meta">' + s.state + ' &middot; ' + s.institution + ' in ' + s.course + '</div>' +

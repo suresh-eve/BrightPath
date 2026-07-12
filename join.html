@@ -307,11 +307,12 @@
         <h2>Amount (MYR)</h2>
         <div class="amount-chips" id="amount-chips">
           <button class="amount-chip" data-amt="50" onclick="selectAmount(50)">RM50</button>
-          <button class="amount-chip" data-amt="100" onclick="selectAmount(100)">RM100</button>
+          <button class="amount-chip" data-amt="125" onclick="selectAmount(125)">RM125</button>
           <button class="amount-chip" data-amt="250" onclick="selectAmount(250)">RM250</button>
           <input type="number" placeholder="Custom" id="amount-custom" style="width:100px;padding:10px 12px;border-radius:100px;border:1.5px solid var(--line);font-size:14px;font-weight:600;" oninput="selectAmount(this.value)">
         </div>
-        <p class="give-hint" id="amount-caption" style="margin:0 0 14px;text-align:left;"></p>
+        <p class="give-hint" id="amount-caption" style="margin:0 0 8px;text-align:left;"></p>
+        <p style="font-size:11.5px;color:var(--ink-soft);margin:0 0 14px;">A student's full journey costs RM3,000 over 24 months — RM125/month covers one completely, start to finish.</p>
         <div class="freq-toggle" id="freq-toggle">
           <button data-freq="once" onclick="selectFreq('once')">One-off</button>
           <button data-freq="monthly" class="active" onclick="selectFreq('monthly')">Monthly</button>
@@ -385,7 +386,7 @@
     step:1, accountName:'Guest', authMethod:null, email:null, isGuest:false, loggedIn:false,
     quiz:{1:null,2:null,3:null}, archetype:null,
     giveType:null, studentId:null,
-    amount:100, freq:'monthly', pay:null, coverFee:false
+    amount:125, freq:'monthly', pay:null, coverFee:false
   };
 
   var params = new URLSearchParams(window.location.search);
@@ -535,19 +536,31 @@
   function handleStep3Continue(){ goToStep(4); }
 
   var AMOUNT_CAPTIONS = {
-    50: 'Roughly covers a month of travel & books',
-    100: 'Roughly a month of food & lodging',
-    250: 'A meaningful share of one term\'s tuition fees'
+    monthly: {
+      50: "Part of the mission — helps BrightPath reach over 10,000 B40 students so they don't drop out after SPM",
+      125: "Fully sponsors one student's entire RM3,000, 2-year bursary — and you choose exactly who",
+      250: 'Fully sponsors one student, with room to spare for the next one waiting'
+    },
+    once: {
+      50: "A one-off boost toward BrightPath's mission to reach over 10,000 B40 students",
+      125: "A strong one-off contribution — about a month of a student's full bursary",
+      250: "A strong one-off contribution — about two months of a student's full bursary"
+    }
   };
+  function updateAmountCaption(){
+    var set = AMOUNT_CAPTIONS[state.freq] || AMOUNT_CAPTIONS.monthly;
+    document.getElementById('amount-caption').textContent = set[state.amount] || '';
+  }
   function selectAmount(val){
     state.amount = Number(val) || 0;
     document.querySelectorAll('.amount-chip').forEach(function(c){ c.classList.toggle('selected', Number(c.dataset.amt) === state.amount); });
-    document.getElementById('amount-caption').textContent = AMOUNT_CAPTIONS[state.amount] || '';
+    updateAmountCaption();
     updateSummary();
   }
   function selectFreq(f){
     state.freq = f;
     document.querySelectorAll('#freq-toggle button').forEach(function(b){ b.classList.toggle('active', b.dataset.freq === f); });
+    updateAmountCaption();
     updateSummary();
   }
   function toggleCoverFee(checked){
@@ -590,7 +603,7 @@
     if(state.isGuest){
       document.getElementById('freq-toggle').querySelectorAll('button').forEach(function(b){ b.disabled = b.dataset.freq !== 'once'; });
     }
-    document.getElementById('amount-caption').textContent = AMOUNT_CAPTIONS[state.amount] || '';
+    updateAmountCaption();
     updateSummary();
   }
 

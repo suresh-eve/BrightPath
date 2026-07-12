@@ -123,6 +123,7 @@
       <a href="index.html">About</a>
       <a href="students.html">Our students</a>
       <a href="#">For coordinators</a>
+      <a href="corporate.html">For companies</a>
       <a href="#">Privacy & PDPA</a>
       <a href="#">Contact</a>
     </div>
@@ -161,6 +162,10 @@
         '<div class="student-body">' +
           '<div class="student-name">' + s.name + ', ' + s.age + '</div>' +
           '<div class="student-meta">' + s.state + ' &middot; ' + s.institution + ' in ' + s.course + '</div>' +
+          (s.mentor || s.corporateSponsor ? '<div class="stamp-row" style="margin-bottom:2px;">' +
+            (s.mentor ? '<span class="badge badge-mentor">Adopted by a mentor</span>' : '') +
+            (s.corporateSponsor ? '<span class="badge badge-corporate">' + s.corporateSponsor.name + '</span>' : '') +
+          '</div>' : '') +
           '<p class="student-quote">&ldquo;' + s.story + '&rdquo;</p>' +
           '<div>' +
             '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +

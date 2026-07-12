@@ -57,6 +57,9 @@ button{font-family:'Inter',sans-serif;}
 }
 .badge-verified{background:var(--teal-light);color:var(--teal-dark);}
 .badge-locked{background:var(--cream-2);color:var(--ink-soft);}
+.badge-mentor{background:var(--plum-light);color:var(--plum-dark);}
+.badge-corporate{background:var(--amber-light);color:var(--amber-dark);}
+.stamp-row{display:flex;gap:6px;flex-wrap:wrap;}
 
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
