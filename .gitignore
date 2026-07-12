@@ -1,2 +1,4 @@
 *.pptx
 .DS_Store
+.vercel
+.claude

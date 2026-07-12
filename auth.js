@@ -50,7 +50,7 @@ function renderAccountNav(){
   var menu = document.getElementById('account-menu');
   if(session && session.name){
     if(loginLink) loginLink.style.display = 'none';
-    if(startLink) startLink.textContent = 'Give again';
+    if(startLink) startLink.textContent = getActiveGift() ? 'Give again' : 'Start giving';
     if(menu){
       menu.style.display = 'inline-block';
       var trigger = document.getElementById('account-trigger');

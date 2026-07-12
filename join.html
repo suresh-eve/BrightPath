@@ -409,6 +409,7 @@
       state.accountName = 'Friend';
       state.authMethod = provider;
       state.isGuest = false;
+      setSession({name: state.accountName, method: state.authMethod});
       goToStep(2);
     }, 450);
   }
@@ -419,6 +420,7 @@
     state.email = email;
     state.authMethod = 'email';
     state.isGuest = false;
+    setSession({name: state.accountName, method: state.authMethod});
     goToStep(2);
   }
   function handleGuestContinue(){
@@ -595,7 +597,6 @@
     document.getElementById('receipt-date').textContent = new Date().toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'});
 
     if(!state.isGuest){
-      setSession({name: state.accountName, method: state.authMethod || 'email'});
       setActiveGift({
         target: targetLabel(),
         giveType: state.giveType,
