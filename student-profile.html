@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student profile — BrightPath</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .back-link{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-soft);font-weight:500;margin:28px 0 20px;}
+  .back-link:hover{color:var(--ink);}
+
+  .profile-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:start;}
+  @media (max-width:900px){ .profile-grid{grid-template-columns:1fr;} }
+
+  .hero-photo{height:260px;margin-bottom:20px;position:relative;}
+  .hero-photo .avatar-initials{width:60px;height:60px;font-size:22px;bottom:18px;left:18px;}
+  .hero-photo .badge{position:absolute;top:16px;right:16px;}
+
+  .profile-title-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
+  .profile-title-row h1{font-size:26px;}
+  .profile-meta{font-size:14px;color:var(--ink-soft);margin-bottom:24px;}
+
+  .block{margin-bottom:32px;}
+  .block h2{font-size:17px;margin-bottom:14px;}
+  .block p.body-text{font-size:15px;color:var(--ink-soft);line-height:1.7;}
+
+  .check-list{display:flex;flex-direction:column;gap:12px;}
+  .check-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;}
+  .check-item .ic{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .check-item .ic.done{background:var(--teal-light);color:var(--teal);}
+  .check-item .ic.pending{background:var(--amber-light);color:var(--amber-dark);}
+
+  .fund-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13.5px;}
+  .fund-row .fund-label{width:150px;color:var(--ink-soft);flex-shrink:0;}
+  .fund-row .fund-bar-track{flex-grow:1;height:8px;border-radius:100px;background:var(--cream-2);overflow:hidden;}
+  .fund-row .fund-bar-fill{height:100%;border-radius:100px;}
+  .fund-row .fund-amt{width:70px;text-align:right;font-weight:600;flex-shrink:0;}
+
+  .locked-card{background:var(--cream-2);border:1px dashed var(--line);border-radius:var(--radius-md);padding:20px 22px;}
+  .locked-head{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-weight:600;font-size:14.5px;}
+  .locked-row{display:flex;justify-content:space-between;font-size:13.5px;padding:7px 0;border-top:1px solid var(--line);}
+  .locked-row:first-of-type{border-top:none;}
+  .locked-row span:last-child{filter:blur(4px);user-select:none;color:var(--ink-soft);}
+  .locked-note{font-size:12.5px;color:var(--ink-soft);margin-top:14px;}
+
+  .sponsor-card{
+    background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);
+    padding:24px;position:sticky;top:96px;
+  }
+  .sponsor-card .progress-track{height:8px;}
+  .sponsor-amounts{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 18px;}
+  .sponsor-amounts .raised{font-family:'Fraunces',serif;font-size:22px;font-weight:600;}
+  .sponsor-amounts .goal{font-size:13px;color:var(--ink-soft);}
+  .sponsor-stat-row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft);margin-bottom:18px;}
+  .sponsor-freq{display:flex;gap:8px;margin-bottom:16px;}
+  .sponsor-freq button{
+    flex:1;padding:9px;border-radius:100px;border:1px solid var(--line);background:var(--cream);
+    font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft);
+  }
+  .sponsor-freq button.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .sponsor-secondary{display:block;text-align:center;font-size:13px;color:var(--ink-soft);margin-top:14px;}
+  .sponsor-secondary:hover{color:var(--ink);}
+
+  .similar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px;}
+  @media (max-width:820px){ .similar-grid{grid-template-columns:1fr;} }
+  .similar-card{background:var(--white);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
+  .similar-photo{height:100px;position:relative;}
+  .similar-photo .avatar-initials{width:34px;height:34px;font-size:13px;bottom:10px;left:10px;}
+  .similar-body{padding:14px 16px;}
+  .similar-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;}
+  .similar-meta{font-size:12.5px;color:var(--ink-soft);margin-bottom:10px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 17 7.5 20.5 12 22C16.5 20.5 20 17 20 12V6L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12L11 14L15.5 9.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      BrightPath
+    </a>
+    <div class="nav-links">
+      <a href="students.html" class="active">Our students</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#give">Ways to give</a>
+      <a href="index.html#trust">Transparency</a>
+    </div>
+    <div class="nav-cta">
+      <div class="account-menu" id="account-menu" style="display:none;">
+        <button class="btn btn-ghost btn-sm" id="account-trigger" onclick="toggleAccountDropdown()">Account ▾</button>
+        <div class="account-dropdown" id="account-dropdown">
+          <a href="dashboard.html">My account</a>
+          <a href="#" onclick="signOut();return false;">Sign out</a>
+        </div>
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
+      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Start giving</a>
+    </div>
+  </nav>
+</header>
+
+<script src="auth.js"></script>
+<script>renderAccountNav();</script>
+
+<main class="wrap" id="page-root">
+  <a href="students.html" class="back-link">&larr; All students</a>
+  <div class="profile-grid" id="profile-grid"></div>
+
+  <div style="margin-top:56px;">
+    <h2 style="font-size:19px;margin-bottom:4px;">Other students waiting for a sponsor</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);">You can only sponsor one at a time in this prototype — but every profile here needs support just as much.</p>
+    <div class="similar-grid" id="similar-grid"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">
+        <span class="logo-mark" style="width:24px;height:24px;"><svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M12 2L4 6V12C4 17 7.5 20.5 12 22C16.5 20.5 20 17 20 12V6L12 2Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <span style="font-size:16px;">BrightPath</span>
+      </div>
+      <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM. PDPA-compliant · guardian consent required for all minors.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">About</a>
+      <a href="students.html">Our students</a>
+      <a href="#">For coordinators</a>
+      <a href="#">Privacy & PDPA</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var id = Number(params.get('id')) || 1;
+  var s = getStudentById(id) || STUDENTS[0];
+  var g = gradientFor(s.id);
+  var pct = pctFunded(s);
+
+  document.title = s.name + ' — BrightPath';
+
+  var checklistItems = [
+    { done:true, label:'Malaysian citizen, completed SPM/STPM' },
+    { done:true, label:'Verified B40 household (income at or below RM5,860/month)' },
+    { done:true, label:'Academic record: ' + s.academic },
+    { done:true, label:'Offered a place: ' + s.institution + ' in ' + s.course },
+    { done:s.interviewDone, label: s.interviewDone ? 'Verification interview completed' : 'Verification interview in progress' },
+    { done:true, label:'Agreed to share a progress update every semester' }
+  ];
+
+  var checklistHtml = checklistItems.map(function(item){
+    var icon = item.done
+      ? '<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      : '<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7V12L15 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    return '<div class="check-item"><span class="ic ' + (item.done ? 'done' : 'pending') + '">' + icon + '</span><span>' + item.label + '</span></div>';
+  }).join('');
+
+  var fundColors = { fees:'var(--teal)', food:'var(--coral)', travel:'var(--amber)' };
+  var fundLabels = { fees:'Tuition & fees', food:'Food & lodging', travel:'Travel & books' };
+  var fundHtml = Object.keys(s.fund).map(function(key){
+    var amt = s.fund[key];
+    var width = Math.round((amt / s.goal) * 100);
+    return '<div class="fund-row">' +
+      '<span class="fund-label">' + fundLabels[key] + '</span>' +
+      '<span class="fund-bar-track"><span class="fund-bar-fill" style="width:' + width + '%;background:' + fundColors[key] + ';"></span></span>' +
+      '<span class="fund-amt">' + fmtRM(amt) + '</span>' +
+    '</div>';
+  }).join('');
+
+  document.getElementById('profile-grid').innerHTML =
+    '<div>' +
+      '<div class="avatar-block hero-photo" style="background:linear-gradient(135deg,' + g[0] + ',' + g[1] + ');">' +
+        '<div class="blob" style="width:150px;height:150px;top:-50px;right:-30px;"></div>' +
+        '<div class="blob" style="width:90px;height:90px;bottom:-30px;right:60px;"></div>' +
+        '<div class="avatar-initials">' + s.name.charAt(0) + '</div>' +
+        (s.interviewDone ? '<span class="badge badge-verified">Verified profile</span>' : '<span class="badge badge-locked">Interview pending</span>') +
+      '</div>' +
+      '<div class="profile-title-row"><h1>' + s.name + ', ' + s.age + '</h1></div>' +
+      '<div class="profile-meta">' + s.state + ' &middot; ' + s.institution + ' in ' + s.course + '</div>' +
+
+      '<div class="block">' +
+        '<h2>Their story</h2>' +
+        '<p class="body-text">&ldquo;' + s.story + '&rdquo; ' + s.family + ' Every profile on BrightPath is written from the student’s own words and reviewed by a coordinator before publishing.</p>' +
+      '</div>' +
+
+      '<div class="block">' +
+        '<h2>What ' + s.name + ' has already done</h2>' +
+        '<div class="check-list">' + checklistHtml + '</div>' +
+      '</div>' +
+
+      '<div class="block">' +
+        '<h2>Where your RM3,000 goes</h2>' +
+        fundHtml +
+      '</div>' +
+
+      '<div class="block">' +
+        '<div class="locked-card">' +
+          '<div class="locked-head"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7.5C8 5.6 9.6 4 11.5 4H12.5C14.4 4 16 5.6 16 7.5V11" stroke="currentColor" stroke-width="1.8"/></svg> Unlocks once you sponsor ' + s.name + '</div>' +
+          '<div class="locked-row"><span>Full legal name</span><span>&bull;&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;</span></div>' +
+          '<div class="locked-row"><span>Photo</span><span>&bull;&bull;&bull;&bull;&bull;&bull;</span></div>' +
+          '<div class="locked-row"><span>School / institution name</span><span>&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;&bull;</span></div>' +
+          '<div class="locked-row"><span>Direct termly updates</span><span>&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>' +
+          '<p class="locked-note">Protected under Malaysia’s PDPA. These unlock automatically once your first payment clears and ' + s.name + '’s guardian confirms consent — usually within 2–3 weeks.</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="sponsor-card">' +
+      '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +
+      '<div class="sponsor-amounts"><span class="raised">' + fmtRM(s.raised) + '</span><span class="goal">of ' + fmtRM(s.goal) + ' goal</span></div>' +
+      '<div class="sponsor-stat-row"><span>' + pct + '% funded</span><span>' + s.interested + ' considering</span></div>' +
+      '<div class="sponsor-freq">' +
+        '<button type="button" class="freq-btn active" data-freq="monthly">Monthly</button>' +
+        '<button type="button" class="freq-btn" data-freq="once">One-off</button>' +
+      '</div>' +
+      '<a href="join.html?student=' + s.id + '" class="btn btn-primary btn-block">Sponsor ' + s.name.split(' ')[0] + '</a>' +
+      '<a href="join.html?type=general" class="sponsor-secondary">Not ready? Give to the general fund instead</a>' +
+    '</div>';
+
+  document.querySelectorAll('.freq-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.freq-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+
+  var similar = STUDENTS.filter(function(o){ return o.id !== s.id && o.state === s.state; });
+  if(similar.length < 3){
+    STUDENTS.filter(function(o){ return o.id !== s.id && similar.indexOf(o) === -1; }).forEach(function(o){
+      if(similar.length < 3) similar.push(o);
+    });
+  }
+  similar = similar.slice(0,3);
+
+  document.getElementById('similar-grid').innerHTML = similar.map(function(o){
+    var og = gradientFor(o.id);
+    var opct = pctFunded(o);
+    return '<a href="student-profile.html?id=' + o.id + '" class="similar-card">' +
+      '<div class="avatar-block similar-photo" style="background:linear-gradient(135deg,' + og[0] + ',' + og[1] + ');"><div class="avatar-initials">' + o.name.charAt(0) + '</div></div>' +
+      '<div class="similar-body">' +
+        '<div class="similar-name">' + o.name + ', ' + o.age + '</div>' +
+        '<div class="similar-meta">' + o.state + ' &middot; ' + o.course + '</div>' +
+        '<div class="progress-track"><div class="progress-fill" style="width:' + opct + '%;"></div></div>' +
+      '</div>' +
+    '</a>';
+  }).join('');
+</script>
+
+</body>
+</html>

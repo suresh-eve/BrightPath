@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My account — BrightPath</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .page-head{padding:44px 0 8px;}
+  .signed-out-card{max-width:440px;margin:60px auto;text-align:center;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:36px;}
+  .signed-out-card h2{font-size:19px;margin-bottom:8px;}
+  .signed-out-card p{font-size:14px;color:var(--ink-soft);margin-bottom:20px;}
+
+  .tab-bar{display:flex;gap:8px;margin:28px 0 32px;border-bottom:1px solid var(--line);}
+  .tab-btn{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--ink-soft);
+    background:none;border:none;padding:10px 4px;margin-right:24px;cursor:pointer;
+    border-bottom:2px solid transparent;
+  }
+  .tab-btn.active{color:var(--ink);border-color:var(--teal);}
+  .tab-panel{display:none;max-width:640px;}
+  .tab-panel.current{display:block;}
+
+  .panel-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:28px;margin-bottom:20px;}
+  .panel-card h2{font-size:17px;margin-bottom:16px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
+  .field input{
+    width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1px solid var(--line);
+    font-family:'Inter',sans-serif;font-size:14.5px;background:var(--cream);
+  }
+  .field input:focus{outline:none;border-color:var(--teal);}
+  .check-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:14px;}
+  .check-row input{width:16px;height:16px;}
+  .save-note{font-size:12.5px;color:var(--teal-dark);margin-top:10px;display:none;}
+
+  .gift-summary{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
+  .gift-target{font-family:'Fraunces',serif;font-size:19px;font-weight:600;}
+  .gift-meta{font-size:13px;color:var(--ink-soft);margin-top:3px;}
+  .gift-row{display:flex;justify-content:space-between;font-size:13.5px;padding:10px 0;border-top:1px solid var(--line);}
+  .gift-row:first-of-type{border-top:none;}
+  .gift-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;}
+  .btn-danger-ghost{background:transparent;border-color:var(--line);color:var(--coral-dark);}
+  .btn-danger-ghost:hover{border-color:var(--coral-dark);background:var(--coral-light);}
+  .reassure-note{font-size:12px;color:var(--ink-soft);margin-top:10px;}
+
+  .pm-form{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
+  .pm-form.open{display:block;}
+  .pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+  .pay-method{
+    border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:12px 8px;text-align:center;
+    font-size:12px;font-weight:600;cursor:pointer;background:var(--cream);
+  }
+  .pay-method.selected{border-color:var(--teal);background:var(--teal-light);color:var(--teal-dark);}
+
+  .empty-panel{text-align:center;padding:40px 20px;}
+  .empty-panel p{font-size:14px;color:var(--ink-soft);margin-bottom:18px;}
+
+  table.receipts{width:100%;border-collapse:collapse;font-size:13.5px;}
+  table.receipts th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:0.03em;color:var(--ink-soft);padding:0 0 10px;border-bottom:1px solid var(--line);}
+  table.receipts td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:middle;}
+  table.receipts tr:last-child td{border-bottom:none;}
+  table.receipts a{color:var(--teal);font-weight:600;}
+
+  .signout-row{max-width:640px;margin:8px 0 40px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 17 7.5 20.5 12 22C16.5 20.5 20 17 20 12V6L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12L11 14L15.5 9.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      BrightPath
+    </a>
+    <div class="nav-links">
+      <a href="students.html">Our students</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#give">Ways to give</a>
+      <a href="index.html#trust">Transparency</a>
+    </div>
+    <div class="nav-cta">
+      <div class="account-menu" id="account-menu" style="display:none;">
+        <button class="btn btn-ghost btn-sm" id="account-trigger" onclick="toggleAccountDropdown()">Account ▾</button>
+        <div class="account-dropdown" id="account-dropdown">
+          <a href="dashboard.html">My account</a>
+          <a href="#" onclick="signOut();return false;">Sign out</a>
+        </div>
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
+      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Start giving</a>
+    </div>
+  </nav>
+</header>
+
+<script src="data.js"></script>
+<script src="auth.js"></script>
+<script>renderAccountNav();</script>
+
+<main class="wrap" id="page-root">
+
+  <div id="signed-out-view" style="display:none;">
+    <div class="signed-out-card">
+      <h2>You're not signed in</h2>
+      <p>Sign in to view your profile, manage recurring giving, and download receipts.</p>
+      <a href="join.html" class="btn btn-primary btn-block">Continue to BrightPath →</a>
+    </div>
+  </div>
+
+  <div id="signed-in-view" style="display:none;">
+    <div class="page-head">
+      <span class="eyebrow">My account</span>
+      <h1 style="font-size:28px;margin:14px 0 8px;">Welcome back, <span id="dash-name">Friend</span></h1>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Manage your profile, giving, and receipts in one place.</p>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="profile" onclick="showTab('profile')">Profile</button>
+      <button class="tab-btn" data-tab="giving" onclick="showTab('giving')">Giving &amp; payment</button>
+      <button class="tab-btn" data-tab="receipts" onclick="showTab('receipts')">Receipts</button>
+    </div>
+
+    <div class="tab-panel current" id="tab-profile">
+      <div class="panel-card">
+        <h2>Your details</h2>
+        <div class="field"><label>Full name</label><input type="text" id="p-name"></div>
+        <div class="field"><label>Email</label><input type="email" id="p-email" placeholder="you@email.com"></div>
+        <div class="field"><label>WhatsApp number</label><input type="tel" id="p-phone" placeholder="+60 12-345 6789"></div>
+        <h2 style="margin-top:22px;">Communication preferences</h2>
+        <label class="check-row"><input type="checkbox" id="pref-email" checked> Email updates</label>
+        <label class="check-row"><input type="checkbox" id="pref-whatsapp" checked> WhatsApp updates</label>
+        <label class="check-row"><input type="checkbox" id="pref-sms"> SMS</label>
+        <button class="btn btn-primary" onclick="saveProfile()">Save changes</button>
+        <p class="save-note" id="profile-saved">Saved.</p>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-giving">
+      <div id="giving-content"></div>
+    </div>
+
+    <div class="tab-panel" id="tab-receipts">
+      <div class="panel-card">
+        <h2>Giving history</h2>
+        <div id="receipts-content"></div>
+      </div>
+    </div>
+
+    <div class="signout-row">
+      <a href="#" class="btn btn-ghost" onclick="signOut();return false;">Sign out</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">
+        <span class="logo-mark" style="width:24px;height:24px;"><svg viewBox="0 0 24 24" fill="none" width="13" height="13"><path d="M12 2L4 6V12C4 17 7.5 20.5 12 22C16.5 20.5 20 17 20 12V6L12 2Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <span style="font-size:16px;">BrightPath</span>
+      </div>
+      <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM. PDPA-compliant · guardian consent required for all minors.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">About</a>
+      <a href="students.html">Our students</a>
+      <a href="#">For coordinators</a>
+      <a href="#">Privacy & PDPA</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var session = getSession();
+
+  if(!session || !session.name){
+    document.getElementById('signed-out-view').style.display = 'block';
+  } else {
+    document.getElementById('signed-in-view').style.display = 'block';
+    document.getElementById('dash-name').textContent = session.name.split(' ')[0];
+    document.getElementById('p-name').value = session.name;
+    if(session.email) document.getElementById('p-email').value = session.email;
+
+    window.showTab = function(name){
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab === name); });
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('current'); });
+      document.getElementById('tab-' + name).classList.add('current');
+    };
+
+    window.saveProfile = function(){
+      var name = document.getElementById('p-name').value.trim() || session.name;
+      var email = document.getElementById('p-email').value.trim();
+      session = {name: name, method: session.method, email: email};
+      setSession(session);
+      document.getElementById('dash-name').textContent = name.split(' ')[0];
+      var note = document.getElementById('profile-saved');
+      note.style.display = 'block';
+      setTimeout(function(){ note.style.display = 'none'; }, 2500);
+    };
+
+    var statusLabels = {active:['status-active','Active'], paused:['status-paused','Paused'], cancelled:['status-cancelled','Cancelled']};
+
+    function renderGiving(){
+      var gift = getActiveGift();
+      var el = document.getElementById('giving-content');
+      if(!gift){
+        el.innerHTML = '<div class="panel-card empty-panel">' +
+          '<p>You haven\'t started a gift yet.</p>' +
+          '<a href="join.html" class="btn btn-primary">Start giving →</a>' +
+        '</div>';
+        return;
+      }
+
+      var badge = statusLabels[gift.status] || statusLabels.active;
+      var nextDate = '—';
+      if(gift.freq === 'monthly' && gift.status === 'active'){
+        var d = new Date(gift.startedAt);
+        d.setMonth(d.getMonth() + 1);
+        nextDate = d.toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'});
+      }
+
+      el.innerHTML = '<div class="panel-card">' +
+        '<div class="gift-summary">' +
+          '<div><div class="gift-target">' + gift.target + '</div><div class="gift-meta">' + fmtRM(gift.amount) + (gift.freq === 'monthly' ? '/month' : ' one-off') + '</div></div>' +
+          '<span class="status-badge ' + badge[0] + '">' + badge[1] + '</span>' +
+        '</div>' +
+        '<div class="gift-row"><span>Payment method</span><span>' + (gift.pay ? gift.pay.toUpperCase() : '—') + '</span></div>' +
+        (nextDate !== '—' ? '<div class="gift-row"><span>Next payment</span><span>' + nextDate + '</span></div>' : '') +
+        '<div class="gift-actions">' +
+          '<button class="btn btn-ghost btn-sm" onclick="togglePmForm()">Update payment method</button>' +
+          (gift.status === 'active'
+            ? '<button class="btn btn-ghost btn-sm" onclick="setGiftStatus(\'paused\')">Pause giving</button><button class="btn btn-danger-ghost btn-sm" onclick="setGiftStatus(\'cancelled\')">Cancel giving</button>'
+            : '<button class="btn btn-primary btn-sm" onclick="setGiftStatus(\'active\')">Resume giving</button>') +
+        '</div>' +
+        '<p class="reassure-note">You can pause, resume, or cancel anytime — no calls, no forms.</p>' +
+        '<div class="pm-form" id="pm-form">' +
+          '<div class="pay-methods" id="pm-methods">' +
+            ['fpx','duitnow','tng','grabpay','shopeepay','card'].map(function(pm){
+              var labels = {fpx:'FPX', duitnow:'DuitNow', tng:"Touch \'n Go", grabpay:'GrabPay', shopeepay:'ShopeePay', card:'Card'};
+              return '<div class="pay-method' + (gift.pay === pm ? ' selected' : '') + '" data-pm="' + pm + '" onclick="selectPmMethod(\'' + pm + '\')">' + labels[pm] + '</div>';
+            }).join('') +
+          '</div>' +
+          '<button class="btn btn-primary btn-sm" onclick="savePmMethod()">Save payment method</button>' +
+          '<p class="save-note" id="pm-saved">Payment method updated.</p>' +
+        '</div>' +
+      '</div>';
+    }
+
+    window.togglePmForm = function(){
+      document.getElementById('pm-form').classList.toggle('open');
+    };
+    window.selectPmMethod = function(pm){
+      document.querySelectorAll('#pm-methods .pay-method').forEach(function(m){ m.classList.toggle('selected', m.dataset.pm === pm); });
+      var gift = getActiveGift();
+      gift.pendingPay = pm;
+      setActiveGift(gift);
+    };
+    window.savePmMethod = function(){
+      var gift = getActiveGift();
+      if(gift.pendingPay){ gift.pay = gift.pendingPay; delete gift.pendingPay; setActiveGift(gift); }
+      var note = document.getElementById('pm-saved');
+      note.style.display = 'block';
+      setTimeout(function(){ note.style.display = 'none'; renderGiving(); }, 1400);
+    };
+    window.setGiftStatus = function(status){
+      var gift = getActiveGift();
+      if(!gift) return;
+      gift.status = status;
+      setActiveGift(gift);
+      renderGiving();
+    };
+
+    function seedHistoryIfThin(){
+      var gift = getActiveGift();
+      var tx = getTransactions();
+      if(gift && gift.freq === 'monthly' && tx.length < 2){
+        var base = new Date(gift.startedAt);
+        for(var i = 1; i <= 2; i++){
+          var d = new Date(base);
+          d.setMonth(d.getMonth() - i);
+          addTransaction({
+            receiptNo: 'BP-' + Math.floor(100000 + Math.random()*900000),
+            date: d.toISOString(),
+            target: gift.target,
+            amount: gift.amount,
+            freq: gift.freq,
+            pay: gift.pay
+          });
+        }
+      }
+    }
+
+    function renderReceipts(){
+      var list = getTransactions();
+      var el = document.getElementById('receipts-content');
+      if(list.length === 0){
+        el.innerHTML = '<p style="font-size:14px;color:var(--ink-soft);">No receipts yet — they will appear here after your first gift.</p>';
+        return;
+      }
+      var rows = list.map(function(tx){
+        var d = new Date(tx.date).toLocaleDateString('en-MY', {day:'numeric', month:'short', year:'numeric'});
+        return '<tr>' +
+          '<td>' + d + '</td>' +
+          '<td>' + tx.target + '</td>' +
+          '<td>' + fmtRM(tx.amount) + (tx.freq === 'monthly' ? '/mo' : '') + '</td>' +
+          '<td>' + tx.receiptNo + '</td>' +
+          '<td><a href="#" onclick="return false;">Download</a></td>' +
+        '</tr>';
+      }).join('');
+      el.innerHTML = '<table class="receipts"><thead><tr><th>Date</th><th>Giving to</th><th>Amount</th><th>Receipt no.</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    seedHistoryIfThin();
+    renderGiving();
+    renderReceipts();
+  }
+</script>
+
+</body>
+</html>
