@@ -29,6 +29,13 @@
   .about-hero p{font-size:16.5px;color:var(--ink-soft);max-width:640px;margin-top:18px;}
   @media (max-width:700px){ .about-hero h1{font-size:29px;} }
 
+  .photo-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;}
+  @media (max-width:760px){ .photo-gallery{grid-template-columns:1fr 1fr;} }
+  .photo-gallery figure{margin:0;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
+  .photo-gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 18%;display:block;}
+  .gallery-caption{font-size:13px;font-style:italic;color:var(--ink-soft);margin-top:16px;max-width:640px;}
+  .gallery-caption a{text-decoration:underline;}
+
   .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
   @media (max-width:860px){ .split{grid-template-columns:1fr;} }
   .split h2{font-size:26px;margin-bottom:14px;}
@@ -128,6 +135,14 @@
       <span class="eyebrow">About BrightPath</span>
       <h1>The last mile between a great result and a real future.</h1>
       <p>Every year, thousands of Malaysian B40 students clear SPM with the grades to go further — but not the roughly RM3,000 it takes to get through fees, food, lodging and travel for their first diploma, foundation year or degree. BrightPath exists to close exactly that gap, student by student, ringgit by ringgit — with 100% of every gift reaching the student and zero overhead in between.</p>
+
+      <div class="photo-gallery">
+        <figure><img src="assets/student-ai-1.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+        <figure><img src="assets/student-ai-2.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+        <figure><img src="assets/student-ai-3.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+        <figure><img src="assets/student-ai-4.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+      </div>
+      <p class="gallery-caption">AI-generated illustrations, shown only to represent BrightPath's students as a community — never real photos of real, individually identified students. See <a href="#safety">how we protect students</a> below.</p>
     </div>
   </section>
 

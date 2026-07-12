@@ -19,6 +19,11 @@
   .page-head{padding:48px 0 8px;max-width:640px;}
   .page-head p{color:var(--ink-soft);font-size:15.5px;margin-top:10px;}
 
+  .corp-photo-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;max-width:640px;}
+  .corp-photo-row figure{margin:0;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
+  .corp-photo-row img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 18%;display:block;}
+  .gallery-caption{font-size:13px;font-style:italic;color:var(--ink-soft);margin-top:14px;max-width:640px;}
+
   .batch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin:32px 0 40px;}
   @media (max-width:760px){ .batch-grid{grid-template-columns:1fr;} }
   .batch-card{background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:28px;}
@@ -87,6 +92,11 @@
     <span class="eyebrow">For companies</span>
     <h1 style="font-size:30px;margin:14px 0 0;">Adopt a batch of students, together</h1>
     <p>A one-off Impact Batch fully sponsors a group of students for their entire 2-year journey — RM3,000 each, no recurring commitment. Your company is recognized on every student's profile you help fund.</p>
+    <div class="corp-photo-row">
+      <figure><img src="assets/student-ai-2.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+      <figure><img src="assets/student-ai-4.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+    </div>
+    <p class="gallery-caption">AI-generated illustrations, representing the students an Impact Batch supports — not photos of specific, named students.</p>
   </div>
 
   <div class="batch-grid">
