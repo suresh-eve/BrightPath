@@ -39,6 +39,7 @@ h1,h2,h3,.serif{
   font-weight:500;
   color:var(--ink);
   margin:0;
+  text-wrap:balance;
 }
 p{margin:0;}
 img,svg{display:block;max-width:100%;}
