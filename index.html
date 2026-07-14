@@ -30,45 +30,22 @@
   .hero-avatars{display:flex;align-items:center;}
   .hero-avatars .av{width:26px;height:26px;border-radius:50%;border:2px solid var(--cream);margin-left:-8px;}
   .hero-avatars .av:first-child{margin-left:0;}
+  .hero-trust-item{display:flex;align-items:center;gap:7px;}
+  .hero-trust-icon{width:19px;height:19px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
   .hero-visual{position:relative;}
-  .hero-card{
-    background:var(--white);border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-card);padding:22px;position:relative;z-index:2;
-  }
-  .hero-card-photo{
-    height:220px;border-radius:var(--radius-md);
-    background:linear-gradient(135deg,#F0DCC0 0%, var(--coral) 130%);
-    position:relative;overflow:hidden;margin-bottom:16px;
-  }
-  .hero-card-photo .initials{
-    position:absolute;bottom:16px;left:16px;
-    width:52px;height:52px;border-radius:50%;
-    background:rgba(255,255,255,0.92);color:var(--coral-dark);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Fraunces',serif;font-weight:600;font-size:19px;
-  }
-  .hero-card-photo .blob{position:absolute;border-radius:50%;background:rgba(255,255,255,0.16);}
-  .hero-card-body{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
-  .hero-card-name{font-family:'Fraunces',serif;font-size:17px;font-weight:600;margin-bottom:3px;}
-  .hero-card-meta{font-size:13px;color:var(--ink-soft);}
-  .hero-card-progress{margin-top:14px;}
-  .float-badge{
-    position:absolute;background:var(--white);border-radius:14px;box-shadow:var(--shadow-card);
-    padding:12px 16px;display:flex;align-items:center;gap:10px;z-index:3;font-size:13px;font-weight:600;
-  }
-  .float-badge.b1{top:-18px;right:8px;}
-  .float-badge.b2{bottom:-16px;left:-22px;}
-  .float-badge i{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .hero-photo-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:360px;margin:0 auto 24px;}
+  .hero-photo-gallery figure{margin:0;border-radius:50%;overflow:hidden;box-shadow:var(--shadow-card);position:relative;aspect-ratio:1/1;background:var(--cream-2);}
+  .hero-photo-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-stat-quote{font-family:'Fraunces',serif;font-size:17px;line-height:1.55;color:var(--ink);text-align:center;font-style:italic;max-width:380px;margin-inline:auto;}
+  .hero-stat-quote .quote-mark{font-size:34px;font-style:normal;color:var(--teal);line-height:0;vertical-align:-9px;}
   @media (max-width:900px){
     .hero-grid{grid-template-columns:1fr;}
     .hero h1{font-size:34px;}
-    .hero-visual{max-width:420px;margin:0 auto;}
+    .hero-visual{max-width:380px;margin:0 auto;}
   }
-  @media (max-width:400px){
-    .float-badge.b2{left:0;}
-    .float-badge{padding:9px 12px;font-size:12px;}
-    .float-badge i{width:26px;height:26px;}
+  @media (max-width:480px){
+    .hero-photo-gallery{max-width:280px;gap:14px;}
   }
 
   /* STATS */
@@ -216,39 +193,20 @@
             <a href="students.html" class="btn btn-ghost">Meet the students</a>
           </div>
           <div class="hero-trust">
-            <span>100% of your gift reaches the student</span>
+            <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M7 22H4a1 1 0 01-1-1v-9a1 1 0 011-1h3m4-6l1-4a2 2 0 012-2 2 2 0 012 2v6h5.28a2 2 0 011.98 2.28l-1.14 8A2 2 0 0118.14 22H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i>100% of your gift reaches the student</span>
             <span class="dot"></span>
-            <span>Cancel anytime, no calls needed</span>
+            <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M7 22H4a1 1 0 01-1-1v-9a1 1 0 011-1h3m4-6l1-4a2 2 0 012-2 2 2 0 012 2v6h5.28a2 2 0 011.98 2.28l-1.14 8A2 2 0 0118.14 22H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Cancel anytime, no calls needed</span>
           </div>
         </div>
 
         <div class="hero-visual">
-          <div class="float-badge b1">
-            <i style="background:var(--coral-light);color:var(--coral-dark);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.4 4 9.5 4C11 4 12.3 4.7 13 5.8C13.7 4.7 15 4 16.5 4C19.6 4 22 6.5 22 9.5C22 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></i>
-            <span>1,240 students helped</span>
+          <div class="hero-photo-gallery">
+            <figure><img src="assets/student-ai-1.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+            <figure><img src="assets/student-ai-2.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+            <figure><img src="assets/student-ai-3.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+            <figure><img src="assets/student-ai-4.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
           </div>
-          <div class="hero-card">
-            <div class="hero-card-photo">
-              <div class="blob" style="width:120px;height:120px;top:-40px;right:-30px;"></div>
-              <div class="blob" style="width:70px;height:70px;bottom:-20px;right:40px;"></div>
-              <div class="initials">A.</div>
-            </div>
-            <div class="hero-card-body">
-              <div>
-                <div class="hero-card-name">Ain, 19</div>
-                <div class="hero-card-meta">Selangor · Diploma in Nursing</div>
-              </div>
-              <span class="eyebrow" style="background:var(--teal-light);color:var(--teal);">Public pool</span>
-            </div>
-            <div class="hero-card-progress">
-              <div class="progress-track"><div class="progress-fill" style="width:62%;"></div></div>
-              <div class="progress-label"><span>RM1,850 raised</span><span>RM3,000 goal</span></div>
-            </div>
-          </div>
-          <div class="float-badge b2">
-            <i style="background:var(--teal-light);color:var(--teal);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 12L4 18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 8L12 4L16 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 4V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></i>
-            <span>Zero platform overhead</span>
-          </div>
+          <p class="hero-stat-quote"><span class="quote-mark">&ldquo;</span>Nearly 500,000 of Malaysia&rsquo;s SPM leavers never continue on to higher studies — many of whom are from B40 families.<span class="quote-mark">&rdquo;</span></p>
         </div>
       </div>
     </div>
