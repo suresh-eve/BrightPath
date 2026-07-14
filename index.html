@@ -24,14 +24,13 @@
   .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
   .hero h1{font-size:44px;line-height:1.14;margin:18px 0 20px;letter-spacing:-0.01em;}
   .hero-sub{font-size:17.5px;color:var(--ink-soft);max-width:460px;margin-bottom:30px;}
-  .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
-  .hero-trust{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-soft);}
-  .hero-trust .dot{width:5px;height:5px;border-radius:50%;background:var(--line);}
+  .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .hero-trust{display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--ink-soft);margin-bottom:22px;}
   .hero-avatars{display:flex;align-items:center;}
   .hero-avatars .av{width:26px;height:26px;border-radius:50%;border:2px solid var(--cream);margin-left:-8px;}
   .hero-avatars .av:first-child{margin-left:0;}
-  .hero-trust-item{display:flex;align-items:center;gap:7px;}
-  .hero-trust-icon{width:19px;height:19px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .hero-trust-item{display:flex;align-items:center;gap:8px;}
+  .hero-trust-icon{width:24px;height:24px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
   .hero-visual{position:relative;}
   .hero-photo-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:360px;margin:0 auto 24px;}
@@ -214,20 +213,20 @@
 <script>renderAccountNav();</script>
 
 <main>
-  <section class="hero" style="padding-bottom:0;">
+  <section class="hero" id="the-cause" style="padding-bottom:0;">
     <div class="wrap">
       <div class="hero-grid">
         <div>
+          <span class="eyebrow">The cause</span>
           <h1>Help a brilliant student finish what they started.</h1>
           <p class="hero-sub">BrightPath connects everyday donors with talented B40 students across Malaysia who have the grades but not the means to continue past SPM. Your gift covers fees, food, lodging and travel — every ringgit, guaranteed.</p>
+          <div class="hero-trust">
+            <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>100% of your gift reaches the student</span>
+            <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Cancel anytime, no calls needed</span>
+          </div>
           <div class="hero-actions">
             <a href="join.html" class="btn btn-primary">Start giving →</a>
             <a href="students.html" class="btn btn-ghost">Meet the students</a>
-          </div>
-          <div class="hero-trust">
-            <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M7 22H4a1 1 0 01-1-1v-9a1 1 0 011-1h3m4-6l1-4a2 2 0 012-2 2 2 0 012 2v6h5.28a2 2 0 011.98 2.28l-1.14 8A2 2 0 0118.14 22H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i>100% of your gift reaches the student</span>
-            <span class="dot"></span>
-            <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M7 22H4a1 1 0 01-1-1v-9a1 1 0 011-1h3m4-6l1-4a2 2 0 012-2 2 2 0 012 2v6h5.28a2 2 0 011.98 2.28l-1.14 8A2 2 0 0118.14 22H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Cancel anytime, no calls needed</span>
           </div>
         </div>
 
@@ -244,24 +243,15 @@
     </div>
   </section>
 
-  <section id="the-cause">
+  <div class="stats">
     <div class="wrap">
-      <div class="section-head center">
-        <span class="eyebrow">The cause</span>
-        <h2>The last mile between a great result and a real future.</h2>
-        <p>Every year, thousands of Malaysian B40 students clear SPM with grades good enough to go further — but not the roughly RM3,000 it takes to get there: fees, food, lodging, travel. BrightPath exists to close that gap, one student and one ringgit at a time.</p>
+      <div class="stats-grid">
+        <div><div class="num">95%</div><div class="lbl">of sponsored students complete their program</div></div>
+        <div><div class="num">75%</div><div class="lbl">go on to earn a full degree</div></div>
+        <div><div class="num">100%</div><div class="lbl">of every donation reaches the student</div></div>
       </div>
     </div>
-    <div class="stats">
-      <div class="wrap">
-        <div class="stats-grid">
-          <div><div class="num">95%</div><div class="lbl">of sponsored students complete their program</div></div>
-          <div><div class="num">75%</div><div class="lbl">go on to earn a full degree</div></div>
-          <div><div class="num">100%</div><div class="lbl">of every donation reaches the student</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <section id="how">
     <div class="wrap">
@@ -290,7 +280,7 @@
     </div>
   </section>
 
-  <section id="give">
+  <section id="give" style="padding-top:0;">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Three ways to give</span>
@@ -335,7 +325,7 @@
     </div>
   </section>
 
-  <section id="students" class="pool-section">
+  <section id="students" class="pool-section" style="padding-top:0;">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Meet the pool</span>
@@ -389,7 +379,7 @@
     </div>
   </section>
 
-  <section id="trust">
+  <section id="trust" style="padding-top:0;">
     <div class="wrap">
       <div class="trust-grid">
         <div>
@@ -416,7 +406,7 @@
     </div>
   </section>
 
-  <section id="gap">
+  <section id="gap" style="padding-top:0;">
     <div class="wrap">
       <div class="split">
         <div>
@@ -452,7 +442,7 @@
     </div>
   </section>
 
-  <section id="believe">
+  <section id="believe" style="padding-top:0;">
     <div class="wrap">
       <div class="section-head center">
         <span class="eyebrow">What we believe</span>
@@ -479,7 +469,7 @@
     </div>
   </section>
 
-  <section style="padding-top:0;">
+  <section style="padding:0 0 32px;">
     <div class="final-cta">
       <h2 style="font-size:24px;line-height:1.45;">As the saying goes, <em>&ldquo;Sedikit-sedikit, lama-lama menjadi bukit.&rdquo;</em>&nbsp;&nbsp;Whether it is a little or a lot, together it all adds up to change a student's life.</h2>
       <p>Join 1,240+ donors already funding the next generation of B40 graduates across Malaysia.</p>
