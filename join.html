@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Start giving — BrightPath</title>
-<meta name="description" content="Start giving to a BrightPath student in under a minute. No password required — sign in, choose the general fund, a student, or a mentor match, then decide the details after your gift is confirmed.">
+<meta name="description" content="Start giving to a BrightPath student in under a minute. Choose the general fund, a student, or a mentor match, then decide the details after your gift is confirmed.">
 <link rel="canonical" href="https://brightpath-sureshdhynnas-projects.vercel.app/join.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BrightPath">
 <meta property="og:title" content="Start giving — BrightPath">
-<meta property="og:description" content="No password, no research required. Choose how you give, then pick who it goes to after your gift is confirmed.">
+<meta property="og:description" content="Choose how you give, then pick who it goes to after your gift is confirmed.">
 <meta property="og:url" content="https://brightpath-sureshdhynnas-projects.vercel.app/join.html">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
@@ -22,7 +22,7 @@
   .exit-link{font-size:13.5px;color:var(--ink-soft);font-weight:500;}
   .exit-link:hover{color:var(--ink);}
 
-  .stepper{display:flex;align-items:center;justify-content:center;gap:0;padding:36px 0 8px;max-width:560px;margin:0 auto;}
+  .stepper{display:flex;align-items:center;justify-content:center;gap:0;padding:36px 0 8px;max-width:400px;margin:0 auto;}
   .stepper .seg{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;}
   .stepper .circle{
     width:30px;height:30px;border-radius:50%;background:var(--white);border:1.5px solid var(--line);
@@ -41,31 +41,8 @@
   .step{display:none;}
   .step.current{display:block;}
 
-  .card-narrow{max-width:440px;margin:0 auto;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:32px;}
-  .card-narrow h2{font-size:21px;margin-bottom:8px;}
-  .card-narrow .sub{font-size:13.5px;color:var(--ink-soft);margin-bottom:24px;}
-  .field{margin-bottom:16px;}
-  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
-  .field input{
-    width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1px solid var(--line);
-    font-family:'Inter',sans-serif;font-size:14.5px;background:var(--cream);
-  }
-  .field input:focus{outline:none;border-color:var(--teal);}
   .guest-link{display:block;text-align:center;font-size:13px;color:var(--ink-soft);margin-top:16px;}
   .guest-link:hover{color:var(--ink);}
-
-  .sso-btn{
-    display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
-    padding:12px 16px;border-radius:100px;border:1.5px solid var(--line);background:var(--white);
-    font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;cursor:pointer;margin-bottom:10px;
-    transition:border-color .15s ease, background .15s ease;
-  }
-  .sso-btn:hover{border-color:var(--ink-soft);background:var(--cream);}
-  .sso-btn.connecting{opacity:0.6;pointer-events:none;}
-  .sso-divider{display:flex;align-items:center;gap:12px;margin:18px 0;font-size:12px;color:var(--ink-soft);}
-  .sso-divider::before,.sso-divider::after{content:'';flex:1;height:1px;background:var(--line);}
-  .signed-in-badge{font-size:13.5px;color:var(--ink-soft);}
-  .signed-in-badge b{color:var(--ink);font-weight:600;}
 
   .prechosen-banner{
     max-width:800px;margin:0 auto 20px;background:var(--teal-light);border-radius:var(--radius-md);
@@ -82,25 +59,6 @@
     background:var(--cream-2);border-radius:var(--radius-sm);padding:10px 12px;
   }
 
-  .quiz-wrap{max-width:560px;margin:0 auto;}
-  .quiz-progress{font-size:12.5px;color:var(--ink-soft);text-align:center;margin-bottom:8px;}
-  .quiz-q{display:none;}
-  .quiz-q.current{display:block;}
-  .quiz-q h2{font-size:21px;text-align:center;margin-bottom:24px;}
-  .quiz-options{display:flex;flex-direction:column;gap:12px;}
-  .quiz-opt{
-    display:flex;align-items:center;gap:14px;background:var(--white);border:1.5px solid var(--line);
-    border-radius:var(--radius-md);padding:16px 18px;cursor:pointer;transition:border-color .15s ease, background .15s ease;
-    font-size:14.5px;font-weight:500;text-align:left;
-  }
-  .quiz-opt:hover{border-color:var(--teal);background:var(--teal-light);}
-  .quiz-opt .qi{width:34px;height:34px;border-radius:10px;background:var(--coral-light);color:var(--coral-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-
-  .archetype-reveal{max-width:480px;margin:0 auto;text-align:center;background:var(--teal-dark);color:#fff;border-radius:var(--radius-lg);padding:40px 32px;}
-  .archetype-reveal .eyebrow{background:rgba(255,255,255,0.14);color:#fff;margin-bottom:14px;}
-  .archetype-reveal h2{color:#fff;font-size:26px;margin-bottom:12px;}
-  .archetype-reveal p{color:#CFE3DB;font-size:14.5px;margin-bottom:26px;}
-
   .give-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:800px;margin:0 auto;}
   @media (max-width:760px){ .give-grid{grid-template-columns:1fr;} }
   .give-card{
@@ -112,10 +70,6 @@
   .give-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
   .give-card h3{font-size:16px;margin-bottom:6px;}
   .give-card p{font-size:13px;color:var(--ink-soft);}
-  .recommend-tag{
-    position:absolute;top:-12px;left:20px;background:var(--coral);color:#fff;font-size:11px;font-weight:700;
-    padding:4px 11px;border-radius:100px;letter-spacing:0.02em;
-  }
 
   .mini-picker{max-width:800px;margin:24px auto 0;}
   .mini-picker-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
@@ -146,9 +100,12 @@
     font-weight:600;font-size:14px;cursor:pointer;
   }
   .amount-chip.selected{background:var(--teal);border-color:var(--teal);color:#fff;}
-  .freq-toggle{display:flex;gap:8px;margin-bottom:20px;}
+  .freq-toggle{display:flex;gap:8px;margin-bottom:8px;}
   .freq-toggle button{flex:1;padding:10px;border-radius:100px;border:1.5px solid var(--line);background:var(--cream);font-weight:600;font-size:13.5px;cursor:pointer;color:var(--ink-soft);}
   .freq-toggle button.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .freq-toggle button:disabled{opacity:0.45;cursor:not-allowed;}
+  .signin-note{font-size:12.5px;color:var(--ink-soft);margin-bottom:20px;}
+  .signin-note a{color:var(--teal);font-weight:600;cursor:pointer;}
   .pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
   @media (max-width:400px){ .pay-methods{grid-template-columns:repeat(2,1fr);} }
   .pay-method{
@@ -177,91 +134,29 @@
       <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
       <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </a>
-    <div style="display:flex;align-items:center;gap:18px;">
-      <span class="signed-in-badge" id="signed-in-badge" style="display:none;"></span>
-      <a href="#" id="mini-signout" onclick="signOut();return false;" class="exit-link" style="display:none;">Sign out</a>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="account-menu" id="account-menu" style="display:none;">
+        <button class="btn btn-ghost btn-sm" id="account-trigger" onclick="toggleAccountDropdown()">Account ▾</button>
+        <div class="account-dropdown" id="account-dropdown">
+          <a href="dashboard.html">My account</a>
+          <a href="#" onclick="signOut();return false;">Sign out</a>
+        </div>
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
       <a href="index.html" class="exit-link">Exit</a>
     </div>
   </div>
 </header>
 
 <div class="stepper" id="stepper">
-  <div class="seg" data-step="1"><span class="line"></span><span class="circle">1</span><span class="lbl">Account</span></div>
-  <div class="seg" data-step="2"><span class="line"></span><span class="circle">2</span><span class="lbl">Purpose</span></div>
-  <div class="seg" data-step="3"><span class="line"></span><span class="circle">3</span><span class="lbl">Give</span></div>
-  <div class="seg" data-step="4"><span class="line"></span><span class="circle">4</span><span class="lbl">Checkout</span></div>
-  <div class="seg" data-step="5"><span class="line"></span><span class="circle">5</span><span class="lbl">Done</span></div>
+  <div class="seg" data-step="1"><span class="line"></span><span class="circle">1</span><span class="lbl">Give</span></div>
+  <div class="seg" data-step="2"><span class="line"></span><span class="circle">2</span><span class="lbl">Checkout</span></div>
+  <div class="seg" data-step="3"><span class="line"></span><span class="circle">3</span><span class="lbl">Done</span></div>
 </div>
 
 <main class="wrap wizard-stage">
 
   <div class="step" id="step-1">
-    <div class="card-narrow">
-      <h2>Continue to BrightPath</h2>
-      <p class="sub">One tap, no password to remember. We'll only ask for what we need, when we need it.</p>
-      <button class="sso-btn" id="sso-google" onclick="mockSSO('google', this)">
-        <svg width="17" height="17" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.8-.1-1.5-.2-2.2H12v4.3h5.9c-.3 1.4-1 2.5-2.2 3.3v2.7h3.6c2.1-1.9 3.2-4.8 3.2-8.1z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.7l-3.6-2.7c-1 .7-2.2 1.1-3.6 1.1-2.8 0-5.1-1.9-6-4.4H2.3v2.8C4.1 20.6 7.8 23 12 23z"/><path fill="#FBBC05" d="M6 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3V6.9H2.3C1.5 8.5 1 10.2 1 12s.5 3.5 1.3 5.1L6 14.3z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2C17.4 2.1 15 1 12 1 7.8 1 4.1 3.4 2.3 6.9L6 9.7c.9-2.5 3.2-4.3 6-4.3z"/></svg>
-        Continue with Google
-      </button>
-      <button class="sso-btn" id="sso-facebook" onclick="mockSSO('facebook', this)">
-        <svg width="17" height="17" viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.07C24 5.4 18.6 0 12 0S0 5.4 0 12.07C0 18.1 4.4 23.1 10.1 24v-8.44H7.1v-3.49h3v-2.66c0-3 1.8-4.6 4.5-4.6 1.3 0 2.6.23 2.6.23v2.9h-1.5c-1.4 0-1.9.9-1.9 1.8v2.33h3.3l-.5 3.49h-2.8V24C19.6 23.1 24 18.1 24 12.07z"/></svg>
-        Continue with Facebook
-      </button>
-      <button class="sso-btn" id="sso-apple" onclick="mockSSO('apple', this)">
-        <svg width="15" height="15" viewBox="0 0 24 24"><path d="M16.5 1c.1 1.3-.4 2.6-1.2 3.6-.8 1-2.1 1.7-3.4 1.6-.2-1.3.4-2.6 1.2-3.5.8-1 2.2-1.7 3.4-1.7zM20.9 17.3c-.5 1.1-.7 1.6-1.4 2.6-.9 1.4-2.2 3.1-3.8 3.1-1.4 0-1.8-.9-3.7-.9s-2.4.9-3.7.9c-1.6 0-2.8-1.5-3.7-2.9C2.3 17.4 1.6 12.5 3.5 9.2c1-1.7 2.7-2.7 4.3-2.7 1.5 0 2.5 1 3.7 1s2-1.2 3.9-1c.8 0 3 .3 4.4 2.4-.1.1-2.6 1.5-2.6 4.5 0 3.5 3.1 4.7 3.1 4.7z"/></svg>
-        Continue with Apple
-      </button>
-      <div class="sso-divider">or continue with email</div>
-      <div class="field"><input type="email" id="acc-email" placeholder="you@email.com"></div>
-      <button class="btn btn-ghost btn-block" onclick="handleEmailContinue()">Continue with email →</button>
-      <a href="#" class="guest-link" onclick="handleGuestContinue();return false;">Give a one-off gift as a guest instead</a>
-    </div>
-  </div>
-
-  <div class="step" id="step-2">
-    <div class="quiz-wrap">
-      <div class="quiz-progress" id="quiz-progress">Question 1 of 3</div>
-
-      <div class="quiz-q current" data-q="1">
-        <h2>What's pulling you toward giving?</h2>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answerQuiz(1,'personal')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.4 4 9.5 4C11 4 12.3 4.7 13 5.8C13.7 4.7 15 4 16.5 4C19.6 4 22 6.5 22 9.5C22 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>A personal story — I know what it's like to almost miss my shot</button>
-          <button class="quiz-opt" onclick="answerQuiz(1,'impact')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20L4 14M12 20L12 8M20 20L20 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Clear impact — I want to see measurable outcomes</button>
-          <button class="quiz-opt" onclick="answerQuiz(1,'connection')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.8"/><path d="M5 20C5 16.5 8 14 12 14C16 14 19 16.5 19 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Real connection — I want to know who I'm helping</button>
-          <button class="quiz-opt" onclick="answerQuiz(1,'community')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20V17C4 15.3 5.3 14 7 14H9C10.7 14 12 15.3 12 17V20" stroke="currentColor" stroke-width="1.8"/><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M14 20V17.5C14 16.1 15.1 15 16.5 15H17C18.7 15 20 16.3 20 18V20" stroke="currentColor" stroke-width="1.8"/><circle cx="16.5" cy="8.5" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg></span>Giving back — I want to invest in Malaysia's next generation</button>
-        </div>
-      </div>
-
-      <div class="quiz-q" data-q="2">
-        <h2>How involved do you want to be?</h2>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answerQuiz(2,'quiet')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.4 4 9.5 4C11 4 12.3 4.7 13 5.8C13.7 4.7 15 4 16.5 4C19.6 4 22 6.5 22 9.5C22 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Just fund it quietly — no need for anything more</button>
-          <button class="quiz-opt" onclick="answerQuiz(2,'updates')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 4H20V16H8L4 20V4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Fund it, and I'd love regular updates</button>
-          <button class="quiz-opt" onclick="answerQuiz(2,'mentor')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 15C15.3 15 18 12.5 18 9C18 5.5 15.3 3 12 3C8.7 3 6 5.5 6 9C6 12.5 8.7 15 12 15Z" stroke="currentColor" stroke-width="1.8"/><path d="M8 14L5 21L12 18L19 21L16 14" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Fund it, and mentor them too</button>
-        </div>
-      </div>
-
-      <div class="quiz-q" data-q="3">
-        <h2>How do you prefer to give?</h2>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answerQuiz(3,'oneoff')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>One-off, whenever I can</button>
-          <button class="quiz-opt" onclick="answerQuiz(3,'small_monthly')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L4 18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 8L12 4L16 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 4V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>A small monthly amount</button>
-          <button class="quiz-opt" onclick="answerQuiz(3,'big_monthly')"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L4 18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 8L12 4L16 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 4V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>A bigger monthly commitment</button>
-        </div>
-      </div>
-
-      <div class="quiz-q" data-q="reveal">
-        <div class="archetype-reveal">
-          <span class="eyebrow">Your donor profile</span>
-          <h2 id="archetype-title"></h2>
-          <p id="archetype-desc"></p>
-          <button class="btn btn-onteal" onclick="goToStep(3)">Continue to giving options →</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="step" id="step-3">
     <div class="section-head center" style="margin-bottom:24px;">
       <span class="eyebrow">Choose how you give</span>
       <h2>No wrong door — every path funds a student</h2>
@@ -292,13 +187,12 @@
     <p class="give-hint" id="give-hint" style="display:none;">No need to research anyone right now — finish your gift first, then choose exactly who.</p>
 
     <div class="wizard-actions">
-      <button class="back-btn" onclick="goToStep(2)">← Back</button>
       <span class="spacer"></span>
-      <button class="btn btn-primary" id="step3-continue" onclick="handleStep3Continue()" disabled>Continue →</button>
+      <button class="btn btn-primary" id="step1-continue" onclick="goToStep(2)" disabled>Continue →</button>
     </div>
   </div>
 
-  <div class="step" id="step-4">
+  <div class="step" id="step-2">
     <div class="section-head center" style="margin-bottom:28px;">
       <span class="eyebrow">Checkout</span>
       <h2>Just a few details and you're done</h2>
@@ -318,6 +212,7 @@
           <button data-freq="once" onclick="selectFreq('once')">One-off</button>
           <button data-freq="monthly" class="active" onclick="selectFreq('monthly')">Monthly</button>
         </div>
+        <p class="signin-note" id="signin-note" style="display:none;">Want to give monthly? <a onclick="openLoginModal();return false;">Sign in</a> so you can track and cancel it anytime from your dashboard.</p>
         <h2>Payment method</h2>
         <div class="pay-methods" id="pay-methods">
           <div class="pay-method" data-pm="fpx" onclick="selectPay('fpx')">FPX</div>
@@ -344,11 +239,11 @@
       </div>
     </div>
     <div class="wizard-actions">
-      <button class="back-btn" onclick="goToStep(3)">← Back</button>
+      <button class="back-btn" onclick="goToStep(1)">← Back</button>
     </div>
   </div>
 
-  <div class="step" id="step-5">
+  <div class="step" id="step-3">
     <div class="confirm-wrap">
       <div class="confirm-check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <h2 id="confirm-heading">You're in!</h2>
@@ -382,31 +277,27 @@
 
 <script src="data.js"></script>
 <script src="auth.js"></script>
+<script>renderAccountNav();</script>
 <script>
   var FEE_RATE = 0.035;
   var state = {
-    step:1, accountName:'Guest', authMethod:null, email:null, isGuest:false, loggedIn:false,
-    quiz:{1:null,2:null,3:null}, archetype:null,
+    step:1,
     giveType:null, studentId:null,
     amount:125, freq:'monthly', pay:null, coverFee:false
   };
 
+  function isLoggedIn(){
+    var s = getSession();
+    return !!(s && s.name);
+  }
+  function currentAccountName(){
+    var s = getSession();
+    return (s && s.name) ? s.name : 'Guest';
+  }
+
   var params = new URLSearchParams(window.location.search);
   if(params.get('student')){ state.giveType = 'student'; state.studentId = Number(params.get('student')); }
   if(params.get('type')){ state.giveType = params.get('type'); }
-
-  (function restoreSession(){
-    var session = getSession();
-    if(session && session.name){
-      state.accountName = session.name;
-      state.authMethod = session.method;
-      state.loggedIn = true;
-      var badge = document.getElementById('signed-in-badge');
-      badge.style.display = 'inline';
-      badge.innerHTML = 'Signed in as <b>' + session.name + '</b>';
-      document.getElementById('mini-signout').style.display = 'inline';
-    }
-  })();
 
   function goToStep(n){
     state.step = n;
@@ -418,70 +309,9 @@
       if(segNum < n) seg.classList.add('done');
       if(segNum === n) seg.classList.add('active');
     });
-    if(n === 3) renderStep3();
-    if(n === 4) renderStep4();
+    if(n === 1) renderGiveStep();
+    if(n === 2) renderCheckoutStep();
     window.scrollTo({top:0, behavior:'smooth'});
-  }
-
-  function mockSSO(provider, btn){
-    btn.classList.add('connecting');
-    btn.innerHTML = 'Connecting…';
-    setTimeout(function(){
-      state.accountName = 'Friend';
-      state.authMethod = provider;
-      state.isGuest = false;
-      setSession({name: state.accountName, method: state.authMethod});
-      goToStep(2);
-    }, 450);
-  }
-  function handleEmailContinue(){
-    var email = (document.getElementById('acc-email').value || '').trim();
-    var prefix = email.split('@')[0].replace(/[^a-zA-Z]/g, '');
-    state.accountName = prefix ? (prefix.charAt(0).toUpperCase() + prefix.slice(1)) : 'Friend';
-    state.email = email;
-    state.authMethod = 'email';
-    state.isGuest = false;
-    setSession({name: state.accountName, method: state.authMethod});
-    goToStep(2);
-  }
-  function handleGuestContinue(){
-    state.isGuest = true;
-    state.accountName = 'Guest';
-    state.freq = 'once';
-    if(!state.giveType) state.giveType = 'general';
-    goToStep(4);
-  }
-
-  var quizOrder = [1,2,3];
-  function answerQuiz(qNum, val){
-    state.quiz[qNum] = val;
-    document.querySelectorAll('.quiz-q[data-q="' + qNum + '"] .quiz-opt').forEach(function(btn){ btn.style.borderColor = 'var(--line)'; });
-    var next = qNum + 1;
-    if(next <= 3){
-      document.querySelector('.quiz-q[data-q="' + qNum + '"]').classList.remove('current');
-      document.querySelector('.quiz-q[data-q="' + next + '"]').classList.add('current');
-      document.getElementById('quiz-progress').textContent = 'Question ' + next + ' of 3';
-    } else {
-      computeArchetype();
-      document.querySelector('.quiz-q[data-q="3"]').classList.remove('current');
-      document.querySelector('.quiz-q[data-q="reveal"]').classList.add('current');
-      document.getElementById('quiz-progress').textContent = 'Your result';
-    }
-  }
-
-  function computeArchetype(){
-    var a1 = state.quiz[1], a2 = state.quiz[2];
-    var result;
-    if(a2 === 'mentor') result = {title:'The Mentor', desc:"You don't just want to fund a future, you want to help shape it. Mentor matching lets you add guidance alongside your gift.", recommend:'mentor'};
-    else if(a1 === 'connection') result = {title:'The Connector', desc:'You give best when it feels personal. Choosing a specific student means every update is about someone you know.', recommend:'student'};
-    else if(a1 === 'personal') result = {title:'The Believer', desc:"You know what almost missing a shot feels like. A specific student's journey will mean the most to you.", recommend:'student'};
-    else if(a1 === 'impact') result = {title:'The Changemaker', desc:'You care about outcomes at scale. The general fund lets BrightPath direct your gift wherever the need is greatest.', recommend:'general'};
-    else result = {title:'The Quiet Backer', desc:"You're here to help, no fanfare required. The general fund is the simplest way to make sure your gift gets to work fast.", recommend:'general'};
-    state.archetype = result;
-    document.getElementById('archetype-title').textContent = result.title;
-    document.getElementById('archetype-desc').textContent = result.desc;
-    if(!state.giveType) state.giveType = result.recommend;
-    if(state.quiz[3] === 'oneoff') state.freq = 'once';
   }
 
   function selectGiveType(type){
@@ -489,20 +319,20 @@
     state.giveType = type;
     document.querySelectorAll('.give-card').forEach(function(c){ c.classList.toggle('selected', c.dataset.type === type); });
     document.getElementById('give-hint').style.display = (type === 'student' || type === 'mentor') ? 'block' : 'none';
-    updateStep3ContinueState();
+    updateStep1ContinueState();
   }
 
   function clearPrechosen(){
     state.studentId = null;
     state.giveType = null;
-    renderStep3();
+    renderGiveStep();
   }
 
-  function updateStep3ContinueState(){
-    document.getElementById('step3-continue').disabled = !state.giveType;
+  function updateStep1ContinueState(){
+    document.getElementById('step1-continue').disabled = !state.giveType;
   }
 
-  function renderStep3(){
+  function renderGiveStep(){
     var banner = document.getElementById('prechosen-banner');
     var hint = document.getElementById('give-hint');
 
@@ -521,21 +351,8 @@
         hint.style.display = 'none';
       }
     }
-
-    document.querySelectorAll('.give-card .recommend-tag').forEach(function(t){ t.remove(); });
-    if(!state.studentId && state.archetype && state.archetype.recommend){
-      var card = document.querySelector('.give-card[data-type="' + state.archetype.recommend + '"]');
-      if(card){
-        var tag = document.createElement('span');
-        tag.className = 'recommend-tag';
-        tag.textContent = 'Recommended for you';
-        card.appendChild(tag);
-      }
-    }
-    updateStep3ContinueState();
+    updateStep1ContinueState();
   }
-
-  function handleStep3Continue(){ goToStep(4); }
 
   var AMOUNT_CAPTIONS = {
     monthly: {
@@ -560,6 +377,7 @@
     updateSummary();
   }
   function selectFreq(f){
+    if(f === 'monthly' && !isLoggedIn()) return;
     state.freq = f;
     document.querySelectorAll('#freq-toggle button').forEach(function(b){ b.classList.toggle('active', b.dataset.freq === f); });
     updateAmountCaption();
@@ -599,12 +417,13 @@
     return 'General fund';
   }
 
-  function renderStep4(){
+  function renderCheckoutStep(){
+    var loggedIn = isLoggedIn();
     document.querySelectorAll('.amount-chip').forEach(function(c){ c.classList.toggle('selected', Number(c.dataset.amt) === state.amount); });
+    if(!loggedIn && state.freq === 'monthly') state.freq = 'once';
     document.querySelectorAll('#freq-toggle button').forEach(function(b){ b.classList.toggle('active', b.dataset.freq === state.freq); });
-    if(state.isGuest){
-      document.getElementById('freq-toggle').querySelectorAll('button').forEach(function(b){ b.disabled = b.dataset.freq !== 'once'; });
-    }
+    document.getElementById('freq-toggle').querySelectorAll('button').forEach(function(b){ b.disabled = (b.dataset.freq === 'monthly' && !loggedIn); });
+    document.getElementById('signin-note').style.display = loggedIn ? 'none' : 'block';
     updateAmountCaption();
     updateSummary();
   }
@@ -626,8 +445,9 @@
   }
 
   function handleCheckoutSubmit(){
-    var showName = state.accountName && state.accountName !== 'Guest';
-    document.getElementById('confirm-heading').textContent = showName ? ('Thank you for being with us, ' + state.accountName + '!') : 'Thank you for being with us!';
+    var loggedIn = isLoggedIn();
+    var accountName = currentAccountName();
+    document.getElementById('confirm-heading').textContent = loggedIn ? ('Thank you for being with us, ' + accountName + '!') : 'Thank you for being with us!';
 
     var pickLater = document.getElementById('pick-later-card');
     pickLater.style.display = 'none';
@@ -661,7 +481,7 @@
     state.lastReceipt = {
       receiptNo: receiptNo,
       dateLabel: new Date().toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'}),
-      donorName: state.accountName,
+      donorName: accountName,
       target: targetLabel(),
       amountLabel: fmtRM(state.amount || 0) + (state.freq === 'monthly' ? '/month' : ''),
       feeLabel: fee ? fmtRM(fee) : null,
@@ -669,7 +489,7 @@
       freqLabel: state.freq === 'monthly' ? 'Monthly, cancel anytime' : 'One-off'
     };
 
-    if(!state.isGuest){
+    if(loggedIn){
       var newGift = addActiveGift({
         target: targetLabel(),
         giveType: state.giveType,
@@ -693,13 +513,21 @@
         pay: state.pay,
         fee: fee,
         total: total,
-        donorName: state.accountName
+        donorName: accountName
       });
     }
-    goToStep(5);
+    goToStep(3);
   }
 
-  goToStep(state.loggedIn ? 2 : 1);
+  // A sign-in that happens mid-checkout (e.g. from the "sign in for monthly
+  // giving" prompt) should update this page in place rather than reloading
+  // and losing whatever the donor had already picked.
+  window.onLoginSuccess = function(){
+    renderAccountNav();
+    if(state.step === 2) renderCheckoutStep();
+  };
+
+  goToStep(1);
 </script>
 
 </body>
