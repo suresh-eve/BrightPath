@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meet the students — BrightPath</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
 <meta name="description" content="Browse verified, anonymized B40 students across Malaysia waiting for a sponsor — see their state, course, and funding gap before you give.">
 <link rel="canonical" href="https://brightpath-sureshdhynnas-projects.vercel.app/students.html">
 <meta property="og:type" content="website">
@@ -55,13 +56,12 @@
 <header>
   <nav class="wrap">
     <a href="index.html" class="logo">
-      <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+      <span class="logo-mark"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
       <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </a>
     <div class="nav-links">
       <a href="about.html">About</a>
       <a href="students.html" class="active">Our students</a>
-      <a href="index.html#how">How it works</a>
       <a href="index.html#give">Ways to give</a>
       <a href="index.html#trust">Transparency</a>
     </div>
@@ -74,7 +74,7 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Start giving</a>
+      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
@@ -86,7 +86,7 @@
   <div class="wrap page-head">
     <span class="eyebrow">The public pool</span>
     <h1 style="font-size:32px;margin:16px 0 12px;">Every one of these students has already been verified.</h1>
-    <p style="color:var(--ink-soft);font-size:15.5px;max-width:640px;">Citizenship, household income, grades and a place at a Malaysian institution are all checked before a profile appears here. Names are masked to protect each student — sponsoring unlocks their full, verified details.</p>
+    <p style="color:var(--ink-soft);font-size:15.5px;max-width:640px;">Citizenship, household income, grades and a place at a Malaysian institution are all checked before a profile appears here. Every student is identified by a code, never a name — sponsors receive progress updates without ever seeing who a student is.</p>
     <div class="trust-row">
       <span><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Verified by BrightPath coordinators</span>
       <span><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 17 7.5 20.5 12 22C16.5 20.5 20 17 20 12V6L12 2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></i>PDPA-safe, masked identities</span>
@@ -101,7 +101,6 @@
       <select id="filter-sort">
         <option value="urgent">Most in need of funding</option>
         <option value="funded">Closest to fully funded</option>
-        <option value="interest">Most people considering</option>
       </select>
       <span class="filter-count" id="filter-count"></span>
     </div>
@@ -115,7 +114,7 @@
   <div class="wrap footer-grid">
     <div>
       <div class="logo" style="margin-bottom:10px;">
-        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
         <span class="logo-text"><span class="logo-name" style="font-size:16px;">BrightPath</span><span class="logo-sub">Bursary</span></span>
       </div>
       <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM.</p>
@@ -162,22 +161,17 @@
     return '' +
       '<div class="student-card">' +
         '<div class="student-photo" style="background:linear-gradient(135deg,' + g[0] + ',' + g[1] + ');">' +
-          '<div class="avatar-initials" style="width:44px;height:44px;font-size:16px;">' + s.name.charAt(0) + '</div>' +
-          (s.interviewDone ? '<span class="badge badge-verified student-badge-top">Verified</span>' : '<span class="badge badge-locked student-badge-top">Interview pending</span>') +
+          '<div class="avatar-initials" style="width:44px;height:44px;font-size:16px;">' + avatarIconHtml(20) + '</div>' +
+          '<span class="badge badge-verified student-badge-top">Verified</span>' +
         '</div>' +
         '<div class="student-body">' +
-          '<div class="student-name">' + s.name + ', ' + s.age + '</div>' +
-          '<div class="student-meta">' + s.state + ' &middot; ' + s.institution + ' in ' + s.course + '</div>' +
-          (s.mentor || s.corporateSponsor ? '<div class="stamp-row" style="margin-bottom:2px;">' +
-            (s.mentor ? '<span class="badge badge-mentor">Adopted by a mentor</span>' : '') +
-            (s.corporateSponsor ? '<span class="badge badge-corporate">' + s.corporateSponsor.name + '</span>' : '') +
-          '</div>' : '') +
+          '<div class="student-name">' + s.code + '</div>' +
+          '<div class="student-meta">' + s.state + ' &middot; ' + s.level + ' &middot; ' + s.course + '</div>' +
           '<p class="student-quote">&ldquo;' + s.story + '&rdquo;</p>' +
           '<div>' +
             '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +
             '<div class="progress-label"><span>' + pct + '% funded</span><span>' + fmtRM(s.raised) + ' of ' + fmtRM(s.goal) + '</span></div>' +
           '</div>' +
-          '<div class="student-interest">' + s.interested + ' people considering sponsoring</div>' +
           '<a href="student-profile.html?id=' + s.id + (forGiftId ? '&forGift=' + encodeURIComponent(forGiftId) : '') + '" class="btn btn-ghost btn-sm btn-block">' + (hasPendingMatch ? 'View profile &amp; choose' : 'View profile &amp; sponsor') + '</a>' +
         '</div>' +
       '</div>';
@@ -196,8 +190,6 @@
       list.sort(function(a,b){ return pctFunded(a) - pctFunded(b); });
     } else if(sortVal === 'funded'){
       list.sort(function(a,b){ return pctFunded(b) - pctFunded(a); });
-    } else if(sortVal === 'interest'){
-      list.sort(function(a,b){ return b.interested - a.interested; });
     }
 
     grid.innerHTML = list.map(cardHtml).join('');

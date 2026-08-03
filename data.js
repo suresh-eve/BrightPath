@@ -1,7 +1,11 @@
-// BrightPath mock student pool — 20 profiles.
-// Public tier fields (~80%, shown always) vs locked tier (~20%, unlocked post-sponsorship + guardian consent).
-// Names are masked (first name + initial) per BrightPath's public-pool disclosure tier. No photos — avatar
-// blocks use initials + colour only, never AI-generated or real imagery, at this tier.
+// BrightPath student pool — 7 real, anonymised applicant cases drawn from actual
+// BrightPath interviews. Students are identified only by a neutral code (matching
+// HalaTuju's own S-XXXXX convention) — never a real or fictional name, no age, no
+// photos. Avatar blocks use a generic icon + colour only, never AI-generated or real
+// imagery. Sponsors never receive the student's real identity, regardless of how
+// long they've been giving — only BrightPath-approved, separately screened mentors do.
+
+var MONTHLY_RATE = 200; // BrightPath's standard per-student monthly giving rate
 
 const GRADIENTS = [
   ['#F4DCC5', '#1F5C4E'],
@@ -11,50 +15,54 @@ const GRADIENTS = [
   ['#DCEAE3', '#B8532F']
 ];
 
+// Each student's goal is a variable total — not a fixed amount for everyone —
+// expressed to donors as a consistent RM200/month rate for however many months
+// (`months`) that student's verified gap actually spans. goal = months * 200,
+// matching how HalaTuju itself prices real students (RM1,000 over 5 months,
+// RM2,000 over 10, etc. — always RM200/month). `covers` lists what the gift
+// actually pays for — no invented dollar breakdown per category.
 const STUDENTS = [
-  { id:1, name:'Ain A.', age:19, state:'Selangor', institution:'Diploma', course:'Nursing', academic:"5 A's in SPM", family:'Eldest of four, mother works as a school cafeteria cook.', story:"I want to be the first nurse in my kampung — someone people trust when they're scared.", goal:3000, raised:1850, interested:6, interviewDone:true, fund:{fees:1200,food:1300,travel:500}, mentor:{name:'Priya R.'} },
-  { id:2, name:'Danial H.', age:18, state:'Sabah', institution:'Foundation', course:'Engineering', academic:"PNGK 3.6 (Matrikulasi)", family:'Father is a fisherman; family relies on seasonal catch income.', story:'My dream is to build bridges back to my hometown, literally and for the next kid like me.', goal:3000, raised:1020, interested:4, interviewDone:true, fund:{fees:1000,food:1200,travel:800} },
-  { id:3, name:'Siti N.', age:19, state:'Kelantan', institution:'Diploma', course:'Accountancy', academic:"6 A's in SPM", family:'Single-parent household; mother sews for a living.', story:'I want to help my family manage money the right way, and then help others do the same.', goal:3000, raised:2430, interested:9, interviewDone:true, fund:{fees:1300,food:1200,travel:500}, corporateSponsor:{name:'Horizon Digital Sdn Bhd'} },
-  { id:4, name:'Mei L.', age:19, state:'Pulau Pinang', institution:'Diploma', course:'Computer Science', academic:"PNGK 3.75 (Politeknik intake)", family:'Father is a hawker stall assistant; three younger siblings at home.', story:'I taught myself to code on a shared phone. Imagine what I can do with an actual laptop.', goal:3000, raised:640, interested:3, interviewDone:false, fund:{fees:1400,food:1100,travel:500} },
-  { id:5, name:'Farah I.', age:20, state:'Kedah', institution:'Degree', course:'Education (TESL)', academic:"7 A's in SPM", family:'Rice-farming family; harvest income is unpredictable year to year.', story:'My own teachers changed my life. I want to be that for a village school someday.', goal:3000, raised:2980, interested:14, interviewDone:true, fund:{fees:1500,food:1100,travel:400}, mentor:{name:'Wei Ling C.'} },
-  { id:6, name:'Haziq R.', age:18, state:'Perak', institution:'Certificate', course:'Electrical Wiring (TVET)', academic:"4 A's, 3 B's in SPM", family:'Raised by grandparents; parents work out of state.', story:'I fix everything at home already. I just want the paper that says I can do it professionally.', goal:3000, raised:410, interested:2, interviewDone:false, fund:{fees:900,food:1300,travel:800} },
-  { id:7, name:'Nurul A.', age:19, state:'Johor', institution:'Diploma', course:'Early Childhood Education', academic:"PNGK 3.5 (Politeknik intake)", family:'Mother is a part-time cleaner; father passed away in 2022.', story:'Every child deserves someone who notices when they are struggling. I want to be that person.', goal:3000, raised:1770, interested:5, interviewDone:true, fund:{fees:1100,food:1300,travel:600} },
-  { id:8, name:'Amirul F.', age:19, state:'Sarawak', institution:'Foundation', course:'Pharmacy', academic:"PNGK 3.8 (Matrikulasi)", family:'Longhouse community; nearest hospital is two hours away.', story:'There is no pharmacist in my district. I want to be the reason someone gets their medicine on time.', goal:3000, raised:2210, interested:8, interviewDone:true, fund:{fees:1300,food:1000,travel:700}, mentor:{name:'Hafiz M.'} },
-  { id:9, name:'Ling W.', age:18, state:'Melaka', institution:'Diploma', course:'Graphic Design', academic:"5 A's in SPM", family:'Family runs a small stall; income barely covers rent.', story:'I design posters for my mum’s stall for free. I want to learn to do this properly, for others too.', goal:3000, raised:980, interested:3, interviewDone:true, fund:{fees:1200,food:1300,travel:500} },
-  { id:10, name:'Devi K.', age:20, state:'Negeri Sembilan', institution:'Degree', course:'Social Work', academic:"PNGK 3.65 (STPM)", family:'Youngest of five; two older siblings already working to support the family.', story:'Someone helped my family once. I want to be that someone for other families now.', goal:3000, raised:1560, interested:5, interviewDone:true, fund:{fees:1450,food:1150,travel:400}, corporateSponsor:{name:'Horizon Digital Sdn Bhd'} },
-  { id:11, name:'Iman Z.', age:19, state:'Terengganu', institution:'Diploma', course:'Marine Science', academic:"6 A's in SPM", family:'Father is a boat mechanic; family income tied to fishing season.', story:'I grew up on the water. I want to help protect it for the next generation of fishermen.', goal:3000, raised:730, interested:4, interviewDone:false, fund:{fees:1200,food:1200,travel:600} },
-  { id:12, name:'Zul H.', age:18, state:'Pahang', institution:'Certificate', course:'Automotive Technology', academic:"3 A's, 4 B's in SPM", family:'Father works at a palm oil estate; mother unwell, unable to work.', story:'I already help fix the neighbours’ motorcycles for free. I want a real workshop of my own one day.', goal:3000, raised:300, interested:2, interviewDone:false, fund:{fees:900,food:1400,travel:700} },
-  { id:13, name:'Aisyah M.', age:19, state:'Selangor', institution:'Diploma', course:'Physiotherapy', academic:"PNGK 3.7 (Politeknik intake)", family:'Mother is a single parent working two cleaning jobs.', story:'My grandmother’s stroke recovery was slow because we couldn’t afford therapy. I want to change that for others.', goal:3000, raised:2050, interested:7, interviewDone:true, fund:{fees:1300,food:1200,travel:500}, mentor:{name:'Suresh V.'} },
-  { id:14, name:'Faris T.', age:19, state:'Kuala Lumpur', institution:'Foundation', course:'Architecture', academic:"PNGK 3.55 (Matrikulasi)", family:'Grew up in low-cost flats; father is a security guard.', story:'I want to design better low-cost housing — the kind that still feels like a home.', goal:3000, raised:1180, interested:4, interviewDone:true, fund:{fees:1350,food:1150,travel:500} },
-  { id:15, name:'Wong K.', age:18, state:'Perlis', institution:'Diploma', course:'Agriculture Technology', academic:"5 A's in SPM", family:'Family owns a small padi plot; yields have dropped in recent years.', story:'I want to bring better farming methods home so my family’s land can feed more than just us.', goal:3000, raised:540, interested:2, interviewDone:false, fund:{fees:1100,food:1200,travel:700} },
-  { id:16, name:'Adam S.', age:20, state:'Sabah', institution:'Degree', course:'Business Management', academic:"PNGK 3.5 (STPM)", family:'Orphaned at 14; raised by an aunt with four other children.', story:'I want to start a business that hires people like me — people who almost didn’t get a chance.', goal:3000, raised:2670, interested:11, interviewDone:true, fund:{fees:1450,food:1050,travel:500}, mentor:{name:'Nadia K.'} },
-  { id:17, name:'Nabil Q.', age:19, state:'Kelantan', institution:'Certificate', course:'Culinary Arts', academic:"4 A's, 5 B's in SPM", family:'Mother sells kuih at the pasar pagi; sole income for the household.', story:'I already help my mother cook before school. I want to turn that into a real career.', goal:3000, raised:890, interested:3, interviewDone:true, fund:{fees:1000,food:1400,travel:600} },
-  { id:18, name:'Balqis Y.', age:19, state:'Labuan', institution:'Diploma', course:'Mass Communication', academic:"6 A's in SPM", family:'Father works offshore; long stretches without him at home.', story:'I want to tell the stories of island communities that usually get left out of the news.', goal:3000, raised:1340, interested:5, interviewDone:false, fund:{fees:1200,food:1000,travel:800} },
-  { id:19, name:'Hakim J.', age:18, state:'Johor', institution:'Foundation', course:'Medical Laboratory Technology', academic:"PNGK 3.65 (Matrikulasi)", family:'Both parents work in a factory on rotating shifts.', story:'I want to be the person behind the scenes who catches what a diagnosis might miss.', goal:3000, raised:1970, interested:6, interviewDone:true, fund:{fees:1300,food:1200,travel:500}, corporateSponsor:{name:'Meridian Capital Group'} },
-  { id:20, name:'Suriani P.', age:20, state:'Sarawak', institution:'Degree', course:'Law (Foundation year)', academic:"PNGK 3.8 (STPM)", family:'Grew up in a rural longhouse; first in her family to pursue tertiary education.', story:'I’ve seen how confusing the law can be for people who can’t afford a lawyer. I want to be the free version of that for my community.', goal:3000, raised:2890, interested:13, interviewDone:true, fund:{fees:1500,food:1000,travel:500} }
+  { id:1, code:'S-4980DA', state:'Selangor', school:'Kolej Tingkatan Enam Sultan Abdul Aziz', level:'STPM (Form 6)', course:'Social Science', academic:"6 A's in SPM, CGPA 3.75 in Form 6", family:"Mother is a cleaner, father a security guard recently back at work after a year off following brain tumour surgery — both earn around RM1,700/month.", ambition:'A business-related degree at a public university (IPTA).', story:"I've watched my parents work through so much just to keep us going. I want to finish my studies and build them a more stable future.", months:5, goal:1000, raised:1000, covers:['living','transport','books','device','tuition','other'] },
+  { id:2, code:'S-5DD7A4', state:'Negeri Sembilan', school:'Kolej Tingkatan Enam Tuanku Muhriz', level:'STPM (Form 6)', course:'Social Science', academic:"5 A's in SPM, strong first-semester Form 6 results", family:'Father is the sole provider — a private-company job plus part-time food delivery — supporting a family of five on around RM3,000/month.', ambition:'A teaching degree at UPSI, to become a government school teacher.', story:"I'll be the first in my family to go to university. I want to become the teacher my younger siblings can look up to.", months:5, goal:1000, raised:0, covers:['living','books','tuition'] },
+  { id:3, code:'S-A028AE', state:'Johor', school:'Kolej Matrikulasi Johor', level:'Matriculation', course:'Science', academic:"SPM merit 89.0 — 10 A's including two A+, Bronze medalist, 2025 Maths Olympiad", family:'Helps care for an elderly grandmother and a mother with mobility difficulties; parents earn around RM3,300/month as a carpenter and nursery worker.', ambition:'To become a teacher or lecturer.', story:"Between caring for my grandmother and my studies, I learned discipline early. I want to become the kind of teacher who never gives up on a struggling student.", months:10, goal:2000, raised:0, covers:['living','transport','books','device'] },
+  { id:4, code:'S-518D29', state:'Kedah', school:'Kolej Matrikulasi Kejuruteraan Kedah', level:'Matriculation', course:'Engineering', academic:"SPM merit 85.5 — 8 A's across sciences, mathematics, languages and humanities", family:"Youngest of four sons; family relies on his father's army pension of around RM2,146/month, with two brothers also in tertiary studies.", ambition:'A degree in mechanical engineering.', story:"I already skip meals to save for the bus home. I just want to focus on becoming an engineer without that constant worry.", months:10, goal:2000, raised:0, covers:['living'] },
+  { id:5, code:'S-E47F17', state:'Perak', school:'Politeknik Tuanku Sultanah Bahiyah', level:'Diploma', course:'Accountancy', academic:'5 A\'s in SPM, successfully appealed a grade to secure a 6th A', family:'Father is the sole provider as a lorry driver earning around RM2,600/month; a car loan puts heavy strain on the household budget.', ambition:'To become an accountant, then a lecturer in her field.', story:"I'm the first in my family to continue studying after school. I want to build a career that lets me support them back.", months:10, goal:2000, raised:0, covers:['living','transport','accommodation','books','device','other'] },
+  { id:6, code:'S-BEB4E0', state:'Selangor', school:'Kolej Tingkatan Enam Sri Istana', level:'STPM (Form 6)', course:'Social Science', academic:"7 A's in SPM", family:"Father's base salary of RM3,500 confirms the family's B40 status; a car loan and a younger sibling's schooling costs stretch the household budget.", ambition:'To become a criminologist or forensic psychologist.', story:"My results dipped when things got hard at home, but my goal hasn't changed — I want to work in criminal psychology and help keep people safe.", months:5, goal:1000, raised:1000, covers:['living'] },
+  { id:7, code:'S-673D4B', state:'Negeri Sembilan', school:'Kolej Tingkatan Enam Tuanku Muhriz', level:'STPM (Form 6)', course:'Arts', academic:"5 A's in SPM, 2nd place nationally in a language & culture competition", family:"Father is a self-employed repair technician after a 2018 accident, earning around RM2,000–2,100/month; monthly rent of RM1,200 strains the household.", ambition:'A degree in Finance or Economics, to become a financial analyst.', story:"I don't own a laptop yet, but I've already placed second nationally in a language competition. Give me the chance to study finance, and I'll make it count.", months:5, goal:1000, raised:1000, covers:['living','transport','books','device'] }
 ];
 
+// Alias — concepts.html (internal design-concept comparison tool) reads this
+// name; kept as a plain alias so STUDENTS stays the single source of truth.
+const REAL_STUDENTS = STUDENTS;
+function pctFundedReal(s){ return pctFunded(s); }
+
 function fmtRM(n){ return 'RM' + Math.round(n).toLocaleString('en-MY'); }
+// Generic person silhouette — stands in for a photo/initial on anonymized
+// profiles, so nothing about a student's identity is implied by their avatar.
+function avatarIconHtml(size){
+  size = size || 22;
+  return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+}
 function pctFunded(s){ return Math.min(100, Math.round((s.raised / s.goal) * 100)); }
 function gradientFor(id){ return GRADIENTS[(id - 1) % GRADIENTS.length]; }
 function getStudentById(id){ return STUDENTS.find(function(s){ return s.id === Number(id); }); }
 
 // Mock coordinator-moderated updates — stands in for the "termly update" the
 // student verification checklist already promises sponsors (see student-profile.html).
+// Written without the student's name, since sponsors never receive that identity.
 function getUpdatesForStudent(id){
   var s = getStudentById(id);
   if(!s) return [];
-  var first = s.name.split(' ')[0];
   return [
     {
       date: '2026-06-18T00:00:00Z',
       title: 'Coordinator note — semester progress',
-      body: first + ' completed this semester of ' + s.course + ' and passed every core module. Coordinator note: "' + first + ' has settled in well and is active in class discussions."'
+      body: 'Your student completed this semester of ' + s.course + ' and passed every core module. Coordinator note: "Settling in well and active in class discussions."'
     },
     {
       date: '2026-03-02T00:00:00Z',
-      title: 'A note from ' + first,
-      body: '"Thank you for believing in me. ' + s.story + '" — ' + first
+      title: 'A note from your student',
+      body: '"Thank you for believing in me. ' + s.story + '"'
     }
   ];
 }
@@ -63,11 +71,11 @@ var GENERAL_FUND_UPDATES = [
   {
     date: '2026-06-01T00:00:00Z',
     title: 'June general fund update',
-    body: '18 students in the pool crossed 50% funded this month, and 3 completed their programs. General fund gifts like yours closed the remaining gap for two students who had been waiting the longest.'
+    body: '2 students in the pool crossed the finish line this month. General fund gifts like yours closed the remaining gap for a student who had been waiting the longest.'
   },
   {
     date: '2026-05-01T00:00:00Z',
     title: 'May general fund update',
-    body: 'The general fund fully closed a bursary gap for a Kedah-based Education (TESL) student this month — she starts her teaching placement in July.'
+    body: 'The general fund fully closed a bursary gap for a Negeri Sembilan-based STPM student this month — she\'s continuing straight into her teaching-degree pathway.'
   }
 ];

@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Corporate partnerships — BrightPath</title>
-<meta name="description" content="Adopt 5–10 BrightPath students as a one-off Impact Batch — fully sponsor their bursary and get your company recognized on their profiles.">
+<link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+<meta name="description" content="Support a cohort of BrightPath students as a corporate partner — leave your details and our team will reach out to shape a partnership that fits.">
 <link rel="canonical" href="https://brightpath-sureshdhynnas-projects.vercel.app/corporate.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BrightPath">
 <meta property="og:title" content="Corporate partnerships — BrightPath">
-<meta property="og:description" content="Adopt 5–10 students a year as an Impact Batch and get your company recognized on their profiles.">
+<meta property="og:description" content="Support a cohort of BrightPath students and get your company recognized on their profiles.">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,28 +29,16 @@
   .corp-photo-row img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
   .gallery-caption{font-size:13px;font-style:italic;color:var(--ink-soft);margin-top:16px;text-align:center;max-width:380px;margin-inline:auto;}
 
-  .batch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin:32px 0 40px;}
-  @media (max-width:760px){ .batch-grid{grid-template-columns:1fr;} }
-  .batch-card{background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:28px;}
-  .batch-card.featured{border-color:var(--teal);position:relative;}
-  .batch-card .tag{position:absolute;top:-13px;left:24px;background:var(--teal);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;padding:5px 12px;border-radius:100px;}
-  .batch-card h3{font-size:19px;margin-bottom:4px;}
-  .batch-card .price{font-family:'Fraunces',serif;font-size:30px;font-weight:600;margin:10px 0 4px;}
-  .batch-card .price-note{font-size:12.5px;color:var(--ink-soft);margin-bottom:16px;}
-  .batch-card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;}
-  .batch-card li{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);}
-  .batch-card li .ic{flex-shrink:0;width:18px;height:18px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;margin-top:1px;}
-
-  .form-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:32px;max-width:640px;}
+  .form-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:32px;max-width:640px;margin-top:32px;}
   .form-card h2{font-size:19px;margin-bottom:6px;}
   .form-card .sub{font-size:13.5px;color:var(--ink-soft);margin-bottom:24px;}
   .field{margin-bottom:16px;}
   .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
-  .field input,.field select,.field textarea{
+  .field input,.field textarea{
     width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1px solid var(--line);
     font-family:'Inter',sans-serif;font-size:14.5px;background:var(--cream);
   }
-  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   @media (max-width:560px){ .field-row{grid-template-columns:1fr;} }
 
@@ -64,13 +53,12 @@
 <header>
   <nav class="wrap">
     <a href="index.html" class="logo">
-      <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+      <span class="logo-mark"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
       <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </a>
     <div class="nav-links">
       <a href="about.html">About</a>
       <a href="students.html">Our students</a>
-      <a href="index.html#how">How it works</a>
       <a href="index.html#give">Ways to give</a>
       <a href="index.html#trust">Transparency</a>
     </div>
@@ -83,7 +71,7 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Start giving</a>
+      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
@@ -96,8 +84,8 @@
     <div class="page-head-grid">
       <div>
         <span class="eyebrow">For companies</span>
-        <h1 style="font-size:30px;margin:14px 0 0;">Adopt a batch of students, together</h1>
-        <p>A one-off Impact Batch fully sponsors a group of students at roughly RM1,500 per student per year — one year with a Starter Batch, or their full 2-year journey with a Growth Batch. No recurring commitment. Your company is recognized on every student's profile you help fund.</p>
+        <h1 style="font-size:30px;margin:14px 0 0;">Could your company support a cohort of students?</h1>
+        <p>Your organisation can support a group of BrightPath students — covering fees, food, lodging and travel — as a one-off partnership or something ongoing. Partnerships can begin from around RM7,500, depending on the number of students and length of support. Your company is recognized on every student's profile you help fund.</p>
       </div>
       <div>
         <div class="corp-photo-row">
@@ -111,55 +99,18 @@
     </div>
   </div>
 
-  <div class="batch-grid">
-    <div class="batch-card">
-      <h3>Starter Batch</h3>
-      <div class="price">RM7,500</div>
-      <div class="price-note">Fully sponsors 5 students · 1 year each</div>
-      <ul>
-        <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Covers RM1,500 per student — fees, food, lodging and travel</li>
-        <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Your company name stamped on each sponsored profile</li>
-        <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A single tax-deductible receipt for your finance team</li>
-      </ul>
-    </div>
-    <div class="batch-card featured">
-      <span class="tag">Most impact</span>
-      <h3>Growth Batch</h3>
-      <div class="price">RM30,000</div>
-      <div class="price-note">Fully sponsors 10 students · 2 years each</div>
-      <ul>
-        <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Same RM1,500-per-student, per-year coverage — for their full 2-year journey</li>
-        <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Termly progress updates for your whole batch, in one digest</li>
-        <li><span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Option to feature your batch in BrightPath's annual impact report</li>
-      </ul>
-    </div>
-  </div>
-
   <div id="form-view">
     <div class="form-card">
-      <h2>Register your interest</h2>
-      <p class="sub">Tell us a little about your company — a BrightPath partnerships coordinator will follow up within 3 business days to set up your Impact Batch.</p>
-      <div class="field"><label>Company name</label><input type="text" id="corp-name" placeholder="Acme Sdn Bhd"></div>
+      <h2>Request a conversation</h2>
+      <p class="sub">Leave your details and a BrightPath partnerships coordinator will reach out within 3 business days to shape something that fits your organisation.</p>
+      <div class="field"><label>Company / organisation name</label><input type="text" id="corp-name" placeholder="Acme Sdn Bhd"></div>
       <div class="field-row">
         <div class="field"><label>Contact person</label><input type="text" id="corp-contact" placeholder="Your name"></div>
         <div class="field"><label>Work email</label><input type="email" id="corp-email" placeholder="you@company.com"></div>
       </div>
-      <div class="field-row">
-        <div class="field">
-          <label>Students you'd like to adopt per year</label>
-          <select id="corp-tier">
-            <option value="5">5 students (RM7,500, 1 year)</option>
-            <option value="10">10 students (RM30,000, 2 years)</option>
-            <option value="custom">Custom amount</option>
-          </select>
-        </div>
-        <div class="field" id="corp-custom-field" style="display:none;">
-          <label>How many students?</label>
-          <input type="number" id="corp-custom-count" min="1" placeholder="e.g. 20">
-        </div>
-      </div>
-      <div class="field"><label>Anything else we should know? (optional)</label><textarea id="corp-message" rows="3" placeholder="Preferred fields of study, timeline, CSR focus areas…"></textarea></div>
-      <button class="btn btn-primary btn-block" onclick="submitCorporateInterest()">Submit interest →</button>
+      <div class="field"><label>Phone number</label><input type="tel" id="corp-phone" placeholder="+60"></div>
+      <div class="field"><label>Anything else we should know? (optional)</label><textarea id="corp-message" rows="3" placeholder="Roughly how many students, preferred fields of study, timeline…"></textarea></div>
+      <button class="btn btn-primary btn-block" onclick="submitCorporateInterest()">Request a conversation →</button>
       <p id="corp-error" style="font-size:12.5px;color:var(--coral-dark);margin-top:10px;display:none;">Please fill in your company name and work email.</p>
     </div>
   </div>
@@ -168,7 +119,7 @@
     <div class="confirm-card">
       <div class="check"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <h2>Thanks — we've got your details</h2>
-      <p>A BrightPath partnerships coordinator will reach out within 3 business days to set up your Impact Batch and get your company recognized on your students' profiles.</p>
+      <p>A BrightPath partnerships coordinator will reach out within 3 business days to discuss a partnership that fits your organisation.</p>
     </div>
   </div>
 </main>
@@ -177,7 +128,7 @@
   <div class="wrap footer-grid">
     <div>
       <div class="logo" style="margin-bottom:10px;">
-        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
         <span class="logo-text"><span class="logo-name" style="font-size:16px;">BrightPath</span><span class="logo-sub">Bursary</span></span>
       </div>
       <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM.</p>
@@ -195,10 +146,6 @@
 </footer>
 
 <script>
-  document.getElementById('corp-tier').addEventListener('change', function(){
-    document.getElementById('corp-custom-field').style.display = this.value === 'custom' ? 'block' : 'none';
-  });
-
   function submitCorporateInterest(){
     var name = document.getElementById('corp-name').value.trim();
     var email = document.getElementById('corp-email').value.trim();
@@ -209,14 +156,11 @@
     }
     errorEl.style.display = 'none';
 
-    var tier = document.getElementById('corp-tier').value;
-    var count = tier === 'custom' ? (Number(document.getElementById('corp-custom-count').value) || 0) : Number(tier);
-
     var lead = {
       company: name,
       contact: document.getElementById('corp-contact').value.trim(),
       email: email,
-      studentsPerYear: count,
+      phone: document.getElementById('corp-phone').value.trim(),
       message: document.getElementById('corp-message').value.trim(),
       submittedAt: new Date().toISOString()
     };

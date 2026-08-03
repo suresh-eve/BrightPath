@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My account — BrightPath</title>
-<meta name="description" content="Manage your BrightPath giving, payment method, and receipts in one place.">
+<link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+<meta name="description" content="Manage your BrightPath giving, payment method, and pledge confirmations in one place.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +17,8 @@
   .signed-out-card h2{font-size:19px;margin-bottom:8px;}
   .signed-out-card p{font-size:14px;color:var(--ink-soft);margin-bottom:20px;}
 
-  .tab-bar{display:flex;gap:8px;margin:28px 0 32px;border-bottom:1px solid var(--line);}
+  .tab-bar{display:flex;gap:8px;margin:28px 0 32px;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tab-btn{flex-shrink:0;white-space:nowrap;}
   .tab-btn{
     font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--ink-soft);
     background:none;border:none;padding:10px 4px;margin-right:24px;cursor:pointer;
@@ -83,6 +85,28 @@
   table.receipts a{color:var(--teal);font-weight:600;}
 
   .signout-row{max-width:640px;margin:8px 0 40px;}
+
+  .impact-card{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;margin-top:20px;}
+  .impact-card .eyebrow{background:rgba(255,255,255,0.16);color:#fff;}
+  .impact-card h2{color:#fff;font-size:19px;margin-top:12px;text-wrap:balance;}
+  .impact-path{display:flex;align-items:center;margin:24px 0 4px;overflow-x:auto;padding-bottom:6px;}
+  .impact-step{
+    width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.16);color:rgba(255,255,255,0.55);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .impact-step.done{background:#fff;color:var(--teal-dark);}
+  .impact-step.current{background:var(--coral);color:#fff;box-shadow:0 0 0 4px rgba(226,112,74,0.32);}
+  .impact-connector{height:2px;width:16px;background:rgba(255,255,255,0.2);flex-shrink:0;}
+  .impact-connector.done{background:#fff;}
+  .impact-year-badge{
+    flex-shrink:0;margin-left:8px;font-size:11px;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;
+    background:rgba(255,255,255,0.16);padding:5px 10px;border-radius:100px;white-space:nowrap;
+  }
+  .impact-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.18);}
+  .impact-num{font-family:'Fraunces',serif;font-size:25px;font-weight:600;}
+  .impact-lbl{font-size:12px;color:rgba(255,255,255,0.75);margin-top:2px;}
+  .impact-milestone{margin-top:18px;background:rgba(255,255,255,0.14);border-radius:var(--radius-sm);padding:12px 16px;font-size:13.5px;}
+  @media (max-width:480px){ .impact-stats{grid-template-columns:1fr;gap:12px;} }
 </style>
 </head>
 <body>
@@ -90,13 +114,12 @@
 <header>
   <nav class="wrap">
     <a href="index.html" class="logo">
-      <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+      <span class="logo-mark"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
       <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </a>
     <div class="nav-links">
       <a href="about.html">About</a>
       <a href="students.html">Our students</a>
-      <a href="index.html#how">How it works</a>
       <a href="index.html#give">Ways to give</a>
       <a href="index.html#trust">Transparency</a>
     </div>
@@ -109,7 +132,7 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Start giving</a>
+      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
@@ -123,7 +146,7 @@
   <div id="signed-out-view" style="display:none;">
     <div class="signed-out-card">
       <h2>You're not signed in</h2>
-      <p>Sign in to view your profile, manage recurring giving, and download receipts.</p>
+      <p>Sign in to view your profile, manage recurring giving, and download pledge confirmations.</p>
       <button class="btn btn-primary btn-block" onclick="openLoginModal()">Sign in →</button>
     </div>
   </div>
@@ -132,16 +155,28 @@
     <div class="page-head">
       <span class="eyebrow">My account</span>
       <h1 style="font-size:28px;margin:14px 0 8px;">Welcome back, <span id="dash-name">Friend</span></h1>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Manage your profile, giving, and receipts in one place.</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Manage your profile, giving, and pledge confirmations in one place.</p>
     </div>
 
     <div class="panel-card" id="matched-banner" style="display:none;background:var(--teal-light);"></div>
+
+    <div class="panel-card impact-card" id="impact-card" style="display:none;">
+      <span class="eyebrow">Your kindness journey</span>
+      <h2 id="impact-headline">You've just started your journey with us.</h2>
+      <div class="impact-path" id="impact-path"></div>
+      <div class="impact-stats">
+        <div class="impact-stat"><div class="impact-num" id="impact-total">RM0</div><div class="impact-lbl">total given</div></div>
+        <div class="impact-stat"><div class="impact-num" id="impact-students">0</div><div class="impact-lbl">students supported</div></div>
+        <div class="impact-stat"><div class="impact-num" id="impact-months">0</div><div class="impact-lbl">months of support given</div></div>
+      </div>
+      <p class="impact-milestone" id="impact-milestone" style="display:none;"></p>
+    </div>
 
     <div class="tab-bar">
       <button class="tab-btn active" data-tab="profile" onclick="showTab('profile')">Profile</button>
       <button class="tab-btn" data-tab="giving" onclick="showTab('giving')">Giving &amp; payment</button>
       <button class="tab-btn" data-tab="updates" onclick="showTab('updates')">Updates</button>
-      <button class="tab-btn" data-tab="receipts" onclick="showTab('receipts')">Receipts</button>
+      <button class="tab-btn" data-tab="receipts" onclick="showTab('receipts')">Confirmations</button>
     </div>
 
     <div class="tab-panel current" id="tab-profile">
@@ -185,7 +220,7 @@
   <div class="wrap footer-grid">
     <div>
       <div class="logo" style="margin-bottom:10px;">
-        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
         <span class="logo-text"><span class="logo-name" style="font-size:16px;">BrightPath</span><span class="logo-sub">Bursary</span></span>
       </div>
       <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM.</p>
@@ -279,7 +314,7 @@
       if(gifts.length === 0){
         el.innerHTML = '<div class="panel-card empty-panel">' +
           '<p>You haven\'t started a gift yet.</p>' +
-          '<a href="join.html" class="btn btn-primary">Start giving →</a>' +
+          '<a href="join.html" class="btn btn-primary">Pledge your support →</a>' +
         '</div>';
         return;
       }
@@ -329,6 +364,97 @@
       }
     }
 
+    // The "kindness journey" impact card — a Strava-style running total of a
+    // donor's giving, built entirely from their own transaction history so it
+    // stays honest (no fabricated numbers), it just makes the real numbers
+    // visible and satisfying rather than burying them in a receipts table.
+    function computeImpactStats(){
+      var gifts = getActiveGifts();
+      var transactions = getTransactions();
+
+      var totalGiven = transactions.reduce(function(sum, tx){ return sum + (tx.total || tx.amount || 0); }, 0);
+
+      var studentIds = {};
+      gifts.forEach(function(g){ if(g.studentId) studentIds[g.studentId] = true; });
+
+      var fullyFundedCount = 0;
+      gifts.forEach(function(g){
+        if(g.studentId){
+          var s = getStudentById(g.studentId);
+          if(s && pctFunded(s) >= 100) fullyFundedCount++;
+        }
+      });
+
+      // A one-shot "pledge in full" transaction covers several months of support at
+      // once (monthsCovered), rather than arriving as separate monthly transactions —
+      // so months of support = monthly-cadence transactions (1 each, the old model)
+      // plus whatever monthsCovered a one-shot pledge carries (the new model).
+      var totalMonths = transactions.reduce(function(sum, tx){
+        if(tx.monthsCovered) return sum + tx.monthsCovered;
+        return sum + (tx.freq === 'monthly' ? 1 : 0);
+      }, 0);
+
+      return {
+        totalGiven: totalGiven,
+        studentsSupported: Object.keys(studentIds).length,
+        totalMonths: totalMonths,
+        fullyFundedCount: fullyFundedCount,
+        giftCount: gifts.length
+      };
+    }
+
+    function renderImpactPath(months){
+      var el = document.getElementById('impact-path');
+      var shown = Math.min(months, 12);
+      var upcoming = months >= 12 ? 0 : Math.min(3, 12 - shown);
+      var doneIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var currentIcon = avatarIconHtml(13);
+      var html = '';
+      var total = Math.max(shown + upcoming, 1);
+      for(var i = 1; i <= total; i++){
+        if(i > 1) html += '<div class="impact-connector' + (i - 1 <= shown ? ' done' : '') + '"></div>';
+        if(i < shown){
+          html += '<div class="impact-step done">' + doneIcon + '</div>';
+        } else if(i === shown){
+          html += '<div class="impact-step current">' + currentIcon + '</div>';
+        } else {
+          html += '<div class="impact-step"></div>';
+        }
+      }
+      if(months > 12) html += '<span class="impact-year-badge">' + Math.floor(months / 12) + '+ year' + (months >= 24 ? 's' : '') + ' strong</span>';
+      el.innerHTML = html;
+    }
+
+    function renderImpactCard(){
+      var card = document.getElementById('impact-card');
+      var stats = computeImpactStats();
+      if(stats.giftCount === 0){ card.style.display = 'none'; return; }
+      card.style.display = 'block';
+
+      var headline;
+      if(stats.totalMonths <= 1){
+        headline = "You've just started your journey with us.";
+      } else if(stats.totalMonths < 12){
+        headline = 'You’ve walked alongside ' + stats.studentsSupported + (stats.studentsSupported === 1 ? ' student' : ' students') + ' for ' + stats.totalMonths + ' months now.';
+      } else {
+        headline = 'You’ve been part of ' + stats.studentsSupported + (stats.studentsSupported === 1 ? ' student’s journey' : ' students’ journeys') + ' for over a year now.';
+      }
+      document.getElementById('impact-headline').textContent = headline;
+
+      renderImpactPath(stats.totalMonths);
+      document.getElementById('impact-total').textContent = fmtRM(stats.totalGiven);
+      document.getElementById('impact-students').textContent = stats.studentsSupported;
+      document.getElementById('impact-months').textContent = stats.totalMonths;
+
+      var milestone = document.getElementById('impact-milestone');
+      if(stats.fullyFundedCount > 0){
+        milestone.style.display = 'block';
+        milestone.textContent = '🎓 You’ve helped fully fund ' + stats.fullyFundedCount + (stats.fullyFundedCount === 1 ? ' student’s' : ' students’') + ' complete bursary. That’s a life changed.';
+      } else {
+        milestone.style.display = 'none';
+      }
+    }
+
     function giftUpdatesHtml(gift, showLabel){
       var label = showLabel ? '<h3 style="font-size:14px;margin:26px 0 10px;">' + gift.target + '</h3>' : '';
       if(isPendingMatch(gift)){
@@ -342,7 +468,7 @@
       if(gift.studentId){
         var s = getStudentById(gift.studentId);
         updates = getUpdatesForStudent(gift.studentId);
-        note = 'Coordinator-reviewed updates on ' + (s ? s.name.split(' ')[0] : 'your student') + "'s progress — shared roughly once a term.";
+        note = 'Coordinator-reviewed updates on ' + (s ? s.code : 'your student') + "'s progress — shared roughly once a term.";
       } else {
         updates = GENERAL_FUND_UPDATES;
         note = "You're funding the general pool, so updates here cover the whole cohort rather than one student.";
@@ -378,7 +504,7 @@
       if(gifts.length === 0){
         el.innerHTML = '<div class="panel-card empty-panel">' +
           '<p>Updates from your coordinator will show up here once you start giving.</p>' +
-          '<a href="join.html" class="btn btn-primary">Start giving →</a>' +
+          '<a href="join.html" class="btn btn-primary">Pledge your support →</a>' +
         '</div>';
         return;
       }
@@ -417,7 +543,7 @@
       var list = getTransactions();
       var el = document.getElementById('receipts-content');
       if(list.length === 0){
-        el.innerHTML = '<p style="font-size:14px;color:var(--ink-soft);">No receipts yet — they will appear here after your first gift.</p>';
+        el.innerHTML = '<p style="font-size:14px;color:var(--ink-soft);">No pledge confirmations yet — they will appear here after your first gift.</p>';
         return;
       }
       var rows = list.map(function(tx, i){
@@ -430,7 +556,7 @@
           '<td><a href="#" onclick="downloadTxReceipt(' + i + ');return false;">Download</a></td>' +
         '</tr>';
       }).join('');
-      el.innerHTML = '<table class="receipts"><thead><tr><th>Date</th><th>Giving to</th><th>Amount</th><th>Receipt no.</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
+      el.innerHTML = '<table class="receipts"><thead><tr><th>Date</th><th>Giving to</th><th>Amount</th><th>Confirmation no.</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
     }
 
     window.downloadTxReceipt = function(i){
@@ -453,6 +579,7 @@
     renderGiving();
     renderUpdates();
     renderReceipts();
+    renderImpactCard();
 
     if(new URLSearchParams(window.location.search).get('matched') === '1'){
       var matchedGiftId = new URLSearchParams(window.location.search).get('giftId');

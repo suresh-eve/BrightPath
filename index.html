@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BrightPath — Help a student go further</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
 <meta name="description" content="BrightPath connects everyday donors with B40 students across Malaysia who have the grades but not the means to continue past SPM. Fund the bursary, sponsor a student, or become a mentor.">
 <link rel="canonical" href="https://brightpath-sureshdhynnas-projects.vercel.app/index.html">
 <meta property="og:type" content="website">
@@ -47,45 +48,9 @@
     .hero-photo-gallery{max-width:280px;gap:14px;}
   }
 
-  /* STATS */
-  .stats{background:var(--teal);color:#fff;padding:44px 0;margin-top:64px;}
-  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;}
-  .stats-grid .num{font-family:'Fraunces',serif;font-size:42px;font-weight:600;color:#fff;}
-  .stats-grid .lbl{font-size:14px;color:#CFE3DB;margin-top:6px;max-width:220px;margin-inline:auto;}
-  .stats-grid .div{width:1px;background:rgba(255,255,255,0.15);}
-  @media (max-width:700px){ .stats-grid{grid-template-columns:1fr;gap:28px;} }
-
-  /* HOW IT WORKS */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .step{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);padding:26px 24px;}
-  .step .num-badge{
-    width:34px;height:34px;border-radius:50%;background:var(--coral-light);color:var(--coral-dark);
-    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:16px;
-  }
-  .step h3{font-size:17px;margin-bottom:8px;}
-  .step p{font-size:14px;color:var(--ink-soft);}
-  @media (max-width:820px){ .steps{grid-template-columns:1fr;} }
-
-  /* WAYS TO GIVE */
-  .give-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .give-card{
-    background:var(--white);border-radius:var(--radius-md);border:1px solid var(--line);
-    padding:28px 24px;display:flex;flex-direction:column;gap:14px;transition:box-shadow .15s ease, transform .15s ease;
-  }
-  .give-card:hover{box-shadow:var(--shadow-card);transform:translateY(-2px);}
-  .give-card.featured{border:2px solid var(--teal);position:relative;}
-  .give-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
-  .give-card h3{font-size:17.5px;}
-  .give-card p{font-size:14px;color:var(--ink-soft);flex-grow:1;}
-  .featured-tag{
-    position:absolute;top:-13px;left:24px;background:var(--teal);color:#fff;font-size:11.5px;font-weight:700;
-    letter-spacing:0.03em;text-transform:uppercase;padding:5px 12px;border-radius:100px;
-  }
-  .give-card .btn{width:100%;}
-  @media (max-width:820px){ .give-grid{grid-template-columns:1fr;} }
 
   .corp-banner{
-    margin-top:24px;background:var(--cream-2);border:1px solid var(--line);border-radius:var(--radius-md);
+    margin-top:40px;background:var(--cream-2);border:1px solid var(--line);border-radius:var(--radius-md);
     padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
   }
 
@@ -108,21 +73,12 @@
   .pool-footer{display:flex;justify-content:center;margin-top:34px;}
 
   /* TRUST */
-  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
   .trust-list{display:flex;flex-direction:column;gap:20px;}
   .trust-item{display:flex;gap:14px;align-items:flex-start;}
   .trust-item i{width:38px;height:38px;border-radius:10px;background:var(--teal-light);color:var(--teal);
     display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .trust-item h3{font-size:15.5px;margin-bottom:3px;}
   .trust-item p{font-size:13.5px;color:var(--ink-soft);}
-  .quote-card{background:var(--white);border-radius:var(--radius-lg);padding:34px;box-shadow:var(--shadow-card);}
-  .quote-card p.q{font-family:'Fraunces',serif;font-size:19px;line-height:1.5;color:var(--ink);margin-bottom:18px;}
-  .quote-attr{display:flex;align-items:center;gap:12px;}
-  .quote-attr .av{width:38px;height:38px;border-radius:50%;background:var(--coral-light);color:var(--coral-dark);
-    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}
-  .quote-attr .name{font-size:13.5px;font-weight:600;}
-  .quote-attr .role{font-size:12.5px;color:var(--ink-soft);}
-  @media (max-width:860px){ .trust-grid{grid-template-columns:1fr;} }
 
   .belief-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;padding-top:32px;border-top:1px solid var(--line);}
   @media (max-width:760px){ .belief-row{grid-template-columns:1fr 1fr;} }
@@ -185,13 +141,12 @@
 <header>
   <nav class="wrap">
     <div class="logo">
-      <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+      <span class="logo-mark"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
       <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </div>
     <div class="nav-links">
       <a href="#the-cause">About</a>
       <a href="students.html">Our students</a>
-      <a href="#how">How it works</a>
       <a href="#give">Ways to give</a>
       <a href="#trust">Transparency</a>
     </div>
@@ -204,7 +159,7 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Start giving</a>
+      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
@@ -225,7 +180,7 @@
             <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Cancel anytime, no calls needed</span>
           </div>
           <div class="hero-actions">
-            <a href="join.html" class="btn btn-primary">Start giving →</a>
+            <a href="join.html" class="btn btn-primary">Pledge your support →</a>
             <a href="students.html" class="btn btn-ghost">Meet the students</a>
           </div>
         </div>
@@ -243,82 +198,21 @@
     </div>
   </section>
 
-  <div class="stats">
-    <div class="wrap">
-      <div class="stats-grid">
-        <div><div class="num">95%</div><div class="lbl">of sponsored students complete their program</div></div>
-        <div><div class="num">75%</div><div class="lbl">go on to earn a full degree</div></div>
-        <div><div class="num">100%</div><div class="lbl">of every donation reaches the student</div></div>
-      </div>
-    </div>
-  </div>
-
-  <section id="how">
+  <section id="give">
     <div class="wrap">
       <div class="section-head center">
-        <span class="eyebrow">How it works</span>
-        <h2>From your first gift to their graduation day</h2>
-        <p>A simple, transparent path — built so you always know where your money went and how your student is doing.</p>
+        <span class="eyebrow">Ready to give?</span>
+        <h2>Choose exactly how you'd like to give</h2>
+        <p>Pledge full support to a specific student, or give to the general fund — pick what feels right, then follow the simple gifting flow.</p>
       </div>
-      <div class="steps">
-        <div class="step">
-          <div class="num-badge">1</div>
-          <h3>Choose how you give</h3>
-          <p>Fund the general pool, pick a student from our verified list, or add mentoring alongside your gift.</p>
-        </div>
-        <div class="step">
-          <div class="num-badge">2</div>
-          <h3>Give in under a minute</h3>
-          <p>Pay by FPX, DuitNow or e-wallet — one-off or monthly. No account needed for a one-off gift.</p>
-        </div>
-        <div class="step">
-          <div class="num-badge">3</div>
-          <h3>Follow their journey</h3>
-          <p>Get an automated monthly pulse plus a real, human termly update — straight to your dashboard.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="give" style="padding-top:0;">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Three ways to give</span>
-        <h2>No wrong door — every path funds a student</h2>
-        <p>Give the way that feels right for you. You can always change how you give later.</p>
-      </div>
-      <div class="give-grid">
-        <div class="give-card">
-          <div class="give-icon" style="background:var(--coral-light);color:var(--coral-dark);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.4 4 9.5 4C11 4 12.3 4.7 13 5.8C13.7 4.7 15 4 16.5 4C19.6 4 22 6.5 22 9.5C22 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>General fund</h3>
-          <p>The simplest way to give. Your donation pools into the bursary fund and goes wherever the need is greatest — perfect for a first gift.</p>
-          <a href="join.html?type=general" class="btn btn-ghost btn-sm">Give to the fund</a>
-        </div>
-        <div class="give-card featured">
-          <span class="featured-tag">Most connected</span>
-          <div class="give-icon" style="background:var(--teal-light);color:var(--teal);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M5 20C5 16.5 8 14 12 14C16 14 19 16.5 19 20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Choose a student</h3>
-          <p>Browse anonymized, verified profiles — state, field of study, funding gap — and sponsor one directly. See exactly who you're helping, and follow their story.</p>
-          <a href="students.html" class="btn btn-primary btn-sm">Browse students</a>
-        </div>
-        <div class="give-card">
-          <div class="give-icon" style="background:var(--amber);color:#5C3A05;background:#FBEACD;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 15C15.3 15 18 12.5 18 9C18 5.5 15.3 3 12 3C8.7 3 6 5.5 6 9C6 12.5 8.7 15 12 15Z" stroke="currentColor" stroke-width="1.7"/><path d="M8 14L5 21L12 18L19 21L16 14" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Mentor match</h3>
-          <p>Give financially, and add light-touch mentoring on top — pick your mentee yourself, or let our coordinators match you with one.</p>
-          <a href="join.html?type=mentor" class="btn btn-ghost btn-sm">Learn about mentoring</a>
-        </div>
+      <div style="text-align:center;margin-bottom:40px;">
+        <a href="join.html" class="btn btn-primary">Pledge your support →</a>
       </div>
 
       <div class="corp-banner">
         <div>
-          <h3 style="font-family:'Fraunces',serif;font-size:17.5px;margin-bottom:4px;">Is your company looking to adopt a batch of students?</h3>
-          <p style="font-size:14px;color:var(--ink-soft);">A one-off RM7,500–RM30,000 Impact Batch fully sponsors 5–10 students at RM1,500 each per year — with your company recognized on every profile.</p>
+          <h3 style="font-family:'Fraunces',serif;font-size:17.5px;margin-bottom:4px;">Could your company support a cohort of students?</h3>
+          <p style="font-size:14px;color:var(--ink-soft);">Partnerships can begin from around RM7,500, depending on the number of students and length of support — with your company recognized on every profile you help fund.</p>
         </div>
         <a href="corporate.html" class="btn btn-ghost btn-sm" style="white-space:nowrap;">For companies →</a>
       </div>
@@ -330,46 +224,46 @@
       <div class="section-head">
         <span class="eyebrow">Meet the pool</span>
         <h2>Real students, verified and ready for a sponsor</h2>
-        <p>Every profile is reviewed and anonymized to protect students — full identity is shared only after you've committed, and only with their consent.</p>
+        <p>Every profile is reviewed and identified by a code, never a name — sponsors receive progress updates while the student's identity stays confidential, always.</p>
       </div>
       <div class="pool-grid">
         <div class="student-card">
-          <div class="student-photo" style="background:linear-gradient(135deg,#F4DCC5,#1F5C4E);">
-            <div class="initials">A.</div>
-          </div>
-          <div class="student-body">
-            <div class="student-name">Ain, 19</div>
-            <div class="student-meta">Selangor · Diploma in Nursing</div>
-            <p class="student-quote">"I want to be the first nurse in my kampung."</p>
-            <div class="progress-track"><div class="progress-fill" style="width:62%;"></div></div>
-            <div class="progress-label" style="margin-bottom:14px;"><span>62% funded</span><span>RM1,150 to go</span></div>
-            <a href="student-profile.html?id=1" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor Ain</a>
-          </div>
-        </div>
-        <div class="student-card">
           <div class="student-photo" style="background:linear-gradient(135deg,#E7D3EF,#153F35);">
-            <div class="initials">D.</div>
+            <div class="initials"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
           </div>
           <div class="student-body">
-            <div class="student-name">Danial, 18</div>
-            <div class="student-meta">Sabah · Foundation in Engineering</div>
-            <p class="student-quote">"My dream is to build bridges back to my hometown."</p>
-            <div class="progress-track"><div class="progress-fill" style="width:34%;"></div></div>
-            <div class="progress-label" style="margin-bottom:14px;"><span>34% funded</span><span>RM1,980 to go</span></div>
-            <a href="student-profile.html?id=2" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor Danial</a>
+            <div class="student-name">S-5DD7A4</div>
+            <div class="student-meta">Negeri Sembilan · STPM (Form 6) · Social Science</div>
+            <p class="student-quote">"I'll be the first in my family to go to university."</p>
+            <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            <div class="progress-label" style="margin-bottom:14px;"><span>0% funded</span><span>RM1,000 to go</span></div>
+            <a href="student-profile.html?id=2" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor this student</a>
           </div>
         </div>
         <div class="student-card">
           <div class="student-photo" style="background:linear-gradient(135deg,#F0DCC0,#E2704A);">
-            <div class="initials">S.</div>
+            <div class="initials"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
           </div>
           <div class="student-body">
-            <div class="student-name">Siti, 19</div>
-            <div class="student-meta">Kelantan · Diploma in Accountancy</div>
-            <p class="student-quote">"I want to help my family manage money the right way."</p>
-            <div class="progress-track"><div class="progress-fill" style="width:81%;"></div></div>
-            <div class="progress-label" style="margin-bottom:14px;"><span>81% funded</span><span>RM570 to go</span></div>
-            <a href="student-profile.html?id=3" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor Siti</a>
+            <div class="student-name">S-A028AE</div>
+            <div class="student-meta">Johor · Matriculation · Science</div>
+            <p class="student-quote">"Between caring for my grandmother and my studies, I learned discipline early."</p>
+            <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            <div class="progress-label" style="margin-bottom:14px;"><span>0% funded</span><span>RM2,000 to go</span></div>
+            <a href="student-profile.html?id=3" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor this student</a>
+          </div>
+        </div>
+        <div class="student-card">
+          <div class="student-photo" style="background:linear-gradient(135deg,#FBEACD,#8B5FA8);">
+            <div class="initials"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="student-body">
+            <div class="student-name">S-518D29</div>
+            <div class="student-meta">Kedah · Matriculation · Engineering</div>
+            <p class="student-quote">"I already skip meals to save for the bus home."</p>
+            <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
+            <div class="progress-label" style="margin-bottom:14px;"><span>0% funded</span><span>RM2,000 to go</span></div>
+            <a href="student-profile.html?id=4" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor this student</a>
           </div>
         </div>
       </div>
@@ -381,25 +275,18 @@
 
   <section id="trust">
     <div class="wrap">
-      <div class="trust-grid">
-        <div>
-          <span class="eyebrow" style="margin-bottom:18px;">Why donors trust BrightPath Bursary</span>
-          <div class="trust-list" style="margin-top:18px;">
-            <div class="trust-item">
-              <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 12L4 18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M8 8L12 4L16 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 4V15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>
-              <div><h3>Paid straight to the real cost, never to a personal account</h3><p>BrightPath carries zero overhead. Your gift is disbursed by our coordinator team directly against each student's verified fees, food, lodging and travel costs — it never passes through a personal bank account. Your dashboard shows exactly how it was spent.</p></div>
-            </div>
-            <div class="trust-item">
-              <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>
-              <div><h3>Cancel as easily as you signed up</h3><p>Pause or stop a recurring gift in one click, anytime — no phone call, no retention flow, no hard feelings.</p></div>
-            </div>
-          </div>
+      <div style="max-width:640px;margin:0 auto;">
+        <div class="section-head center">
+          <span class="eyebrow">Why donors trust BrightPath Bursary</span>
         </div>
-        <div class="quote-card">
-          <p class="q">"I sponsor Siti for RM100 a month. Every term I get an actual note from her, not just a form letter. It's the first time giving has felt personal."</p>
-          <div class="quote-attr">
-            <div class="av">JL</div>
-            <div><div class="name">Jia Ling</div><div class="role">Monthly sponsor since 2025</div></div>
+        <div class="trust-list">
+          <div class="trust-item">
+            <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 12L4 18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M8 8L12 4L16 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 4V15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>
+            <div><h3>Tracked against real education costs, never a personal account</h3><p>Your gift is disbursed by our coordinator team directly against each student's verified fees, food, lodging and travel costs — it never passes through a personal bank account. Your dashboard shows exactly how it was spent.</p></div>
+          </div>
+          <div class="trust-item">
+            <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>
+            <div><h3>Cancel as easily as you signed up</h3><p>Pause or stop a recurring gift in one click, anytime — no phone call, no retention flow, no hard feelings.</p></div>
           </div>
         </div>
       </div>
@@ -471,10 +358,10 @@
 
   <section style="padding:0 0 32px;">
     <div class="final-cta">
-      <h2 style="font-size:24px;line-height:1.45;">As the saying goes, <em>&ldquo;Sedikit-sedikit, lama-lama menjadi bukit.&rdquo;</em>&nbsp;&nbsp;Whether it is a little or a lot, together it all adds up to change a student's life.</h2>
-      <p>Join 1,240+ donors already funding the next generation of B40 graduates across Malaysia.</p>
+      <h2 style="font-size:24px;line-height:1.45;">As the saying goes, <em>&ldquo;Sikit-sikit, lama-lama menjadi bukit.&rdquo;</em>&nbsp;&nbsp;Whether it is a little or a lot, together it all adds up to change a student's life.</h2>
+      <p>Join our founding group of donors helping students take their next step across Malaysia.</p>
       <div class="final-cta-actions">
-        <a href="join.html" class="btn btn-onteal">Start giving →</a>
+        <a href="join.html" class="btn btn-onteal">Pledge your support →</a>
         <a href="students.html" class="btn" style="border:1.5px solid rgba(255,255,255,0.3);color:#fff;">Browse students</a>
       </div>
     </div>
@@ -485,7 +372,7 @@
   <div class="wrap footer-grid">
     <div>
       <div class="logo" style="margin-bottom:10px;">
-        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
         <span class="logo-text"><span class="logo-name" style="font-size:16px;">BrightPath</span><span class="logo-sub">Bursary</span></span>
       </div>
       <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM.</p>

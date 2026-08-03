@@ -99,7 +99,7 @@ function printReceipt(r){
   var win = window.open('', '_blank', 'width=480,height=640');
   if(!win) return;
   var rows = [
-    ['Receipt No.', r.receiptNo || '—'],
+    ['Confirmation No.', r.receiptNo || '—'],
     ['Date', r.dateLabel || '—'],
     ['Donor', r.donorName || 'Guest'],
     ['Giving to', r.target || '—'],
@@ -111,15 +111,15 @@ function printReceipt(r){
     return '<tr><td>' + row[0] + '</td><td style="text-align:right;font-weight:600;">' + row[1] + '</td></tr>';
   }).join('');
   win.document.write(
-    '<!DOCTYPE html><html><head><title>Receipt ' + (r.receiptNo || '') + ' — BrightPath</title>' +
+    '<!DOCTYPE html><html><head><title>Pledge confirmation ' + (r.receiptNo || '') + ' — BrightPath</title>' +
     '<style>body{font-family:-apple-system,\'Segoe UI\',Arial,sans-serif;padding:32px;color:#1F2A24;}' +
     'h1{font-size:18px;margin-bottom:4px;}.sub{color:#4B5750;font-size:13px;margin-bottom:24px;}' +
     'table{width:100%;border-collapse:collapse;}td{padding:8px 0;border-top:1px solid #E4DAC7;font-size:14px;}' +
     'tr:first-child td{border-top:none;}.foot{margin-top:28px;font-size:11.5px;color:#4B5750;}</style>' +
     '</head><body>' +
-    '<h1>BrightPath</h1><div class="sub">Official donation receipt — a HalaTuju initiative</div>' +
+    '<h1>BrightPath</h1><div class="sub">Pledge confirmation — a HalaTuju initiative</div>' +
     '<table>' + rowsHtml + '</table>' +
-    '<p class="foot">This receipt confirms your contribution to BrightPath. Keep it for your records. Questions? Contact your BrightPath coordinator.</p>' +
+    '<p class="foot">This confirms your pledge of support to BrightPath. Keep it for your records. Questions? Contact your BrightPath coordinator.</p>' +
     '</body></html>'
   );
   win.document.close();
@@ -147,7 +147,7 @@ function renderAccountNav(){
   var menu = document.getElementById('account-menu');
   if(session && session.name){
     if(loginLink) loginLink.style.display = 'none';
-    if(startLink) startLink.textContent = getPrimaryActiveGift() ? 'Give again' : 'Start giving';
+    if(startLink) startLink.textContent = getPrimaryActiveGift() ? 'Pledge again' : 'Pledge support';
     if(menu){
       menu.style.display = 'inline-block';
       var trigger = document.getElementById('account-trigger');
@@ -186,14 +186,14 @@ function injectLoginModal(){
         '</div>' +
         '<div id="login-panel-name" style="display:none;">' +
           '<h2>What should we call you?</h2>' +
-          '<p class="sub">We&rsquo;ll use this on your dashboard and receipts.</p>' +
+          '<p class="sub">We&rsquo;ll use this on your dashboard and pledge confirmations.</p>' +
           '<input type="text" id="login-name" placeholder="e.g. Ahmad Rahman">' +
           '<button class="btn btn-primary btn-block" onclick="confirmLoginName()">Continue &rarr;</button>' +
         '</div>' +
         '<div id="login-panel-success" style="display:none;text-align:center;">' +
           '<div class="login-success-check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
           '<h2>You&rsquo;re in, <span id="login-success-name"></span>!</h2>' +
-          '<p class="sub">Track your giving, receipts and updates anytime from your dashboard.</p>' +
+          '<p class="sub">Track your giving, pledge confirmations and updates anytime from your dashboard.</p>' +
           '<a href="join.html" class="btn btn-primary btn-block" style="margin-bottom:10px;">Continue to giving options &rarr;</a>' +
           '<button class="btn btn-ghost btn-block" onclick="finishLoginModal()">Continue browsing</button>' +
         '</div>' +

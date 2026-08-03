@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student profile — BrightPath</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
 <meta name="description" content="Meet a verified B40 student on BrightPath — see their story, funding progress, and exactly how your gift will be used.">
 <meta property="og:type" content="profile">
 <meta property="og:site_name" content="BrightPath">
@@ -40,17 +41,13 @@
   .check-item .ic.done{background:var(--teal-light);color:var(--teal);}
   .check-item .ic.pending{background:var(--amber-light);color:var(--amber-dark);}
 
-  .fund-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13.5px;}
-  .fund-row .fund-label{width:150px;color:var(--ink-soft);flex-shrink:0;}
-  .fund-row .fund-bar-track{flex-grow:1;height:8px;border-radius:100px;background:var(--cream-2);overflow:hidden;}
-  .fund-row .fund-bar-fill{height:100%;border-radius:100px;}
-  .fund-row .fund-amt{width:70px;text-align:right;font-weight:600;flex-shrink:0;}
 
   .locked-card{background:var(--cream-2);border:1px dashed var(--line);border-radius:var(--radius-md);padding:20px 22px;}
   .locked-head{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-weight:600;font-size:14.5px;}
   .locked-row{display:flex;justify-content:space-between;font-size:13.5px;padding:7px 0;border-top:1px solid var(--line);}
   .locked-row:first-of-type{border-top:none;}
-  .locked-row span:last-child{filter:blur(4px);user-select:none;color:var(--ink-soft);}
+  .locked-row span:last-child{font-weight:600;color:var(--ink-soft);}
+  .locked-row:last-of-type span:last-child{color:var(--teal);}
   .locked-note{font-size:12.5px;color:var(--ink-soft);margin-top:14px;}
 
   .sponsor-card{
@@ -62,12 +59,6 @@
   .sponsor-amounts .raised{font-family:'Fraunces',serif;font-size:22px;font-weight:600;}
   .sponsor-amounts .goal{font-size:13px;color:var(--ink-soft);}
   .sponsor-stat-row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft);margin-bottom:18px;}
-  .sponsor-freq{display:flex;gap:8px;margin-bottom:16px;}
-  .sponsor-freq button{
-    flex:1;padding:9px;border-radius:100px;border:1px solid var(--line);background:var(--cream);
-    font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft);
-  }
-  .sponsor-freq button.active{background:var(--teal);border-color:var(--teal);color:#fff;}
   .sponsor-secondary{display:block;text-align:center;font-size:13px;color:var(--ink-soft);margin-top:14px;}
   .sponsor-secondary:hover{color:var(--ink);}
 
@@ -86,13 +77,12 @@
 <header>
   <nav class="wrap">
     <a href="index.html" class="logo">
-      <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+      <span class="logo-mark"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
       <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </a>
     <div class="nav-links">
       <a href="about.html">About</a>
       <a href="students.html" class="active">Our students</a>
-      <a href="index.html#how">How it works</a>
       <a href="index.html#give">Ways to give</a>
       <a href="index.html#trust">Transparency</a>
     </div>
@@ -105,7 +95,7 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Start giving</a>
+      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
@@ -119,7 +109,7 @@
 
   <div style="margin-top:56px;">
     <h2 style="font-size:19px;margin-bottom:4px;">Other students waiting for a sponsor</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);">You can only sponsor one at a time in this prototype — but every profile here needs support just as much.</p>
+    <p style="font-size:13.5px;color:var(--ink-soft);">Every profile here needs support just as much — pledge to as many as you'd like.</p>
     <div class="similar-grid" id="similar-grid"></div>
   </div>
 </main>
@@ -128,7 +118,7 @@
   <div class="wrap footer-grid">
     <div>
       <div class="logo" style="margin-bottom:10px;">
-        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
         <span class="logo-text"><span class="logo-name" style="font-size:16px;">BrightPath</span><span class="logo-sub">Bursary</span></span>
       </div>
       <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM.</p>
@@ -161,7 +151,7 @@
     var target = getStudentById(studentId);
     updateActiveGift(pendingGift.id, {
       studentId: studentId,
-      target: target ? (target.name + ', ' + target.state) : pendingGift.target
+      target: target ? (target.code + ', ' + target.state) : pendingGift.target
     });
     window.location.href = 'dashboard.html?matched=1&giftId=' + encodeURIComponent(pendingGift.id);
   }
@@ -171,112 +161,88 @@
     window.location.href = 'dashboard.html?matched=1&giftId=' + encodeURIComponent(pendingGift.id);
   }
 
-  document.title = s.name + ' — BrightPath';
-  var ogDesc = s.name + ', ' + s.age + ' — ' + s.state + ', ' + s.institution + ' in ' + s.course + '. ' + pct + '% funded toward their ' + fmtRM(s.goal) + ' bursary.';
+  document.title = 'Student ' + s.code + ' — BrightPath';
+  var ogDesc = 'Student ' + s.code + ' — ' + s.state + ', ' + s.level + ' in ' + s.course + '. ' + pct + '% funded toward their ' + fmtRM(s.goal) + ' bursary.';
   var ogTitleTag = document.querySelector('meta[property="og:title"]');
   var ogDescTag = document.querySelector('meta[property="og:description"]');
   var twTitleTag = document.querySelector('meta[name="twitter:title"]');
-  if(ogTitleTag) ogTitleTag.setAttribute('content', 'Sponsor ' + s.name + ' — BrightPath');
+  if(ogTitleTag) ogTitleTag.setAttribute('content', 'Sponsor Student ' + s.code + ' — BrightPath');
   if(ogDescTag) ogDescTag.setAttribute('content', ogDesc);
-  if(twTitleTag) twTitleTag.setAttribute('content', 'Sponsor ' + s.name + ' — BrightPath');
+  if(twTitleTag) twTitleTag.setAttribute('content', 'Sponsor Student ' + s.code + ' — BrightPath');
 
   var checklistItems = [
     { done:true, label:'Malaysian citizen, completed SPM/STPM' },
     { done:true, label:'Verified B40 household (income at or below RM5,860/month)' },
     { done:true, label:'Academic record: ' + s.academic },
-    { done:true, label:'Offered a place: ' + s.institution + ' in ' + s.course },
-    { done:s.interviewDone, label: s.interviewDone ? 'Verification interview completed' : 'Verification interview in progress' },
+    { done:true, label:'Offered a place: ' + s.level + ' — ' + s.course + ' at ' + s.school },
+    { done:true, label:'Verification interview completed' },
     { done:true, label:'Agreed to share a progress update every semester' }
   ];
 
   var checklistHtml = checklistItems.map(function(item){
-    var icon = item.done
-      ? '<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-      : '<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7V12L15 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-    return '<div class="check-item"><span class="ic ' + (item.done ? 'done' : 'pending') + '">' + icon + '</span><span>' + item.label + '</span></div>';
+    var icon = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    return '<div class="check-item"><span class="ic done">' + icon + '</span><span>' + item.label + '</span></div>';
   }).join('');
 
-  var fundColors = { fees:'var(--teal)', food:'var(--coral)', travel:'var(--amber)' };
-  var fundLabels = { fees:'Tuition & fees', food:'Food & lodging', travel:'Travel & books' };
-  var fundHtml = Object.keys(s.fund).map(function(key){
-    var amt = s.fund[key];
-    var width = Math.round((amt / s.goal) * 100);
-    return '<div class="fund-row">' +
-      '<span class="fund-label">' + fundLabels[key] + '</span>' +
-      '<span class="fund-bar-track"><span class="fund-bar-fill" style="width:' + width + '%;background:' + fundColors[key] + ';"></span></span>' +
-      '<span class="fund-amt">' + fmtRM(amt) + '</span>' +
-    '</div>';
-  }).join('');
+  var coversHtml = s.covers.map(function(c){ return '<span class="covers-chip">' + c + '</span>'; }).join('');
 
   document.getElementById('profile-grid').innerHTML =
     '<div>' +
       '<div class="avatar-block hero-photo" style="background:linear-gradient(135deg,' + g[0] + ',' + g[1] + ');">' +
         '<div class="blob" style="width:150px;height:150px;top:-50px;right:-30px;"></div>' +
         '<div class="blob" style="width:90px;height:90px;bottom:-30px;right:60px;"></div>' +
-        '<div class="avatar-initials">' + s.name.charAt(0) + '</div>' +
+        '<div class="avatar-initials">' + avatarIconHtml(26) + '</div>' +
         '<div class="stamp-row">' +
-          (s.interviewDone ? '<span class="badge badge-verified">Verified profile</span>' : '<span class="badge badge-locked">Interview pending</span>') +
-          (s.mentor ? '<span class="badge badge-mentor">Adopted by a mentor</span>' : '') +
-          (s.corporateSponsor ? '<span class="badge badge-corporate">Sponsored by ' + s.corporateSponsor.name + '</span>' : '') +
+          '<span class="badge badge-verified">Verified profile</span>' +
         '</div>' +
       '</div>' +
-      '<div class="profile-title-row"><h1>' + s.name + ', ' + s.age + '</h1></div>' +
-      '<div class="profile-meta">' + s.state + ' &middot; ' + s.institution + ' in ' + s.course + '</div>' +
+      '<div class="profile-title-row"><h1>Student ' + s.code + '</h1></div>' +
+      '<div class="profile-meta">' + s.state + ' &middot; ' + s.level + ' &middot; ' + s.course + '</div>' +
 
       '<div class="block">' +
         '<h2>Their story</h2>' +
-        '<p class="body-text">&ldquo;' + s.story + '&rdquo; ' + s.family + ' Every profile on BrightPath is written from the student’s own words and reviewed by a coordinator before publishing.</p>' +
+        '<p class="body-text">&ldquo;' + s.story + '&rdquo; ' + s.family + ' Now aiming for: ' + s.ambition + ' Every profile on BrightPath is written from the student’s own words and reviewed by a coordinator before publishing.</p>' +
       '</div>' +
 
       '<div class="block">' +
-        '<h2>What ' + s.name + ' has already done</h2>' +
+        '<h2>What this student has already done</h2>' +
         '<div class="check-list">' + checklistHtml + '</div>' +
       '</div>' +
 
       '<div class="block">' +
-        '<h2>Where your RM3,000 goes</h2>' +
-        fundHtml +
+        '<h2>Where your ' + fmtRM(s.goal) + ' goes</h2>' +
+        '<div class="covers-row">' + coversHtml + '</div>' +
       '</div>' +
 
       '<div class="block">' +
         '<div class="locked-card">' +
-          '<div class="locked-head"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7.5C8 5.6 9.6 4 11.5 4H12.5C14.4 4 16 5.6 16 7.5V11" stroke="currentColor" stroke-width="1.8"/></svg> Unlocks once you sponsor ' + s.name + '</div>' +
-          '<div class="locked-row"><span>Full legal name</span><span>&bull;&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;</span></div>' +
-          '<div class="locked-row"><span>Photo</span><span>&bull;&bull;&bull;&bull;&bull;&bull;</span></div>' +
-          '<div class="locked-row"><span>School / institution name</span><span>&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;&bull;</span></div>' +
-          '<div class="locked-row"><span>Direct termly updates</span><span>&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>' +
-          '<p class="locked-note">Protected under Malaysia’s PDPA. These unlock automatically once your first payment clears and ' + s.name + '’s guardian confirms consent — usually within 2–3 weeks.</p>' +
+          '<div class="locked-head"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7.5C8 5.6 9.6 4 11.5 4H12.5C14.4 4 16 5.6 16 7.5V11" stroke="currentColor" stroke-width="1.8"/></svg> Privacy protections that never expire</div>' +
+          '<div class="locked-row"><span>Full legal name</span><span>Never shared with sponsors</span></div>' +
+          '<div class="locked-row"><span>Photo</span><span>Never shared with sponsors</span></div>' +
+          '<div class="locked-row"><span>School / institution name</span><span>Never shared with sponsors</span></div>' +
+          '<div class="locked-row"><span>Progress updates</span><span>Shared each semester</span></div>' +
+          '<p class="locked-note">This isn’t a waiting period — it’s permanent. Every student’s identity stays protected under Malaysia’s PDPA for as long as they’re in the program, no matter how long you’ve been sponsoring. Only BrightPath-approved, separately screened mentors ever receive identifying details.</p>' +
         '</div>' +
       '</div>' +
     '</div>' +
 
     '<div class="sponsor-card">' +
       '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +
-      '<div class="sponsor-amounts"><span class="raised">' + fmtRM(s.raised) + '</span><span class="goal">of ' + fmtRM(s.goal) + ' goal</span></div>' +
-      '<div class="sponsor-stat-row"><span>' + pct + '% funded</span><span>' + s.interested + ' considering</span></div>' +
+      '<div class="sponsor-amounts"><span class="raised">' + fmtRM(s.raised) + '</span><span class="goal">of ' + fmtRM(s.goal) + ' over ' + s.months + ' months</span></div>' +
+      '<div class="sponsor-stat-row"><span>' + pct + '% funded</span><span>' + s.months + ' months of support</span></div>' +
+      '<div class="sponsor-stat-row" style="margin-top:-14px;"><span>RM' + MONTHLY_RATE + '/month covers it fully</span></div>' +
       (pendingGift
         ? (
-          '<div class="pay-note" style="margin-bottom:14px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Your ' + fmtRM(pendingGift.amount) + (pendingGift.freq === 'monthly' ? '/month' : ' one-off') + (pendingGift.giveType === 'mentor' ? ' mentoring gift' : ' gift') + ' is already in — this just tells us where it goes. No new payment.</div>' +
-          '<button type="button" class="btn btn-primary btn-block" onclick="assignStudentToGift(' + s.id + ')">Choose ' + s.name.split(' ')[0] + (pendingGift.giveType === 'mentor' ? ' as my mentee →' : ' as my student →') + '</button>' +
+          '<div class="pay-note" style="margin-bottom:14px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Your ' + fmtRM(pendingGift.amount) + ' gift is already in — this just tells us where it goes. No new payment.</div>' +
+          '<button type="button" class="btn btn-primary btn-block" onclick="assignStudentToGift(' + s.id + ')">Choose ' + s.code + ' as my student →</button>' +
           '<a href="#" class="sponsor-secondary" onclick="convertGiftToGeneral();return false;">Or move my gift to the general fund instead</a>'
         )
         : (
-          '<div class="sponsor-freq">' +
-            '<button type="button" class="freq-btn active" data-freq="monthly">Monthly</button>' +
-            '<button type="button" class="freq-btn" data-freq="once">One-off</button>' +
-          '</div>' +
-          '<a href="join.html?student=' + s.id + '" class="btn btn-primary btn-block">Sponsor ' + s.name.split(' ')[0] + '</a>' +
-          '<a href="join.html?type=general" class="sponsor-secondary">Not ready? Give to the general fund instead</a>'
+          '<a href="join.html?studentId=' + s.id + '" class="btn btn-primary btn-block">Pledge this student\'s semester in full</a>' +
+          '<a href="join.html?mode=general" class="sponsor-secondary">Not ready? Give to the general fund instead</a>'
         )
       ) +
     '</div>';
-
-  document.querySelectorAll('.freq-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('.freq-btn').forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-    });
-  });
 
   var similar = STUDENTS.filter(function(o){ return o.id !== s.id && o.state === s.state; });
   if(similar.length < 3){
@@ -290,9 +256,9 @@
     var og = gradientFor(o.id);
     var opct = pctFunded(o);
     return '<a href="student-profile.html?id=' + o.id + (forGiftId ? '&forGift=' + encodeURIComponent(forGiftId) : '') + '" class="similar-card">' +
-      '<div class="avatar-block similar-photo" style="background:linear-gradient(135deg,' + og[0] + ',' + og[1] + ');"><div class="avatar-initials">' + o.name.charAt(0) + '</div></div>' +
+      '<div class="avatar-block similar-photo" style="background:linear-gradient(135deg,' + og[0] + ',' + og[1] + ');"><div class="avatar-initials">' + avatarIconHtml(16) + '</div></div>' +
       '<div class="similar-body">' +
-        '<div class="similar-name">' + o.name + ', ' + o.age + '</div>' +
+        '<div class="similar-name">' + o.code + '</div>' +
         '<div class="similar-meta">' + o.state + ' &middot; ' + o.course + '</div>' +
         '<div class="progress-track"><div class="progress-fill" style="width:' + opct + '%;"></div></div>' +
       '</div>' +

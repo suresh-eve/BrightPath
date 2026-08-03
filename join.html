@@ -3,138 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Start giving — BrightPath</title>
-<meta name="description" content="Start giving to a BrightPath student in under a minute. Choose the general fund, a student, or a mentor match, then decide the details after your gift is confirmed.">
+<title>Pledge your support — BrightPath</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+<meta name="description" content="Pledge full support to a verified BrightPath student, or give to the general fund — choose exactly how you'd like to give.">
 <link rel="canonical" href="https://brightpath-sureshdhynnas-projects.vercel.app/join.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BrightPath">
-<meta property="og:title" content="Start giving — BrightPath">
-<meta property="og:description" content="Choose how you give, then pick who it goes to after your gift is confirmed.">
+<meta property="og:title" content="Pledge your support — BrightPath">
+<meta property="og:description" content="Choose a verified student and pledge their exact remaining need, or give to the general fund.">
 <meta property="og:url" content="https://brightpath-sureshdhynnas-projects.vercel.app/join.html">
 <meta name="twitter:card" content="summary">
-<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  .mini-header{display:flex;align-items:center;justify-content:space-between;height:74px;border-bottom:1px solid var(--line);}
-  .exit-link{font-size:13.5px;color:var(--ink-soft);font-weight:500;}
-  .exit-link:hover{color:var(--ink);}
+  .page-head{padding:48px 0 8px;text-align:center;}
+  .page-head p{color:var(--ink-soft);font-size:15.5px;max-width:600px;margin:14px auto 0;}
 
-  .stepper{display:flex;align-items:center;justify-content:center;gap:0;padding:36px 0 8px;max-width:400px;margin:0 auto;}
-  .stepper .seg{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;}
-  .stepper .circle{
-    width:30px;height:30px;border-radius:50%;background:var(--white);border:1.5px solid var(--line);
-    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--ink-soft);
-    z-index:2;transition:all .15s ease;
-  }
-  .stepper .seg.active .circle{background:var(--teal);border-color:var(--teal);color:#fff;}
-  .stepper .seg.done .circle{background:var(--teal-light);border-color:var(--teal);color:var(--teal);}
-  .stepper .lbl{font-size:11.5px;color:var(--ink-soft);margin-top:6px;white-space:nowrap;}
-  .stepper .seg.active .lbl{color:var(--ink);font-weight:600;}
-  .stepper .line{position:absolute;top:15px;left:-50%;width:100%;height:1.5px;background:var(--line);z-index:1;}
-  .stepper .seg.done .line, .stepper .seg.active .line{background:var(--teal);}
-  .stepper .seg:first-child .line{display:none;}
+  .gift-mode-toggle{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:28px 0 8px;}
+  .gift-mode-btn{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;padding:11px 20px;border-radius:100px;border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;transition:all .15s ease;}
+  .gift-mode-btn:hover{border-color:var(--ink-soft);}
+  .gift-mode-btn.is-active{background:var(--teal-dark);color:#fff;border-color:var(--teal-dark);}
+  .gift-mode-sub{text-align:center;font-size:13.5px;color:var(--ink-soft);max-width:560px;margin:16px auto 26px;}
 
-  .wizard-stage{padding:44px 0 80px;}
-  .step{display:none;}
-  .step.current{display:block;}
+  .pledge-student-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media (max-width:760px){ .pledge-student-grid{grid-template-columns:1fr;} }
+  .pledge-student-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:24px;display:flex;flex-direction:column;gap:10px;border:2px solid transparent;transition:border-color .15s ease;}
+  .pledge-student-card.is-highlighted{border-color:var(--teal);}
+  .psc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .psc-head .t-code{font-family:'Fraunces',serif;font-size:18px;}
+  .psc-meta{font-size:12.5px;color:var(--ink-soft);}
+  .psc-quote{font-family:'Fraunces',serif;font-style:italic;font-size:14.5px;color:var(--ink);line-height:1.4;}
+  .psc-narrative{font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
+  .psc-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:8px;}
+  .psc-amount{font-family:'Fraunces',serif;font-size:19px;color:var(--brand-gold);line-height:1.2;}
+  .psc-amount span{display:block;font-family:'Inter',sans-serif;font-size:10.5px;color:var(--ink-soft);font-weight:600;}
 
-  .guest-link{display:block;text-align:center;font-size:13px;color:var(--ink-soft);margin-top:16px;}
-  .guest-link:hover{color:var(--ink);}
+  .general-fund-card{background:var(--teal-dark);color:#fff;border-radius:var(--radius-lg);padding:34px;max-width:520px;margin:0 auto;text-align:center;}
+  .general-fund-card .eyebrow{background:rgba(255,255,255,0.14);color:#fff;}
+  .general-fund-card h2{color:#fff;font-size:23px;margin:14px 0 8px;}
+  .general-fund-card p{color:#CFE3DB;font-size:14px;margin-bottom:24px;}
+  .amount-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+  .amount-pill{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:10px 20px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);background:transparent;color:#fff;cursor:pointer;transition:all .15s ease;}
+  .amount-pill:hover{border-color:#fff;}
+  .amount-pill.is-active{background:#fff;color:var(--teal-dark);border-color:#fff;}
+  .amount-custom{margin-bottom:22px;}
+  .amount-custom label{display:block;font-size:12.5px;color:#CFE3DB;margin-bottom:8px;}
+  .amount-custom input{width:180px;padding:10px 14px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);background:rgba(255,255,255,0.08);color:#fff;font-family:'Inter',sans-serif;font-size:15px;text-align:center;}
+  .amount-custom input::placeholder{color:rgba(255,255,255,0.55);}
+  .amount-custom input:focus{outline:none;border-color:#fff;}
+  .gift-legal-note{font-size:12px;color:var(--ink-soft);text-align:center;max-width:520px;margin:28px auto 0;line-height:1.6;}
 
-  .prechosen-banner{
-    max-width:800px;margin:0 auto 20px;background:var(--teal-light);border-radius:var(--radius-md);
-    padding:14px 18px;display:flex;align-items:center;justify-content:space-between;font-size:13.5px;color:var(--teal-dark);
-  }
-  .prechosen-banner a{font-weight:600;text-decoration:underline;}
-  .give-hint{max-width:800px;margin:24px auto 4px;text-align:center;font-size:13px;color:var(--ink-soft);}
-
-  .card-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
-  .card-fields input{grid-column:1 / -1;padding:11px 14px;border-radius:var(--radius-sm);border:1px solid var(--line);font-family:'Inter',sans-serif;font-size:13.5px;background:var(--cream);}
-  .card-fields input.half{grid-column:auto;}
-  .pay-note{
-    margin-top:12px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-soft);
-    background:var(--cream-2);border-radius:var(--radius-sm);padding:10px 12px;
-  }
-
-  .give-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:800px;margin:0 auto;}
-  @media (max-width:760px){ .give-grid{grid-template-columns:1fr;} }
-  .give-card{
-    background:var(--white);border-radius:var(--radius-md);border:1.5px solid var(--line);
-    padding:24px 20px;cursor:pointer;transition:border-color .15s ease, transform .15s ease;position:relative;
-  }
-  .give-card:hover{transform:translateY(-2px);}
-  .give-card.selected{border-color:var(--teal);background:var(--teal-light);}
-  .give-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
-  .give-card h3{font-size:16px;margin-bottom:6px;}
-  .give-card p{font-size:13px;color:var(--ink-soft);}
-
-  .mini-picker{max-width:800px;margin:24px auto 0;}
-  .mini-picker-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-  .mini-picker-head a{font-size:13px;color:var(--teal);font-weight:600;}
-  .mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-  @media (max-width:760px){ .mini-grid{grid-template-columns:repeat(2,1fr);} }
-  .mini-card{
-    background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:12px;cursor:pointer;
-    text-align:center;font-size:12.5px;
-  }
-  .mini-card.selected{border-color:var(--teal);background:var(--teal-light);}
-  .mini-card .avatar-initials{position:static;width:34px;height:34px;font-size:13px;margin:0 auto 8px;}
-  .mini-card .mn{font-weight:600;font-size:13px;}
-  .mini-card .mm{color:var(--ink-soft);font-size:11.5px;}
-
-  .wizard-actions{max-width:560px;margin:32px auto 0;display:flex;justify-content:space-between;align-items:center;}
-  .wizard-actions .spacer{flex-grow:1;}
-  .back-btn{font-size:13.5px;color:var(--ink-soft);font-weight:500;cursor:pointer;background:none;border:none;padding:8px;}
-  .back-btn:hover{color:var(--ink);}
-
-  .checkout-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;max-width:820px;margin:0 auto;align-items:start;}
-  @media (max-width:760px){ .checkout-grid{grid-template-columns:1fr;} }
-  .checkout-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:28px;}
-  .checkout-card h2{font-size:17px;margin-bottom:16px;}
-  .amount-chips{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
-  .amount-chip{
-    padding:10px 18px;border-radius:100px;border:1.5px solid var(--line);background:var(--cream);
-    font-weight:600;font-size:14px;cursor:pointer;
-  }
-  .amount-chip.selected{background:var(--teal);border-color:var(--teal);color:#fff;}
-  .freq-toggle{display:flex;gap:8px;margin-bottom:8px;}
-  .freq-toggle button{flex:1;padding:10px;border-radius:100px;border:1.5px solid var(--line);background:var(--cream);font-weight:600;font-size:13.5px;cursor:pointer;color:var(--ink-soft);}
-  .freq-toggle button.active{background:var(--teal);border-color:var(--teal);color:#fff;}
-  .freq-toggle button:disabled{opacity:0.45;cursor:not-allowed;}
-  .signin-note{font-size:12.5px;color:var(--ink-soft);margin-bottom:20px;}
-  .signin-note a{color:var(--teal);font-weight:600;cursor:pointer;}
-  .pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-  @media (max-width:400px){ .pay-methods{grid-template-columns:repeat(2,1fr);} }
-  .pay-method{
-    border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:12px 8px;text-align:center;
-    font-size:12px;font-weight:600;cursor:pointer;background:var(--cream);
-  }
-  .pay-method.selected{border-color:var(--teal);background:var(--teal-light);color:var(--teal-dark);}
-  .summary-card{background:var(--cream-2);border-radius:var(--radius-md);padding:20px;position:sticky;top:96px;}
-  .summary-row{display:flex;justify-content:space-between;font-size:13.5px;padding:8px 0;border-top:1px solid var(--line);}
-  .summary-row:first-child{border-top:none;}
-  .summary-row.total{font-weight:700;font-size:15px;}
-
-  .confirm-wrap{max-width:460px;margin:0 auto;text-align:center;}
-  .confirm-check{width:60px;height:60px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
-  .confirm-wrap h2{font-size:24px;margin-bottom:10px;}
-  .confirm-wrap p{font-size:14.5px;color:var(--ink-soft);margin-bottom:24px;}
-  .receipt-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);padding:20px;text-align:left;margin-bottom:24px;}
-  .confirm-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .certificate-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);max-width:560px;margin:0 auto;overflow:hidden;border:1.5px solid var(--brand-gold-light);}
+  .certificate-band{background:linear-gradient(135deg,var(--brand-gold-light),var(--brand-gold));padding:16px 28px;display:flex;align-items:center;justify-content:space-between;}
+  .certificate-band span{font-size:11.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#fff;}
+  .certificate-body{padding:36px 28px;text-align:center;}
+  .certificate-amount{font-family:'Fraunces',serif;font-size:36px;color:var(--brand-gold);margin-bottom:8px;}
+  .certificate-body h2{font-size:24px;margin-bottom:10px;}
+  .certificate-for{font-size:14.5px;color:var(--ink-soft);margin-bottom:22px;max-width:400px;margin-inline:auto;}
+  .certificate-detail{font-size:13px;color:var(--ink-soft);margin-bottom:26px;line-height:1.6;}
+  .certificate-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap mini-header">
+  <nav class="wrap">
     <a href="index.html" class="logo">
-      <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+      <span class="logo-mark"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
       <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
     </a>
-    <div style="display:flex;align-items:center;gap:16px;">
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="students.html">Our students</a>
+      <a href="index.html#give">Ways to give</a>
+      <a href="index.html#trust">Transparency</a>
+    </div>
+    <div class="nav-cta">
       <div class="account-menu" id="account-menu" style="display:none;">
         <button class="btn btn-ghost btn-sm" id="account-trigger" onclick="toggleAccountDropdown()">Account ▾</button>
         <div class="account-dropdown" id="account-dropdown">
@@ -143,391 +89,255 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="index.html" class="exit-link">Exit</a>
+      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
-  </div>
+  </nav>
 </header>
 
-<div class="stepper" id="stepper">
-  <div class="seg" data-step="1"><span class="line"></span><span class="circle">1</span><span class="lbl">Give</span></div>
-  <div class="seg" data-step="2"><span class="line"></span><span class="circle">2</span><span class="lbl">Checkout</span></div>
-  <div class="seg" data-step="3"><span class="line"></span><span class="circle">3</span><span class="lbl">Done</span></div>
-</div>
-
-<main class="wrap wizard-stage">
-
-  <div class="step" id="step-1">
-    <div class="section-head center" style="margin-bottom:24px;">
-      <span class="eyebrow">Choose how you give</span>
-      <h2>No wrong door — every path funds a student</h2>
-    </div>
-
-    <div class="prechosen-banner" id="prechosen-banner" style="display:none;">
-      <span>You're sponsoring <b id="prechosen-name"></b></span>
-      <a href="#" onclick="clearPrechosen();return false;">Change</a>
-    </div>
-
-    <div class="give-grid" id="give-grid">
-      <div class="give-card" data-type="general" onclick="selectGiveType('general')">
-        <div class="give-icon" style="background:var(--coral-light);color:var(--coral-dark);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.4 4 9.5 4C11 4 12.3 4.7 13 5.8C13.7 4.7 15 4 16.5 4C19.6 4 22 6.5 22 9.5C22 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
-        <h3>General fund</h3>
-        <p>Pools into the bursary fund — goes wherever the need is greatest.</p>
-      </div>
-      <div class="give-card" data-type="student" onclick="selectGiveType('student')">
-        <div class="give-icon" style="background:var(--teal-light);color:var(--teal);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M5 20C5 16.5 8 14 12 14C16 14 19 16.5 19 20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <h3>Choose a student</h3>
-        <p>Sponsor a specific student — you'll pick exactly who right after your gift goes through.</p>
-      </div>
-      <div class="give-card" data-type="mentor" onclick="selectGiveType('mentor')">
-        <div class="give-icon" style="background:var(--amber-light);color:var(--amber-dark);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 15C15.3 15 18 12.5 18 9C18 5.5 15.3 3 12 3C8.7 3 6 5.5 6 9C6 12.5 8.7 15 12 15Z" stroke="currentColor" stroke-width="1.7"/><path d="M8 14L5 21L12 18L19 21L16 14" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
-        <h3>Mentor match</h3>
-        <p>Give financially, plus light-touch mentoring — you'll be matched right after checkout.</p>
-      </div>
-    </div>
-    <p class="give-hint" id="give-hint" style="display:none;">No need to research anyone right now — finish your gift first, then choose exactly who.</p>
-
-    <div class="wizard-actions">
-      <span class="spacer"></span>
-      <button class="btn btn-primary" id="step1-continue" onclick="goToStep(2)" disabled>Continue →</button>
-    </div>
-  </div>
-
-  <div class="step" id="step-2">
-    <div class="section-head center" style="margin-bottom:28px;">
-      <span class="eyebrow">Checkout</span>
-      <h2>Just a few details and you're done</h2>
-    </div>
-    <div class="checkout-grid">
-      <div class="checkout-card">
-        <h2>Amount (MYR)</h2>
-        <div class="amount-chips" id="amount-chips">
-          <button class="amount-chip" data-amt="50" onclick="selectAmount(50)">RM50</button>
-          <button class="amount-chip" data-amt="125" onclick="selectAmount(125)">RM125</button>
-          <button class="amount-chip" data-amt="250" onclick="selectAmount(250)">RM250</button>
-          <input type="number" placeholder="Custom" id="amount-custom" style="width:100px;padding:10px 12px;border-radius:100px;border:1.5px solid var(--line);font-size:14px;font-weight:600;" oninput="selectAmount(this.value)">
-        </div>
-        <p class="give-hint" id="amount-caption" style="margin:0 0 8px;text-align:left;"></p>
-        <p style="font-size:11.5px;color:var(--ink-soft);margin:0 0 14px;">A student's full journey costs RM3,000 over 24 months — RM125/month covers one completely, start to finish.</p>
-        <div class="freq-toggle" id="freq-toggle">
-          <button data-freq="once" onclick="selectFreq('once')">One-off</button>
-          <button data-freq="monthly" class="active" onclick="selectFreq('monthly')">Monthly</button>
-        </div>
-        <p class="signin-note" id="signin-note" style="display:none;">Want to give monthly? <a onclick="openLoginModal();return false;">Sign in</a> so you can track and cancel it anytime from your dashboard.</p>
-        <h2>Payment method</h2>
-        <div class="pay-methods" id="pay-methods">
-          <div class="pay-method" data-pm="fpx" onclick="selectPay('fpx')">FPX</div>
-          <div class="pay-method" data-pm="duitnow" onclick="selectPay('duitnow')">DuitNow</div>
-          <div class="pay-method" data-pm="tng" onclick="selectPay('tng')">Touch 'n Go</div>
-          <div class="pay-method" data-pm="grabpay" onclick="selectPay('grabpay')">GrabPay</div>
-          <div class="pay-method" data-pm="shopeepay" onclick="selectPay('shopeepay')">ShopeePay</div>
-          <div class="pay-method" data-pm="card" onclick="selectPay('card')">Card</div>
-        </div>
-        <div id="pay-extra"></div>
-        <label class="check-row" style="display:flex;align-items:flex-start;gap:10px;margin-top:16px;font-size:13.5px;cursor:pointer;">
-          <input type="checkbox" id="cover-fee" style="width:16px;height:16px;margin-top:2px;flex-shrink:0;" onchange="toggleCoverFee(this.checked)">
-          <span>Add <b id="cover-fee-amt">RM0</b> so BrightPath keeps 100% of your gift after processing fees</span>
-        </label>
-      </div>
-      <div class="summary-card">
-        <div class="summary-row"><span>Giving to</span><span id="sum-target">—</span></div>
-        <div class="summary-row"><span>Frequency</span><span id="sum-freq">Monthly</span></div>
-        <div class="summary-row"><span>Payment method</span><span id="sum-pay">—</span></div>
-        <div class="summary-row" id="sum-fee-row" style="display:none;"><span>Covering fees</span><span id="sum-fee">RM0</span></div>
-        <div class="summary-row total"><span>Total today</span><span id="sum-total">RM0</span></div>
-        <button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="handleCheckoutSubmit()">Give now →</button>
-        <p style="font-size:11.5px;color:var(--ink-soft);margin-top:10px;text-align:center;">Receipt issued immediately. Cancel or edit anytime from your dashboard.</p>
-      </div>
-    </div>
-    <div class="wizard-actions">
-      <button class="back-btn" onclick="goToStep(1)">← Back</button>
-    </div>
-  </div>
-
-  <div class="step" id="step-3">
-    <div class="confirm-wrap">
-      <div class="confirm-check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <h2 id="confirm-heading">You're in!</h2>
-      <p id="confirm-message"></p>
-      <p style="font-family:'Fraunces',serif;font-size:15px;color:var(--ink-soft);font-style:italic;margin:-8px 0 24px;">You haven't given charity — you've removed one obstacle from someone's path. The real wealth was always the education.</p>
-
-      <div class="receipt-card" id="receipt-card">
-        <div class="summary-row"><span>Receipt no.</span><span id="receipt-no">—</span></div>
-        <div class="summary-row"><span>Amount</span><span id="receipt-amt">—</span></div>
-        <div class="summary-row" id="receipt-fee-row" style="display:none;"><span>Fee covered</span><span id="receipt-fee">—</span></div>
-        <div class="summary-row" id="receipt-total-row" style="display:none;font-weight:700;"><span>Total charged</span><span id="receipt-total">—</span></div>
-        <div class="summary-row"><span>Frequency</span><span id="receipt-freq">—</span></div>
-        <div class="summary-row"><span>Date</span><span id="receipt-date">—</span></div>
-      </div>
-
-      <div class="receipt-card" id="pick-later-card" style="display:none;">
-        <p style="font-size:14px;margin-bottom:14px;">Now let's find the right match for your gift.</p>
-        <a href="students.html" id="pick-later-link" class="btn btn-primary btn-block" style="margin-bottom:10px;">Choose your student now →</a>
-        <a href="dashboard.html" class="guest-link" style="margin:0;">I'll pick later from my dashboard</a>
-      </div>
-
-      <div class="confirm-actions">
-        <a href="#" class="btn btn-ghost" onclick="downloadCurrentReceipt();return false;">Download receipt</a>
-        <a href="dashboard.html" class="btn btn-ghost">Go to my dashboard</a>
-        <a href="index.html" class="btn btn-primary">Back to home</a>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<script src="data.js"></script>
 <script src="auth.js"></script>
 <script>renderAccountNav();</script>
-<script>
-  var FEE_RATE = 0.035;
-  var state = {
-    step:1,
-    giveType:null, studentId:null,
-    amount:125, freq:'monthly', pay:null, coverFee:false
-  };
 
-  function isLoggedIn(){
-    var s = getSession();
-    return !!(s && s.name);
+<main class="wrap" id="page-root">
+  <div class="page-head">
+    <span class="eyebrow">A gift, not a transaction</span>
+    <h1 class="serif" style="font-size:34px;margin-top:16px;">Give the gift of a semester.</h1>
+    <p>Nearly 500,000 Malaysian SPM leavers never continue to higher studies — often for the cost of a bus fare, a textbook, or a semester's meals. Choose exactly how you'd like to give.</p>
+  </div>
+
+  <div class="gift-mode-toggle" id="gift-mode-toggle">
+    <button class="gift-mode-btn is-active" data-mode="student">Choose a student, pledge in full</button>
+    <button class="gift-mode-btn" data-mode="general">Give to the general fund</button>
+  </div>
+
+  <div id="gift-student-mode">
+    <p class="gift-mode-sub">Every student here is verified by BrightPath. Read their story, then pledge their exact remaining need — no amount to choose, just the gap they have.</p>
+    <div class="pledge-student-grid" id="pledge-student-grid"></div>
+  </div>
+
+  <div id="gift-general-mode" style="display:none;">
+    <div class="general-fund-card">
+      <span class="eyebrow">General fund</span>
+      <h2 class="serif">Pledge to the BrightPath Bursary</h2>
+      <p>Your gift pools into the fund and is distributed to verified students across the platform who need it most — perfect if you'd rather not choose just one.</p>
+      <div class="amount-pills" id="amount-pills"></div>
+      <div class="amount-custom">
+        <label for="general-amount-custom">Or enter your own amount (RM)</label>
+        <input type="number" id="general-amount-custom" placeholder="e.g. 350" min="1">
+      </div>
+      <button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge to the general fund →</button>
+    </div>
+  </div>
+
+  <div id="gift-certificate-wrap" style="display:none;margin-top:28px;"></div>
+
+  <p class="gift-legal-note" id="gift-legal-note">Your pledge is confirmed instantly and tracked from your dashboard — cancel or edit anytime.</p>
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">
+        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.svg" alt="BrightPath"></span>
+        <span class="logo-text"><span class="logo-name" style="font-size:16px;">BrightPath</span><span class="logo-sub">Bursary</span></span>
+      </div>
+      <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM.</p>
+      <p class="logo-tagline" style="margin-top:10px;">Together, we make the <b>next step</b> possible.</p>
+    </div>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="students.html">Our students</a>
+      <a href="#">For coordinators</a>
+      <a href="corporate.html">For companies</a>
+      <a href="#">Privacy & PDPA</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  function coversChips(covers){
+    return covers.map(function(c){ return '<span class="covers-chip">' + c + '</span>'; }).join('');
   }
-  function currentAccountName(){
-    var s = getSession();
-    return (s && s.name) ? s.name : 'Guest';
-  }
+
+  var giftMode = 'student';
+  var giftCertificate = null; // {amountLabel, targetLabel, lastReceipt} — set right after a successful pledge
+  var GENERAL_AMOUNT_PRESETS = [50, 100, 200, 500];
+  var generalAmount = GENERAL_AMOUNT_PRESETS[1];
 
   var params = new URLSearchParams(window.location.search);
-  if(params.get('student')){ state.giveType = 'student'; state.studentId = Number(params.get('student')); }
-  if(params.get('type')){ state.giveType = params.get('type'); }
+  var highlightStudentId = params.get('studentId') ? Number(params.get('studentId')) : null;
+  if(params.get('mode') === 'general') giftMode = 'general';
 
-  function goToStep(n){
-    state.step = n;
-    document.querySelectorAll('.step').forEach(function(el){ el.classList.remove('current'); });
-    document.getElementById('step-' + n).classList.add('current');
-    document.querySelectorAll('.stepper .seg').forEach(function(seg){
-      var segNum = Number(seg.dataset.step);
-      seg.classList.remove('active','done');
-      if(segNum < n) seg.classList.add('done');
-      if(segNum === n) seg.classList.add('active');
-    });
-    if(n === 1) renderGiveStep();
-    if(n === 2) renderCheckoutStep();
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
-
-  function selectGiveType(type){
-    if(state.studentId) return;
-    state.giveType = type;
-    document.querySelectorAll('.give-card').forEach(function(c){ c.classList.toggle('selected', c.dataset.type === type); });
-    document.getElementById('give-hint').style.display = (type === 'student' || type === 'mentor') ? 'block' : 'none';
-    updateStep1ContinueState();
-  }
-
-  function clearPrechosen(){
-    state.studentId = null;
-    state.giveType = null;
-    renderGiveStep();
-  }
-
-  function updateStep1ContinueState(){
-    document.getElementById('step1-continue').disabled = !state.giveType;
-  }
-
-  function renderGiveStep(){
-    var banner = document.getElementById('prechosen-banner');
-    var hint = document.getElementById('give-hint');
-
-    if(state.studentId){
-      var s = getStudentById(state.studentId);
-      document.getElementById('prechosen-name').textContent = s ? (s.name + ', ' + s.state) : 'your chosen student';
-      banner.style.display = 'flex';
-      hint.style.display = 'none';
-      document.querySelectorAll('.give-card').forEach(function(c){ c.classList.toggle('selected', c.dataset.type === 'student'); });
-    } else {
-      banner.style.display = 'none';
-      if(state.giveType){
-        document.querySelectorAll('.give-card').forEach(function(c){ c.classList.toggle('selected', c.dataset.type === state.giveType); });
-        hint.style.display = (state.giveType === 'student' || state.giveType === 'mentor') ? 'block' : 'none';
-      } else {
-        hint.style.display = 'none';
-      }
+  document.addEventListener('click', function(e){
+    var modeBtn = e.target.closest('.gift-mode-btn');
+    if(modeBtn){
+      giftMode = modeBtn.dataset.mode;
+      document.querySelectorAll('.gift-mode-btn').forEach(function(b){ b.classList.toggle('is-active', b === modeBtn); });
+      document.getElementById('gift-student-mode').style.display = giftMode === 'student' ? 'block' : 'none';
+      document.getElementById('gift-general-mode').style.display = giftMode === 'general' ? 'block' : 'none';
+      return;
     }
-    updateStep1ContinueState();
-  }
-
-  var AMOUNT_CAPTIONS = {
-    monthly: {
-      50: "Part of the mission — helps BrightPath reach over 10,000 B40 students so they don't drop out after SPM",
-      125: "Fully sponsors one student's entire RM3,000, 2-year bursary — and you choose exactly who",
-      250: 'Fully sponsors one student, with room to spare for the next one waiting'
-    },
-    once: {
-      50: "A one-off boost toward BrightPath's mission to reach over 10,000 B40 students",
-      125: "A strong one-off contribution — about a month of a student's full bursary",
-      250: "A strong one-off contribution — about two months of a student's full bursary"
+    var pillBtn = e.target.closest('.amount-pill');
+    if(pillBtn){
+      generalAmount = Number(pillBtn.dataset.amount);
+      document.getElementById('general-amount-custom').value = '';
+      renderAmountPills();
     }
-  };
-  function updateAmountCaption(){
-    var set = AMOUNT_CAPTIONS[state.freq] || AMOUNT_CAPTIONS.monthly;
-    document.getElementById('amount-caption').textContent = set[state.amount] || '';
-  }
-  function selectAmount(val){
-    state.amount = Number(val) || 0;
-    document.querySelectorAll('.amount-chip').forEach(function(c){ c.classList.toggle('selected', Number(c.dataset.amt) === state.amount); });
-    updateAmountCaption();
-    updateSummary();
-  }
-  function selectFreq(f){
-    if(f === 'monthly' && !isLoggedIn()) return;
-    state.freq = f;
-    document.querySelectorAll('#freq-toggle button').forEach(function(b){ b.classList.toggle('active', b.dataset.freq === f); });
-    updateAmountCaption();
-    updateSummary();
-  }
-  function toggleCoverFee(checked){
-    state.coverFee = checked;
-    updateSummary();
-  }
-  function feeAmount(){
-    return Math.round((state.amount || 0) * FEE_RATE * 100) / 100;
-  }
-  function selectPay(p){
-    state.pay = p;
-    document.querySelectorAll('.pay-method').forEach(function(m){ m.classList.toggle('selected', m.dataset.pm === p); });
-    var extra = document.getElementById('pay-extra');
-    if(p === 'card'){
-      extra.innerHTML = '<div class="card-fields">' +
-        '<input type="text" placeholder="Card number">' +
-        '<input type="text" placeholder="MM / YY" class="half">' +
-        '<input type="text" placeholder="CVC" class="half">' +
-      '</div>';
-    } else {
-      var labels = {fpx:'your bank via FPX', duitnow:'DuitNow', tng:"Touch 'n Go eWallet", grabpay:'GrabPay', shopeepay:'ShopeePay'};
-      extra.innerHTML = '<div class="pay-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7.5C8 5.6 9.6 4 11.5 4H12.5C14.4 4 16 5.6 16 7.5V11" stroke="currentColor" stroke-width="1.8"/></svg> You will be redirected securely to ' + (labels[p] || 'your provider') + ' to finish payment.</div>';
+  });
+  document.addEventListener('input', function(e){
+    if(e.target.id === 'general-amount-custom'){
+      generalAmount = Number(e.target.value) || 0;
+      renderAmountPills();
     }
-    updateSummary();
+  });
+
+  function renderAmountPills(){
+    document.getElementById('amount-pills').innerHTML = GENERAL_AMOUNT_PRESETS.map(function(a){
+      return '<button class="amount-pill' + (generalAmount === a ? ' is-active' : '') + '" data-amount="' + a + '">' + fmtRM(a) + '</button>';
+    }).join('');
   }
 
-  function targetLabel(){
-    if(state.giveType === 'student' && state.studentId){
-      var s = getStudentById(state.studentId);
-      return s ? (s.name + ', ' + s.state) : 'A chosen student';
-    }
-    if(state.giveType === 'student') return "A student you'll choose next";
-    if(state.giveType === 'mentor') return "A mentee you'll choose next";
-    return 'General fund';
+  function isLoggedIn(){ var s = getSession(); return !!(s && s.name); }
+  function requireLogin(cb){
+    if(isLoggedIn()){ cb(); return; }
+    window.onLoginSuccess = function(){ renderAccountNav(); cb(); };
+    openLoginModal();
   }
 
-  function renderCheckoutStep(){
-    var loggedIn = isLoggedIn();
-    document.querySelectorAll('.amount-chip').forEach(function(c){ c.classList.toggle('selected', Number(c.dataset.amt) === state.amount); });
-    if(!loggedIn && state.freq === 'monthly') state.freq = 'once';
-    document.querySelectorAll('#freq-toggle button').forEach(function(b){ b.classList.toggle('active', b.dataset.freq === state.freq); });
-    document.getElementById('freq-toggle').querySelectorAll('button').forEach(function(b){ b.disabled = (b.dataset.freq === 'monthly' && !loggedIn); });
-    document.getElementById('signin-note').style.display = loggedIn ? 'none' : 'block';
-    updateAmountCaption();
-    updateSummary();
-  }
+  function receiptNo(){ return 'BP-' + Math.floor(100000 + Math.random()*900000); }
 
-  function updateSummary(){
-    document.getElementById('sum-target').textContent = targetLabel();
-    document.getElementById('sum-freq').textContent = state.freq === 'monthly' ? 'Monthly' : 'One-off';
-    document.getElementById('sum-pay').textContent = state.pay ? state.pay.toUpperCase() : '—';
-    var fee = feeAmount();
-    document.getElementById('cover-fee-amt').textContent = fmtRM(fee);
-    document.getElementById('sum-fee-row').style.display = state.coverFee ? 'flex' : 'none';
-    document.getElementById('sum-fee').textContent = fmtRM(fee);
-    var total = (state.amount || 0) + (state.coverFee ? fee : 0);
-    document.getElementById('sum-total').textContent = fmtRM(total);
-  }
-
-  function downloadCurrentReceipt(){
-    if(state.lastReceipt) printReceipt(state.lastReceipt);
-  }
-
-  function handleCheckoutSubmit(){
-    var loggedIn = isLoggedIn();
-    var accountName = currentAccountName();
-    document.getElementById('confirm-heading').textContent = loggedIn ? ('Thank you for being with us, ' + accountName + '!') : 'Thank you for being with us!';
-
-    var pickLater = document.getElementById('pick-later-card');
-    pickLater.style.display = 'none';
-    var msg;
-    if(state.giveType === 'student' && state.studentId){
-      var s = getStudentById(state.studentId);
-      msg = 'Your sponsorship of ' + (s ? s.name : 'your student') + ' has gone to our coordinator team for review. You\'ll get a match confirmation within 2–3 weeks.';
-    } else if(state.giveType === 'student'){
-      msg = "Your sponsorship is confirmed. Now let's find the student who needs it most.";
-      pickLater.style.display = 'block';
-    } else if(state.giveType === 'mentor'){
-      msg = "Your gift and mentoring interest are confirmed. Let's find your match.";
-      pickLater.style.display = 'block';
-    } else {
-      msg = 'Your gift is already at work in the BrightPath general fund. Thank you for backing Malaysia\'s next generation.';
-    }
-    var receiptNo = 'BP-' + Math.floor(100000 + Math.random()*900000);
-    var nowIso = new Date().toISOString();
-    var fee = state.coverFee ? feeAmount() : 0;
-    var total = (state.amount || 0) + fee;
-    document.getElementById('confirm-message').textContent = msg;
-    document.getElementById('receipt-no').textContent = receiptNo;
-    document.getElementById('receipt-amt').textContent = fmtRM(state.amount || 0) + (state.freq === 'monthly' ? '/month' : '');
-    document.getElementById('receipt-fee-row').style.display = fee ? 'flex' : 'none';
-    document.getElementById('receipt-fee').textContent = fmtRM(fee);
-    document.getElementById('receipt-total-row').style.display = fee ? 'flex' : 'none';
-    document.getElementById('receipt-total').textContent = fmtRM(total) + (state.freq === 'monthly' ? '/month' : '');
-    document.getElementById('receipt-freq').textContent = state.freq === 'monthly' ? 'Monthly, cancel anytime' : 'One-off';
-    document.getElementById('receipt-date').textContent = new Date().toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'});
-
-    state.lastReceipt = {
-      receiptNo: receiptNo,
-      dateLabel: new Date().toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'}),
-      donorName: accountName,
-      target: targetLabel(),
-      amountLabel: fmtRM(state.amount || 0) + (state.freq === 'monthly' ? '/month' : ''),
-      feeLabel: fee ? fmtRM(fee) : null,
-      totalLabel: fee ? (fmtRM(total) + (state.freq === 'monthly' ? '/month' : '')) : null,
-      freqLabel: state.freq === 'monthly' ? 'Monthly, cancel anytime' : 'One-off'
-    };
-
-    if(loggedIn){
-      var newGift = addActiveGift({
-        target: targetLabel(),
-        giveType: state.giveType,
-        studentId: state.studentId || null,
-        amount: state.amount,
-        freq: state.freq,
-        pay: state.pay,
-        coverFee: state.coverFee,
-        fee: fee,
-        status: 'active',
-        startedAt: nowIso
+  function pledgeStudentInFull(id){
+    var s = getStudentById(id);
+    if(!s) return;
+    requireLogin(function(){
+      var accountName = getSession().name;
+      var nowIso = new Date().toISOString();
+      var rn = receiptNo();
+      var target = s.code + ', ' + s.state;
+      addActiveGift({
+        target: target, giveType: 'student', studentId: s.id,
+        amount: s.goal, freq: 'once', pay: null, coverFee: false, fee: 0,
+        status: 'active', startedAt: nowIso
       });
-      var pickLaterLink = document.getElementById('pick-later-link');
-      if(pickLaterLink) pickLaterLink.href = 'students.html?forGift=' + newGift.id;
       addTransaction({
-        receiptNo: receiptNo,
-        date: nowIso,
-        target: targetLabel(),
-        amount: state.amount,
-        freq: state.freq,
-        pay: state.pay,
-        fee: fee,
-        total: total,
-        donorName: accountName
+        receiptNo: rn, date: nowIso, target: target, amount: s.goal,
+        freq: 'once', pay: null, fee: 0, total: s.goal, donorName: accountName,
+        monthsCovered: s.months
       });
-    }
-    goToStep(3);
+      giftCertificate = {
+        amountLabel: fmtRM(s.goal),
+        targetLabel: 'in full support of ' + s.code + '\'s semester',
+        lastReceipt: {
+          receiptNo: rn, dateLabel: new Date().toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'}),
+          donorName: accountName, target: target, amountLabel: fmtRM(s.goal), freqLabel: 'One-time pledge'
+        }
+      };
+      renderPage();
+    });
   }
 
-  // A sign-in that happens mid-checkout (e.g. from the "sign in for monthly
-  // giving" prompt) should update this page in place rather than reloading
-  // and losing whatever the donor had already picked.
-  window.onLoginSuccess = function(){
-    renderAccountNav();
-    if(state.step === 2) renderCheckoutStep();
-  };
+  function pledgeGeneralAmount(){
+    if(!generalAmount || generalAmount <= 0){ document.getElementById('general-amount-custom').focus(); return; }
+    var amount = generalAmount;
+    requireLogin(function(){
+      var accountName = getSession().name;
+      var nowIso = new Date().toISOString();
+      var rn = receiptNo();
+      addActiveGift({
+        target: 'General fund', giveType: 'general', studentId: null,
+        amount: amount, freq: 'once', pay: null, coverFee: false, fee: 0,
+        status: 'active', startedAt: nowIso
+      });
+      addTransaction({
+        receiptNo: rn, date: nowIso, target: 'General fund', amount: amount,
+        freq: 'once', pay: null, fee: 0, total: amount, donorName: accountName,
+        monthsCovered: Math.round(amount / MONTHLY_RATE)
+      });
+      giftCertificate = {
+        amountLabel: fmtRM(amount),
+        targetLabel: 'to the BrightPath Bursary general fund',
+        lastReceipt: {
+          receiptNo: rn, dateLabel: new Date().toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'}),
+          donorName: accountName, target: 'General fund', amountLabel: fmtRM(amount), freqLabel: 'One-time pledge'
+        }
+      };
+      renderPage();
+    });
+  }
 
-  goToStep(1);
+  function resetGiftFlow(){
+    giftCertificate = null;
+    renderPage();
+  }
+  function downloadCurrentReceipt(){
+    if(giftCertificate && giftCertificate.lastReceipt) printReceipt(giftCertificate.lastReceipt);
+  }
+
+  function renderCertificate(){
+    var c = giftCertificate;
+    document.getElementById('gift-mode-toggle').style.display = 'none';
+    document.getElementById('gift-student-mode').style.display = 'none';
+    document.getElementById('gift-general-mode').style.display = 'none';
+    document.getElementById('gift-legal-note').style.display = 'none';
+    var wrap = document.getElementById('gift-certificate-wrap');
+    wrap.style.display = 'block';
+    wrap.innerHTML =
+      '<div class="certificate-card">' +
+        '<div class="certificate-band"><span>Pledge Certificate</span><span>BrightPath Bursary</span></div>' +
+        '<div class="certificate-body">' +
+          '<div class="certificate-amount">' + c.amountLabel + '</div>' +
+          '<h2 class="serif">You\'re in!</h2>' +
+          '<p class="certificate-for">You\'ve pledged ' + c.amountLabel + ' ' + c.targetLabel + '.</p>' +
+          '<p class="certificate-detail">You haven\'t given charity — you\'ve removed one obstacle from someone\'s path. Your pledge is confirmed instantly and tracked from your dashboard; cancel or edit anytime.</p>' +
+          '<div class="certificate-actions">' +
+            '<a href="#" class="btn btn-ghost btn-sm" onclick="downloadCurrentReceipt();return false;">Download confirmation</a>' +
+            '<a href="dashboard.html" class="btn btn-ghost btn-sm">Go to my dashboard</a>' +
+            '<a href="index.html" class="btn btn-primary btn-sm">Back to home</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function pledgeStudentCardHtml(s){
+    var funded = pctFunded(s) >= 100;
+    var highlighted = s.id === highlightStudentId;
+    return '<div class="pledge-student-card' + (highlighted ? ' is-highlighted' : '') + '" id="pledge-card-' + s.id + '">' +
+      '<div class="psc-head"><span class="t-code">' + s.code + '</span><span class="badge badge-verified">Verified</span></div>' +
+      '<div class="psc-meta">' + s.state + ' · ' + s.level + ' · ' + s.course + '</div>' +
+      '<p class="psc-quote">&ldquo;' + s.story + '&rdquo;</p>' +
+      '<p class="psc-narrative">' + s.family + ' ' + s.academic + '. Now aiming for: ' + s.ambition + '</p>' +
+      '<div class="covers-row">' + coversChips(s.covers) + '</div>' +
+      '<div class="psc-footer">' +
+        '<div class="psc-amount">' + fmtRM(s.goal) + '<span>over ' + s.months + ' months</span></div>' +
+        (funded ?
+          '<button class="btn btn-sm" disabled style="background:var(--teal-light);color:var(--teal-dark);">✓ Fully supported</button>' :
+          '<button class="btn btn-primary btn-sm" onclick="pledgeStudentInFull(' + s.id + ')">Pledge in full →</button>') +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderPage(){
+    if(giftCertificate){ renderCertificate(); return; }
+    document.getElementById('gift-mode-toggle').style.display = 'flex';
+    document.getElementById('gift-student-mode').style.display = giftMode === 'student' ? 'block' : 'none';
+    document.getElementById('gift-general-mode').style.display = giftMode === 'general' ? 'block' : 'none';
+    document.getElementById('gift-certificate-wrap').style.display = 'none';
+    document.getElementById('gift-legal-note').style.display = 'block';
+    document.querySelectorAll('.gift-mode-btn').forEach(function(b){ b.classList.toggle('is-active', b.dataset.mode === giftMode); });
+
+    document.getElementById('pledge-student-grid').innerHTML = STUDENTS.map(pledgeStudentCardHtml).join('');
+    renderAmountPills();
+
+    if(highlightStudentId){
+      var card = document.getElementById('pledge-card-' + highlightStudentId);
+      if(card) card.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  }
+
+  window.onLoginSuccess = function(){ renderAccountNav(); };
+
+  renderPage();
 </script>
 
 </body>
