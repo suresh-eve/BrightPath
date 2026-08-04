@@ -172,7 +172,9 @@
             '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +
             '<div class="progress-label"><span>' + pct + '% funded</span><span>' + fmtRM(s.raised) + ' of ' + fmtRM(s.goal) + '</span></div>' +
           '</div>' +
-          '<a href="student-profile.html?id=' + s.id + (forGiftId ? '&forGift=' + encodeURIComponent(forGiftId) : '') + '" class="btn btn-ghost btn-sm btn-block">' + (hasPendingMatch ? 'View profile &amp; choose' : 'View profile &amp; sponsor') + '</a>' +
+          (pct >= 100 ?
+            '<button class="btn btn-ghost btn-sm btn-block" disabled>&check; Fully supported</button>' :
+            '<a href="student-profile.html?id=' + s.id + (forGiftId ? '&forGift=' + encodeURIComponent(forGiftId) : '') + '" class="btn btn-ghost btn-sm btn-block">' + (hasPendingMatch ? 'View profile &amp; choose' : 'View profile &amp; sponsor') + '</a>') +
         '</div>' +
       '</div>';
   }

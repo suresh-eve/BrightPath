@@ -231,7 +231,9 @@
       '<div class="sponsor-amounts"><span class="raised">' + fmtRM(s.raised) + '</span><span class="goal">of ' + fmtRM(s.goal) + ' over ' + s.months + ' months</span></div>' +
       '<div class="sponsor-stat-row"><span>' + pct + '% funded</span><span>' + s.months + ' months of support</span></div>' +
       '<div class="sponsor-stat-row" style="margin-top:-14px;"><span>RM' + MONTHLY_RATE + '/month covers it fully</span></div>' +
-      (pendingGift
+      (pct >= 100
+        ? '<button type="button" class="btn btn-block" disabled style="background:var(--teal-light);color:var(--teal-dark);">&check; Fully supported</button>'
+        : pendingGift
         ? (
           '<div class="pay-note" style="margin-bottom:14px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Your ' + fmtRM(pendingGift.amount) + ' gift is already in — this just tells us where it goes. No new payment.</div>' +
           '<button type="button" class="btn btn-primary btn-block" onclick="assignStudentToGift(' + s.id + ')">Choose ' + s.code + ' as my student →</button>' +

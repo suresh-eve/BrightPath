@@ -381,7 +381,7 @@ function pledgeStudentCardHtml(s){
   var funded = isFunded(s);
   return '<div class="pledge-student-card">' +
     '<div class="psc-head"><span class="t-code">' + s.code + '</span><span class="badge badge-verified">Verified</span></div>' +
-    '<div class="psc-meta">' + s.state + ' · ' + s.stream + '</div>' +
+    '<div class="psc-meta">' + s.state + ' · ' + s.level + ' · ' + s.course + '</div>' +
     '<p class="psc-quote">&ldquo;' + s.story + '&rdquo;</p>' +
     '<p class="psc-narrative">' + s.family + ' ' + s.academic + '. Now aiming for: ' + s.ambition + '</p>' +
     '<div class="covers-row">' + coversChips(s.covers) + '</div>' +
@@ -419,7 +419,7 @@ function renderStoriesTab(){
         '</div>' +
       '</div>' +
       '<div class="story-copy">' +
-        '<span class="story-tag">' + s.code + ' · ' + s.state + ' · ' + s.stream + '</span>' +
+        '<span class="story-tag">' + s.code + ' · ' + s.state + ' · ' + s.level + ' · ' + s.course + '</span>' +
         '<h2 class="serif">&ldquo;' + s.story + '&rdquo;</h2>' +
         '<p class="narrative">' + s.family + ' ' + s.academic + '. Now aiming for: ' + s.ambition + '</p>' +
         '<div class="stamp-row">' + coversChips(s.covers) + '</div>' +
@@ -451,7 +451,7 @@ function renderTransparencyTab(){
     var pct = funded ? 100 : pctFundedReal(s);
     return '<div class="transparency-card">' +
       '<div class="t-head"><span class="t-code">' + s.code + '</span><span class="badge badge-verified">Verified</span></div>' +
-      '<div style="font-size:13px;color:var(--ink-soft);">' + s.state + ' · ' + s.stream + '</div>' +
+      '<div style="font-size:13px;color:var(--ink-soft);">' + s.state + ' · ' + s.level + ' · ' + s.course + '</div>' +
       '<div style="margin-top:12px;"><div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +
         '<div class="progress-label"><span>' + pct + '% funded</span><span>' + fmtRM(funded ? s.goal : s.raised) + ' of ' + fmtRM(s.goal) + '</span></div></div>' +
       '<div class="t-verify"><span>✓ Identity</span><span>✓ Academic record</span><span>✓ Study pathway</span><span>✓ Financial need</span></div>' +
