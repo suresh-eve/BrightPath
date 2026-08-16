@@ -95,7 +95,6 @@
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
   .impact-step.done{background:#fff;color:var(--teal-dark);}
-  .impact-step.current{background:var(--coral);color:#fff;box-shadow:0 0 0 4px rgba(226,112,74,0.32);}
   .impact-connector{height:2px;width:16px;background:rgba(255,255,255,0.2);flex-shrink:0;}
   .impact-connector.done{background:#fff;}
   .impact-year-badge{
@@ -119,7 +118,7 @@
     </a>
     <div class="nav-links">
       <a href="about.html">About</a>
-      <a href="students.html">Our students</a>
+      <a href="index.html#student-listing">Our students</a>
       <a href="index.html#give">Ways to give</a>
       <a href="index.html#trust">Transparency</a>
     </div>
@@ -132,7 +131,7 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
+      <a href="index.html#give-gift" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
@@ -161,8 +160,8 @@
     <div class="panel-card" id="matched-banner" style="display:none;background:var(--teal-light);"></div>
 
     <div class="panel-card impact-card" id="impact-card" style="display:none;">
-      <span class="eyebrow">Your kindness journey</span>
-      <h2 id="impact-headline">You've just started your journey with us.</h2>
+      <span class="eyebrow">Your impact so far</span>
+      <h2 id="impact-headline">Thank you for your first gift.</h2>
       <div class="impact-path" id="impact-path"></div>
       <div class="impact-stats">
         <div class="impact-stat"><div class="impact-num" id="impact-total">RM0</div><div class="impact-lbl">total given</div></div>
@@ -211,6 +210,7 @@
 
     <div class="signout-row">
       <a href="#" class="btn btn-ghost" onclick="signOut();return false;">Sign out</a>
+      <a href="#" class="btn btn-ghost" style="color:var(--ink-soft);" onclick="resetMyGivingHistoryPrompt();return false;" title="Testing utility — clears pledges and receipts recorded in this browser, keeps you signed in">Reset my giving history (testing)</a>
     </div>
   </div>
 
@@ -228,7 +228,7 @@
     </div>
     <div class="footer-links">
       <a href="about.html">About</a>
-      <a href="students.html">Our students</a>
+      <a href="index.html#student-listing">Our students</a>
       <a href="#">For coordinators</a>
       <a href="corporate.html">For companies</a>
       <a href="#">Privacy & PDPA</a>
@@ -314,12 +314,12 @@
       if(gifts.length === 0){
         el.innerHTML = '<div class="panel-card empty-panel">' +
           '<p>You haven\'t started a gift yet.</p>' +
-          '<a href="join.html" class="btn btn-primary">Pledge your support →</a>' +
+          '<a href="index.html#give-gift" class="btn btn-primary">Pledge your support →</a>' +
         '</div>';
         return;
       }
       el.innerHTML = gifts.map(giftCardHtml).join('') +
-        '<a href="join.html" class="btn btn-ghost btn-sm">+ Start another gift</a>';
+        '<a href="index.html#give-gift" class="btn btn-ghost btn-sm">+ Start another gift</a>';
     }
 
     window.togglePmForm = function(giftId){
@@ -344,25 +344,14 @@
       renderGiving();
     };
 
-    function seedHistoryIfThin(){
-      var gift = getPrimaryActiveGift();
-      var tx = getTransactions();
-      if(gift && gift.freq === 'monthly' && tx.length < 2){
-        var base = new Date(gift.startedAt);
-        for(var i = 1; i <= 2; i++){
-          var d = new Date(base);
-          d.setMonth(d.getMonth() - i);
-          addTransaction({
-            receiptNo: 'BP-' + Math.floor(100000 + Math.random()*900000),
-            date: d.toISOString(),
-            target: gift.target,
-            amount: gift.amount,
-            freq: gift.freq,
-            pay: gift.pay
-          });
-        }
-      }
-    }
+    window.resetMyGivingHistoryPrompt = function(){
+      if(!confirm('Clear all pledges and receipts recorded in this browser? You\'ll stay signed in, but your dashboard will go back to empty.')) return;
+      resetMyGivingHistory();
+      renderGiving();
+      renderUpdates();
+      renderReceipts();
+      renderImpactCard();
+    };
 
     // The "kindness journey" impact card — a Strava-style running total of a
     // donor's giving, built entirely from their own transaction history so it
@@ -403,25 +392,23 @@
       };
     }
 
+    // This shows MONTHS OF SUPPORT FUNDED — a magnitude built from your gifts'
+    // monthsCovered, not calendar time elapsed since you started giving. A
+    // single "pledge in full" can fund 10 months on day one, so the copy and
+    // this path must never imply that much time has actually passed (that's
+    // what made "you've walked alongside them for 11 months" read as a lie to
+    // someone who pledged seconds ago) — every mark here is a month your
+    // gifts already fund, not a month you've lived through as a donor.
     function renderImpactPath(months){
       var el = document.getElementById('impact-path');
       var shown = Math.min(months, 12);
-      var upcoming = months >= 12 ? 0 : Math.min(3, 12 - shown);
-      var doneIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      var currentIcon = avatarIconHtml(13);
+      var icon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       var html = '';
-      var total = Math.max(shown + upcoming, 1);
-      for(var i = 1; i <= total; i++){
-        if(i > 1) html += '<div class="impact-connector' + (i - 1 <= shown ? ' done' : '') + '"></div>';
-        if(i < shown){
-          html += '<div class="impact-step done">' + doneIcon + '</div>';
-        } else if(i === shown){
-          html += '<div class="impact-step current">' + currentIcon + '</div>';
-        } else {
-          html += '<div class="impact-step"></div>';
-        }
+      for(var i = 1; i <= shown; i++){
+        if(i > 1) html += '<div class="impact-connector done"></div>';
+        html += '<div class="impact-step done">' + icon + '</div>';
       }
-      if(months > 12) html += '<span class="impact-year-badge">' + Math.floor(months / 12) + '+ year' + (months >= 24 ? 's' : '') + ' strong</span>';
+      if(months > 12) html += '<span class="impact-year-badge">' + months + ' months funded</span>';
       el.innerHTML = html;
     }
 
@@ -432,12 +419,11 @@
       card.style.display = 'block';
 
       var headline;
-      if(stats.totalMonths <= 1){
-        headline = "You've just started your journey with us.";
-      } else if(stats.totalMonths < 12){
-        headline = 'You’ve walked alongside ' + stats.studentsSupported + (stats.studentsSupported === 1 ? ' student' : ' students') + ' for ' + stats.totalMonths + ' months now.';
+      if(stats.totalMonths <= 0){
+        headline = 'Thank you for your first gift — your impact will show here as it grows.';
       } else {
-        headline = 'You’ve been part of ' + stats.studentsSupported + (stats.studentsSupported === 1 ? ' student’s journey' : ' students’ journeys') + ' for over a year now.';
+        headline = 'Your giving funds ' + stats.totalMonths + (stats.totalMonths === 1 ? ' month' : ' months') +
+          ' of support across ' + stats.studentsSupported + (stats.studentsSupported === 1 ? ' student.' : ' students.');
       }
       document.getElementById('impact-headline').textContent = headline;
 
@@ -504,7 +490,7 @@
       if(gifts.length === 0){
         el.innerHTML = '<div class="panel-card empty-panel">' +
           '<p>Updates from your coordinator will show up here once you start giving.</p>' +
-          '<a href="join.html" class="btn btn-primary">Pledge your support →</a>' +
+          '<a href="index.html#give-gift" class="btn btn-primary">Pledge your support →</a>' +
         '</div>';
         return;
       }
@@ -575,7 +561,6 @@
       });
     };
 
-    seedHistoryIfThin();
     renderGiving();
     renderUpdates();
     renderReceipts();

@@ -52,6 +52,18 @@ function updateActiveGift(id, patch){
 function getGiftById(id){
   return getActiveGifts().find(function(g){ return g.id === id; }) || null;
 }
+
+// Dev/QA utility only — this is a localStorage-only prototype with no way to
+// tell a tester's repeated pledges apart from a real donor's, so this is how
+// you get back to a clean slate instead of every stat page accumulating every
+// pledge you've ever made while testing.
+function resetMyGivingHistory(){
+  try{
+    localStorage.removeItem('bp_active_gifts');
+    localStorage.removeItem('bp_active_gift');
+    localStorage.removeItem('bp_transactions');
+  }catch(e){}
+}
 // The gift nav CTAs and empty-states care about when they just need to know
 // "does this donor have any giving going at all" — the first non-cancelled one.
 function getPrimaryActiveGift(){
@@ -63,6 +75,16 @@ function getPrimaryActiveGift(){
 // the state that needs a lightweight "assign", never a second checkout.
 function isPendingMatch(gift){
   return !!(gift && gift.status !== 'cancelled' && !gift.studentId && (gift.giveType === 'student' || gift.giveType === 'mentor'));
+}
+
+// Whether the current donor already has a non-cancelled gift pointed at this
+// specific student — checked before showing a fresh "pledge" CTA anywhere
+// (listing card, profile page) so the same student can't be double-pledged
+// and every page agrees on whether you've already committed to them.
+function hasPledgedStudent(studentId){
+  return getActiveGifts().some(function(g){
+    return g.status !== 'cancelled' && g.studentId === studentId;
+  });
 }
 
 function getCorporateLeads(){
@@ -249,8 +271,12 @@ function mockLoginSSO(provider, btn){
   }, 450);
 }
 function mockLoginEmail(){
-  var email = (document.getElementById('login-email').value || '').trim();
-  if(!email) return;
+  var input = document.getElementById('login-email');
+  var email = (input.value || '').trim();
+  if(!email || !input.checkValidity()){
+    input.reportValidity();
+    return;
+  }
   _pendingLogin = {method: 'email', email: email};
   showNamePanel(email);
 }

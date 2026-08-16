@@ -54,23 +54,66 @@
     padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
   }
 
-  /* STUDENT POOL */
-  .pool-section{background:var(--cream-2);}
-  .pool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-  @media (max-width:900px){ .pool-grid{grid-template-columns:1fr 1fr;} }
-  @media (max-width:640px){ .pool-grid{grid-template-columns:1fr;} }
-  .student-card{background:var(--white);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card);}
-  .student-photo{height:150px;position:relative;}
-  .student-photo .initials{
-    position:absolute;bottom:14px;left:14px;width:44px;height:44px;border-radius:50%;
-    background:rgba(255,255,255,0.94);display:flex;align-items:center;justify-content:center;
-    font-family:'Fraunces',serif;font-weight:600;font-size:16px;
+  /* GIFT HEADER — brought up from join.html so it's the first thing seen
+     after the hero, on this same landing page */
+  #give-gift{background:var(--cream-2);}
+  .gift-header-card{text-align:center;max-width:640px;margin:0 auto;}
+  .gift-header-card .eyebrow{margin-bottom:16px;}
+  .gift-header-card h2{font-size:34px;margin-bottom:14px;}
+  .gift-header-card p{color:var(--ink-soft);font-size:15.5px;}
+  .gift-mode-toggle{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:28px 0 16px;}
+  .gift-mode-btn{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;padding:11px 20px;border-radius:100px;border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;transition:all .15s ease;display:inline-flex;}
+  .gift-mode-btn:hover{border-color:var(--ink-soft);}
+  .gift-mode-btn.is-active{background:var(--teal-dark);color:#fff;border-color:var(--teal-dark);}
+  .gift-mode-sub{font-size:13.5px;color:var(--ink-soft);max-width:560px;margin:16px auto 0;}
+
+  /* STUDENT LISTING — the full browsable pool, at the bottom of this page.
+     One card design, used everywhere a student is shown (item 4): quote,
+     family/academic story, what the gift covers, then the amount as a
+     one-time total rather than "RM x over N months" (which read like a
+     recurring RM x/month commitment). */
+  .pledge-student-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;}
+  @media (max-width:760px){ .pledge-student-grid{grid-template-columns:1fr;} }
+  .pledge-student-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:24px;display:flex;flex-direction:column;gap:10px;}
+  .psc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .psc-head .t-code{font-family:'Fraunces',serif;font-size:18px;}
+  .psc-meta{font-size:12.5px;color:var(--ink-soft);}
+  .psc-quote{font-family:'Fraunces',serif;font-style:italic;font-size:14.5px;color:var(--ink);line-height:1.4;}
+  .psc-narrative{font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
+  .psc-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:8px;}
+  .psc-amount{font-family:'Fraunces',serif;font-size:19px;color:var(--brand-gold);line-height:1.2;}
+  .psc-amount span{display:block;font-family:'Inter',sans-serif;font-size:10.5px;color:var(--ink-soft);font-weight:600;}
+  .psc-profile-link{display:block;text-align:center;font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+  .psc-profile-link:hover{color:var(--ink);}
+
+  /* GENERAL FUND — the other half of "Ready to give?", now real instead of
+     a redundant button pointing to a separate page */
+  .general-fund-card{background:var(--teal-dark);color:#fff;border-radius:var(--radius-lg);padding:34px;max-width:520px;margin:0 auto;text-align:center;}
+  .general-fund-card .eyebrow{background:rgba(255,255,255,0.14);color:#fff;}
+  .general-fund-card h2{color:#fff;font-size:23px;margin:14px 0 8px;}
+  .general-fund-card p{color:#CFE3DB;font-size:14px;margin-bottom:24px;}
+  .amount-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+  .amount-pill{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:10px 20px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);background:transparent;color:#fff;cursor:pointer;transition:all .15s ease;}
+  .amount-pill:hover{border-color:#fff;}
+  .amount-pill.is-active{background:#fff;color:var(--teal-dark);border-color:#fff;}
+  .amount-custom{margin-bottom:22px;}
+  .amount-custom label{display:block;font-size:12.5px;color:#CFE3DB;margin-bottom:8px;}
+  .amount-custom input{width:180px;padding:10px 14px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);background:rgba(255,255,255,0.08);color:#fff;font-family:'Inter',sans-serif;font-size:15px;text-align:center;}
+  .amount-custom input::placeholder{color:rgba(255,255,255,0.55);}
+  .amount-custom input:focus{outline:none;border-color:#fff;}
+
+  .filter-bar{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:14px 16px;margin:28px 0 8px;
   }
-  .student-body{padding:18px;}
-  .student-name{font-family:'Fraunces',serif;font-size:16.5px;font-weight:600;margin-bottom:2px;}
-  .student-meta{font-size:13px;color:var(--ink-soft);margin-bottom:14px;}
-  .student-quote{font-size:13.5px;color:var(--ink-soft);font-style:italic;margin-bottom:14px;}
-  .pool-footer{display:flex;justify-content:center;margin-top:34px;}
+  .filter-bar select{
+    font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:var(--ink);
+    border:1px solid var(--line);border-radius:100px;padding:9px 14px;background:var(--cream);cursor:pointer;
+  }
+  .filter-count{margin-left:auto;font-size:13px;color:var(--ink-soft);}
+  .empty-state{text-align:center;padding:60px 20px;color:var(--ink-soft);font-size:14.5px;display:none;}
+  .funded-divider{grid-column:1/-1;text-align:center;font-size:13px;color:var(--ink-soft);padding:14px 0;border-top:1px solid var(--line);margin-top:6px;}
 
   /* TRUST */
   .trust-list{display:flex;flex-direction:column;gap:20px;}
@@ -146,7 +189,7 @@
     </div>
     <div class="nav-links">
       <a href="#the-cause">About</a>
-      <a href="students.html">Our students</a>
+      <a href="#student-listing">Our students</a>
       <a href="#give">Ways to give</a>
       <a href="#trust">Transparency</a>
     </div>
@@ -159,7 +202,7 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="join.html" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
+      <a href="#give-gift" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
@@ -180,8 +223,8 @@
             <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Cancel anytime, no calls needed</span>
           </div>
           <div class="hero-actions">
-            <a href="join.html" class="btn btn-primary">Pledge your support →</a>
-            <a href="students.html" class="btn btn-ghost">Meet the students</a>
+            <a href="#give-gift" class="btn btn-primary">Pledge your support →</a>
+            <a href="#student-listing" class="btn btn-ghost">Meet the students</a>
           </div>
         </div>
 
@@ -198,56 +241,17 @@
     </div>
   </section>
 
-  <section id="students" class="pool-section">
+  <section id="give-gift">
     <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Meet the pool</span>
-        <h2>Real students, verified and ready for a sponsor</h2>
-        <p>Every profile is reviewed and identified by a code, never a name — sponsors receive progress updates while the student's identity stays confidential, always.</p>
-      </div>
-      <div class="pool-grid">
-        <div class="student-card">
-          <div class="student-photo" style="background:linear-gradient(135deg,#E7D3EF,#153F35);">
-            <div class="initials"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-          </div>
-          <div class="student-body">
-            <div class="student-name">S-5DD7A4</div>
-            <div class="student-meta">Negeri Sembilan · STPM (Form 6) · Social Science</div>
-            <p class="student-quote">"I'll be the first in my family to go to university."</p>
-            <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            <div class="progress-label" style="margin-bottom:14px;"><span>0% funded</span><span>RM1,000 to go</span></div>
-            <a href="student-profile.html?id=2" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor this student</a>
-          </div>
+      <div class="gift-header-card">
+        <span class="eyebrow">A gift, not a transaction</span>
+        <h2 class="serif">Give the gift of a semester.</h2>
+        <p>Nearly 500,000 Malaysian SPM leavers never continue to higher studies — often for the cost of a bus fare, a textbook, or a semester's meals. Choose exactly how you'd like to give.</p>
+        <div class="gift-mode-toggle">
+          <a href="#student-listing" class="gift-mode-btn is-active">Choose a student, pledge in full</a>
+          <a href="#give" class="gift-mode-btn">Give to the general fund</a>
         </div>
-        <div class="student-card">
-          <div class="student-photo" style="background:linear-gradient(135deg,#F0DCC0,#E2704A);">
-            <div class="initials"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-          </div>
-          <div class="student-body">
-            <div class="student-name">S-A028AE</div>
-            <div class="student-meta">Johor · Matriculation · Science</div>
-            <p class="student-quote">"Between caring for my grandmother and my studies, I learned discipline early."</p>
-            <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            <div class="progress-label" style="margin-bottom:14px;"><span>0% funded</span><span>RM2,000 to go</span></div>
-            <a href="student-profile.html?id=3" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor this student</a>
-          </div>
-        </div>
-        <div class="student-card">
-          <div class="student-photo" style="background:linear-gradient(135deg,#FBEACD,#8B5FA8);">
-            <div class="initials"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-          </div>
-          <div class="student-body">
-            <div class="student-name">S-518D29</div>
-            <div class="student-meta">Kedah · Matriculation · Engineering</div>
-            <p class="student-quote">"I already skip meals to save for the bus home."</p>
-            <div class="progress-track"><div class="progress-fill" style="width:0%;"></div></div>
-            <div class="progress-label" style="margin-bottom:14px;"><span>0% funded</span><span>RM2,000 to go</span></div>
-            <a href="student-profile.html?id=4" class="btn btn-ghost btn-sm" style="width:100%;">Sponsor this student</a>
-          </div>
-        </div>
-      </div>
-      <div class="pool-footer">
-        <a href="students.html" class="btn btn-ghost">View all students waiting →</a>
+        <p class="gift-mode-sub">Every student here is verified by BrightPath. Read their story, then pledge their exact remaining need — no amount to choose, just the gap they have.</p>
       </div>
     </div>
   </section>
@@ -298,13 +302,18 @@
 
   <section id="give" style="padding-top:0;">
     <div class="wrap">
-      <div class="section-head center">
-        <span class="eyebrow">Ready to give?</span>
-        <h2>Choose exactly how you'd like to give</h2>
-        <p>Pledge full support to a specific student, or give to the general fund — pick what feels right, then follow the simple gifting flow.</p>
-      </div>
-      <div style="text-align:center;margin-bottom:40px;">
-        <a href="join.html" class="btn btn-primary">Pledge your support →</a>
+      <div class="general-fund-card" id="general-fund-card">
+        <span class="eyebrow">General fund</span>
+        <h2 class="serif">Pledge to the BrightPath Bursary</h2>
+        <p>Your gift pools into the fund and is distributed to verified students across the platform who need it most — perfect if you'd rather not choose just one.</p>
+        <div class="amount-pills" id="amount-pills"></div>
+        <div class="amount-custom">
+          <label for="general-amount-custom">Or enter your own amount (RM10–RM10,000)</label>
+          <input type="number" id="general-amount-custom" placeholder="e.g. 350" min="10" max="10000" step="1">
+        </div>
+        <div id="general-pledge-area">
+          <button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge RM100 →</button>
+        </div>
       </div>
 
       <div class="corp-banner">
@@ -365,9 +374,30 @@
       <h2 style="font-size:24px;line-height:1.45;">As the saying goes, <em>&ldquo;Sikit-sikit, lama-lama menjadi bukit.&rdquo;</em>&nbsp;&nbsp;Whether it is a little or a lot, together it all adds up to change a student's life.</h2>
       <p>Join our founding group of donors helping students take their next step across Malaysia.</p>
       <div class="final-cta-actions">
-        <a href="join.html" class="btn btn-onteal">Pledge your support →</a>
-        <a href="students.html" class="btn" style="border:1.5px solid rgba(255,255,255,0.3);color:#fff;">Browse students</a>
+        <a href="#give-gift" class="btn btn-onteal">Pledge your support →</a>
+        <a href="#student-listing" class="btn" style="border:1.5px solid rgba(255,255,255,0.3);color:#fff;">Browse students</a>
       </div>
+    </div>
+  </section>
+
+  <section id="student-listing" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The public pool</span>
+        <h2>Every one of these students has already been verified.</h2>
+        <p>Citizenship, household income, grades and a place at a Malaysian institution are all checked before a profile appears here. Every student is identified by a code, never a name — sponsors receive progress updates without ever seeing who a student is.</p>
+      </div>
+      <div class="filter-bar">
+        <select id="filter-state"><option value="">All states</option></select>
+        <select id="filter-course"><option value="">All fields of study</option></select>
+        <select id="filter-sort">
+          <option value="urgent">Most in need of funding</option>
+          <option value="funded">Closest to fully funded</option>
+        </select>
+        <span class="filter-count" id="filter-count"></span>
+      </div>
+      <div class="pledge-student-grid" id="student-listing-grid"></div>
+      <p class="empty-state" id="student-listing-empty">No students match those filters right now — try widening your search.</p>
     </div>
   </section>
 </main>
@@ -384,7 +414,7 @@
     </div>
     <div class="footer-links">
       <a href="#the-cause">About</a>
-      <a href="students.html">Our students</a>
+      <a href="#student-listing">Our students</a>
       <a href="#">For coordinators</a>
       <a href="corporate.html">For companies</a>
       <a href="#">Privacy & PDPA</a>
@@ -393,6 +423,7 @@
   </div>
 </footer>
 
+<script src="data.js"></script>
 <script>
   document.querySelectorAll('a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
@@ -404,6 +435,228 @@
       }
     });
   });
+
+  // Giving actions — pledging a student or the general fund happens right on
+  // this page (no more join.html hop). Every pledge is a two-step confirm
+  // (a bare click was recording real money instantly — too easy to trigger
+  // by accident), then guests are asked to log in via the shared login modal
+  // from auth.js, then the pledge is recorded and the card/panel swaps to a
+  // simple in-place confirmation.
+  function isLoggedIn(){ var sess = getSession(); return !!(sess && sess.name); }
+  function requireLogin(cb){
+    if(isLoggedIn()){ cb(); return; }
+    window.onLoginSuccess = function(){ renderAccountNav(); cb(); };
+    openLoginModal();
+  }
+  function receiptNo(){ return 'BP-' + Math.floor(100000 + Math.random()*900000); }
+
+  function pledgeStudentInFull(id){
+    var s = getStudentById(id);
+    if(!s) return;
+    var footer = document.querySelector('#student-card-' + id + ' .psc-footer');
+    if(!footer) return;
+    footer.innerHTML =
+      '<div class="inline-confirm">' +
+        '<p>Pledge ' + fmtRM(s.goal) + ' to this student?</p>' +
+        '<div class="inline-confirm-actions">' +
+          '<button type="button" class="btn btn-ghost btn-sm" onclick="cancelStudentPledge(' + id + ')">Cancel</button>' +
+          '<button type="button" class="btn btn-primary btn-sm" onclick="confirmStudentPledge(' + id + ')">Confirm pledge</button>' +
+        '</div>' +
+      '</div>';
+  }
+  function cancelStudentPledge(id){
+    var s = getStudentById(id);
+    var footer = document.querySelector('#student-card-' + id + ' .psc-footer');
+    if(!s || !footer) return;
+    footer.innerHTML =
+      '<div class="psc-amount">' + fmtRM(s.goal) + '<span>one-time gift &middot; covers ' + s.months + ' months</span></div>' +
+      '<button class="btn btn-primary btn-sm" onclick="pledgeStudentInFull(' + s.id + ')">Pledge ' + fmtRM(s.goal) + ' &rarr;</button>';
+  }
+  function confirmStudentPledge(id){
+    var s = getStudentById(id);
+    if(!s) return;
+    // Belt-and-suspenders: re-check right before recording, not just when the
+    // card was drawn — closes the gap where a stale tab or a second click
+    // already in flight could otherwise double-pledge the same student.
+    if(hasPledgedStudent(id)){ if(typeof renderStudentListing === 'function') renderStudentListing(); return; }
+    requireLogin(function(){
+      if(hasPledgedStudent(id)){ if(typeof renderStudentListing === 'function') renderStudentListing(); return; }
+      var accountName = getSession().name;
+      var nowIso = new Date().toISOString();
+      var rn = receiptNo();
+      var target = s.code + ', ' + s.state;
+      addActiveGift({
+        target: target, giveType: 'student', studentId: s.id,
+        amount: s.goal, freq: 'once', pay: null, coverFee: false, fee: 0,
+        status: 'active', startedAt: nowIso
+      });
+      addTransaction({
+        receiptNo: rn, date: nowIso, target: target, amount: s.goal,
+        freq: 'once', pay: null, fee: 0, total: s.goal, donorName: accountName,
+        monthsCovered: s.months
+      });
+      // Re-render from the actual gift records (not a one-off DOM patch) so
+      // this card, a page reload, and student-profile.html all agree on
+      // whether this student has already been pledged.
+      if(typeof renderStudentListing === 'function') renderStudentListing();
+    });
+  }
+
+  var GENERAL_AMOUNT_PRESETS = [50, 100, 200, 500];
+  var GENERAL_MIN = 10, GENERAL_MAX = 10000;
+  var generalAmount = GENERAL_AMOUNT_PRESETS[1];
+  function renderAmountPills(){
+    var wrap = document.getElementById('amount-pills');
+    if(!wrap) return;
+    wrap.innerHTML = GENERAL_AMOUNT_PRESETS.map(function(a){
+      return '<button type="button" class="amount-pill' + (generalAmount === a ? ' is-active' : '') + '" data-amount="' + a + '">' + fmtRM(a) + '</button>';
+    }).join('');
+  }
+  function renderGeneralPledgeButton(){
+    var area = document.getElementById('general-pledge-area');
+    if(!area) return;
+    area.innerHTML = '<button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge ' + fmtRM(generalAmount || 0) + ' &rarr;</button>';
+  }
+  document.addEventListener('click', function(e){
+    var pillBtn = e.target.closest('.amount-pill');
+    if(pillBtn){
+      generalAmount = Number(pillBtn.dataset.amount);
+      document.getElementById('general-amount-custom').value = '';
+      renderAmountPills();
+      renderGeneralPledgeButton();
+    }
+  });
+  document.addEventListener('input', function(e){
+    if(e.target.id === 'general-amount-custom'){
+      // Live-clamp the upper bound and reject decimals/negatives as they type;
+      // the RM10 floor is only enforced when they actually try to pledge, so
+      // typing "1" then "10" then "100" isn't fought at every keystroke.
+      var n = Math.floor(Number(e.target.value)) || 0;
+      if(n < 0) n = 0;
+      if(n > GENERAL_MAX){ n = GENERAL_MAX; e.target.value = n; }
+      generalAmount = n;
+      renderAmountPills();
+      renderGeneralPledgeButton();
+    }
+  });
+  function pledgeGeneralAmount(){
+    var input = document.getElementById('general-amount-custom');
+    if(!generalAmount || generalAmount < GENERAL_MIN){
+      input.focus();
+      input.placeholder = 'Minimum RM' + GENERAL_MIN;
+      return;
+    }
+    var amount = generalAmount;
+    var area = document.getElementById('general-pledge-area');
+    area.innerHTML =
+      '<div class="inline-confirm">' +
+        '<p style="color:#CFE3DB;">Pledge ' + fmtRM(amount) + ' to the general fund?</p>' +
+        '<div class="inline-confirm-actions">' +
+          '<button type="button" class="btn btn-ghost btn-sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.32);" onclick="renderGeneralPledgeButton()">Cancel</button>' +
+          '<button type="button" class="btn btn-primary btn-sm" onclick="confirmGeneralPledge()">Confirm pledge</button>' +
+        '</div>' +
+      '</div>';
+  }
+  function confirmGeneralPledge(){
+    var amount = generalAmount;
+    requireLogin(function(){
+      var accountName = getSession().name;
+      var nowIso = new Date().toISOString();
+      var rn = receiptNo();
+      addActiveGift({
+        target: 'General fund', giveType: 'general', studentId: null,
+        amount: amount, freq: 'once', pay: null, coverFee: false, fee: 0,
+        status: 'active', startedAt: nowIso
+      });
+      addTransaction({
+        receiptNo: rn, date: nowIso, target: 'General fund', amount: amount,
+        freq: 'once', pay: null, fee: 0, total: amount, donorName: accountName,
+        monthsCovered: Math.round(amount / MONTHLY_RATE)
+      });
+      document.getElementById('general-fund-card').innerHTML =
+        '<span class="eyebrow">General fund</span>' +
+        '<h2 class="serif">You&rsquo;re in!</h2>' +
+        '<p>Thanks for pledging ' + fmtRM(amount) + ' to the BrightPath Bursary — it&rsquo;s confirmed instantly and tracked from your dashboard.</p>' +
+        '<a href="dashboard.html" class="btn btn-primary btn-block">Go to my dashboard</a>';
+    });
+  }
+  renderAmountPills();
+  renderGeneralPledgeButton();
+
+  // Student listing — the full browsable pool, at the bottom of this page.
+  // Same filter/sort/card behaviour as students.html, just inlined here.
+  (function(){
+    var stateSelect = document.getElementById('filter-state');
+    var courseSelect = document.getElementById('filter-course');
+    var sortSelect = document.getElementById('filter-sort');
+    var grid = document.getElementById('student-listing-grid');
+    var countEl = document.getElementById('filter-count');
+    var emptyEl = document.getElementById('student-listing-empty');
+
+    function unique(arr){ return arr.filter(function(v,i){ return arr.indexOf(v) === i; }); }
+    unique(STUDENTS.map(function(s){ return s.state; })).sort().forEach(function(state){
+      var opt = document.createElement('option'); opt.value = state; opt.textContent = state;
+      stateSelect.appendChild(opt);
+    });
+    unique(STUDENTS.map(function(s){ return s.course; })).sort().forEach(function(course){
+      var opt = document.createElement('option'); opt.value = course; opt.textContent = course;
+      courseSelect.appendChild(opt);
+    });
+
+    function cardHtml(s){
+      var funded = pctFunded(s) >= 100;
+      var alreadyMine = hasPledgedStudent(s.id);
+      var coversHtml = s.covers.map(function(c){ return '<span class="covers-chip">' + c + '</span>'; }).join('');
+      var ctaHtml;
+      if(funded){
+        ctaHtml = '<button class="btn btn-sm" disabled style="background:var(--teal-light);color:var(--teal-dark);">&check; Fully supported</button>';
+      } else if(alreadyMine){
+        ctaHtml = '<span class="btn btn-sm" style="background:var(--teal-light);color:var(--teal-dark);">&check; Pledged, thank you</span>';
+      } else {
+        ctaHtml = '<button class="btn btn-primary btn-sm" onclick="pledgeStudentInFull(' + s.id + ')">Pledge ' + fmtRM(s.goal) + ' &rarr;</button>';
+      }
+      return '' +
+        '<div class="pledge-student-card" id="student-card-' + s.id + '">' +
+          '<div class="psc-head"><span class="t-code">' + s.code + '</span><span class="badge badge-verified">Verified</span></div>' +
+          '<div class="psc-meta">' + s.state + ' &middot; ' + s.level + ' &middot; ' + s.course + '</div>' +
+          '<p class="psc-quote">&ldquo;' + s.story + '&rdquo;</p>' +
+          '<p class="psc-narrative">' + s.family + ' ' + s.academic + '. Now aiming for: ' + s.ambition + '</p>' +
+          '<div class="covers-row">' + coversHtml + '</div>' +
+          '<div class="psc-footer">' +
+            '<div class="psc-amount">' + fmtRM(s.goal) + '<span>one-time gift &middot; covers ' + s.months + ' months</span></div>' +
+            ctaHtml +
+          '</div>' +
+          '<a href="student-profile.html?id=' + s.id + '" class="psc-profile-link">Read full story &rarr;</a>' +
+        '</div>';
+    }
+
+    function render(){
+      var stateVal = stateSelect.value;
+      var courseVal = courseSelect.value;
+      var sortVal = sortSelect.value;
+      var list = STUDENTS.filter(function(s){
+        return (!stateVal || s.state === stateVal) && (!courseVal || s.course === courseVal);
+      });
+
+      // Fully-funded students can't be helped anymore, so regardless of sort
+      // order they always sink to the bottom rather than sitting ahead of (or
+      // scattered among) students who still need a sponsor.
+      var available = list.filter(function(s){ return pctFunded(s) < 100; });
+      var funded = list.filter(function(s){ return pctFunded(s) >= 100; });
+      if(sortVal === 'urgent'){ available.sort(function(a,b){ return pctFunded(a) - pctFunded(b); }); }
+      else if(sortVal === 'funded'){ available.sort(function(a,b){ return pctFunded(b) - pctFunded(a); }); }
+
+      grid.innerHTML = available.map(cardHtml).join('') +
+        (funded.length ? '<div class="funded-divider">🎓 Already fully funded — thank you to their sponsors</div>' : '') +
+        funded.map(cardHtml).join('');
+      countEl.textContent = 'Showing ' + list.length + ' of ' + STUDENTS.length + ' students';
+      emptyEl.style.display = list.length === 0 ? 'block' : 'none';
+      grid.style.display = list.length === 0 ? 'none' : 'grid';
+    }
+    [stateSelect, courseSelect, sortSelect].forEach(function(el){ el.addEventListener('change', render); });
+    window.renderStudentListing = render;
+    render();
+  })();
 </script>
 
 </body>

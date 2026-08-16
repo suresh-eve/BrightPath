@@ -67,6 +67,14 @@ button{font-family:'Inter',sans-serif;}
 .covers-row{display:flex;flex-wrap:wrap;gap:6px;}
 .covers-chip{font-size:11px;font-weight:600;padding:4px 9px;border-radius:100px;background:var(--cream-2);color:var(--ink-soft);text-transform:capitalize;}
 
+/* INLINE CONFIRM — a one-click accidental pledge is a real donor-trust risk,
+   so every pledge action (student card, general fund, profile page) shows
+   this "are you sure" step before anything is actually recorded. */
+.inline-confirm{width:100%;}
+.inline-confirm p{font-size:13px;margin-bottom:10px;}
+.inline-confirm-actions{display:flex;gap:8px;}
+.inline-confirm-actions .btn{flex:1;}
+
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font-family:'Inter',sans-serif;font-weight:600;font-size:15px;
