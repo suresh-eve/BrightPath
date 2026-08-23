@@ -84,8 +84,8 @@
     </a>
     <div class="nav-links">
       <a href="about.html">About</a>
-      <a href="index.html#student-listing">Our students</a>
-      <a href="index.html#give">Ways to give</a>
+      <a href="index.html#student-listing">Discover our students</a>
+      <a href="give.html">Where it's needed most</a>
       <a href="index.html#trust">Transparency</a>
     </div>
     <div class="nav-cta">
@@ -97,12 +97,12 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="index.html#give-gift" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
+      <a href="index.html#student-listing" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
 
-<script src="auth.js"></script>
+<script src="auth.js?v=3"></script>
 <script>renderAccountNav();</script>
 
 <main class="wrap" id="page-root">
@@ -128,16 +128,14 @@
     </div>
     <div class="footer-links">
       <a href="about.html">About</a>
-      <a href="index.html#student-listing">Our students</a>
-      <a href="#">For coordinators</a>
+      <a href="index.html#student-listing">Discover our students</a>
+      <a href="give.html">Where it's needed most</a>
       <a href="corporate.html">For companies</a>
-      <a href="#">Privacy & PDPA</a>
-      <a href="#">Contact</a>
     </div>
   </div>
 </footer>
 
-<script src="data.js"></script>
+<script src="data.js?v=2"></script>
 <script>
   var params = new URLSearchParams(window.location.search);
   var id = Number(params.get('id')) || 1;
@@ -159,17 +157,9 @@
   }
   function convertGiftToGeneral(){
     if(!pendingGift) return;
-    updateActiveGift(pendingGift.id, { studentId: null, giveType: 'general', target: 'General fund' });
+    updateActiveGift(pendingGift.id, { studentId: null, giveType: 'general', target: "Where it's needed most" });
     window.location.href = 'dashboard.html?matched=1&giftId=' + encodeURIComponent(pendingGift.id);
   }
-
-  function isLoggedIn(){ var sess = getSession(); return !!(sess && sess.name); }
-  function requireLogin(cb){
-    if(isLoggedIn()){ cb(); return; }
-    window.onLoginSuccess = function(){ renderAccountNav(); cb(); };
-    openLoginModal();
-  }
-  function receiptNo(){ return 'BP-' + Math.floor(100000 + Math.random()*900000); }
 
   function pledgeThisStudent(){
     document.getElementById('sponsor-cta').innerHTML =
@@ -184,7 +174,7 @@
   function cancelThisPledge(){
     document.getElementById('sponsor-cta').innerHTML =
       '<button type="button" class="btn btn-primary btn-block" onclick="pledgeThisStudent()">Pledge ' + fmtRM(s.goal) + ' in full</button>' +
-      '<a href="index.html#give" class="sponsor-secondary">Not ready? Give to the general fund instead</a>';
+      '<a href="give.html" class="sponsor-secondary">Not ready? Give where it&rsquo;s needed most</a>';
   }
   function confirmThisPledge(){
     // Belt-and-suspenders: re-check right before recording, not just when the
@@ -240,11 +230,11 @@
           ? (
             '<div class="pay-note" style="margin-bottom:14px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Your ' + fmtRM(pendingGift.amount) + ' gift is already in — this just tells us where it goes. No new payment.</div>' +
             '<button type="button" class="btn btn-primary btn-block" onclick="assignStudentToGift(' + s.id + ')">Choose ' + s.code + ' as my student →</button>' +
-            '<a href="#" class="sponsor-secondary" onclick="convertGiftToGeneral();return false;">Or move my gift to the general fund instead</a>'
+            '<a href="#" class="sponsor-secondary" onclick="convertGiftToGeneral();return false;">Or send my gift to wherever it&rsquo;s needed most</a>'
           )
           : (
             '<button type="button" class="btn btn-primary btn-block" onclick="pledgeThisStudent()">Pledge ' + fmtRM(s.goal) + ' in full</button>' +
-            '<a href="index.html#give" class="sponsor-secondary">Not ready? Give to the general fund instead</a>'
+            '<a href="give.html" class="sponsor-secondary">Not ready? Give where it&rsquo;s needed most</a>'
           )
         ) +
         '</div>' +

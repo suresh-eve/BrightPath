@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Give where it needs it most — BrightPath</title>
+<link rel="icon" type="image/png" href="assets/logo-icon.png">
+<meta name="description" content="Pledge to the BrightPath Bursary — 100% of your gift goes to verified B40 students across Malaysia, allocated to whoever needs it most.">
+<link rel="canonical" href="https://brightpath-sureshdhynnas-projects.vercel.app/give.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BrightPath">
+<meta property="og:title" content="Give where it needs it most — BrightPath">
+<meta property="og:description" content="Your gift is distributed to verified B40 students across Malaysia who need it most.">
+<meta property="og:url" content="https://brightpath-sureshdhynnas-projects.vercel.app/give.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Give where it needs it most — BrightPath">
+<meta name="twitter:description" content="Your gift is distributed to verified B40 students across Malaysia who need it most.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .give-page{padding:64px 0 80px;}
+  .give-intro{text-align:center;max-width:600px;margin:0 auto 40px;}
+  .give-intro h1{font-size:32px;margin:14px 0 10px;}
+  .give-intro p{color:var(--ink-soft);font-size:15.5px;}
+
+  .give-columns{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:940px;margin:0 auto;align-items:stretch;}
+  @media (max-width:760px){ .give-columns{grid-template-columns:1fr;} }
+
+  .give-card{border-radius:var(--radius-lg);padding:34px;text-align:center;display:flex;flex-direction:column;color:#fff;}
+  .give-card .eyebrow{align-self:center;background:rgba(255,255,255,0.16);color:#fff;margin-bottom:16px;}
+  .give-card h2{color:#fff;font-size:22px;margin-bottom:8px;}
+  .give-card > p.give-card-desc{font-size:14px;margin-bottom:24px;}
+  .give-card .btn-block{margin-top:auto;}
+
+  .give-card-individual{background:var(--teal-dark);}
+  .give-card-individual p.give-card-desc{color:#CFE3DB;}
+  .amount-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+  .amount-pill{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:10px 20px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);background:transparent;color:#fff;cursor:pointer;transition:all .15s ease;}
+  .amount-pill:hover{border-color:#fff;}
+  .amount-pill.is-active{background:#fff;color:var(--teal-dark);border-color:#fff;}
+  .amount-custom{margin-bottom:22px;}
+  .amount-custom label{display:block;font-size:12.5px;color:#CFE3DB;margin-bottom:8px;}
+  .amount-custom input{width:180px;padding:10px 14px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);background:rgba(255,255,255,0.08);color:#fff;font-family:'Inter',sans-serif;font-size:15px;text-align:center;}
+  .amount-custom input::placeholder{color:rgba(255,255,255,0.55);}
+  .amount-custom input:focus{outline:none;border-color:#fff;}
+
+  .give-card-corporate{background:var(--coral-dark);}
+  .give-card-corporate p.give-card-desc{color:#FBE2D6;}
+  .give-card-corporate .btn-block{background:#fff;color:var(--coral-dark);border:none;}
+  .give-card-corporate .btn-block:hover{background:#FBE2D6;}
+  .corp-mini-form{text-align:left;margin-bottom:16px;}
+  .corp-mini-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media (max-width:760px){ .corp-mini-row{grid-template-columns:1fr;} }
+  .corp-mini-form input{
+    width:100%;padding:10px 14px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);
+    background:rgba(255,255,255,0.08);color:#fff;font-family:'Inter',sans-serif;font-size:14px;
+    margin-bottom:10px;box-sizing:border-box;
+  }
+  .corp-mini-form input::placeholder{color:rgba(255,255,255,0.55);}
+  .corp-mini-form input:focus{outline:none;border-color:#fff;}
+  .corp-mini-error{font-size:12.5px;color:#FBE2D6;margin:-2px 0 10px;display:none;}
+
+  .corp-thanks-modal h2{font-size:20px;margin-bottom:8px;}
+  .corp-thanks-check{
+    width:44px;height:44px;border-radius:50%;background:var(--teal-light);color:var(--teal);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+      <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Bursary</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#the-cause">About</a>
+      <a href="index.html#student-listing">Discover our students</a>
+      <a href="give.html">Where it's needed most</a>
+      <a href="index.html#trust">Transparency</a>
+    </div>
+    <div class="nav-cta">
+      <div class="account-menu" id="account-menu" style="display:none;">
+        <button class="btn btn-ghost btn-sm" id="account-trigger" onclick="toggleAccountDropdown()">Account ▾</button>
+        <div class="account-dropdown" id="account-dropdown">
+          <a href="dashboard.html">My account</a>
+          <a href="#" onclick="signOut();return false;">Sign out</a>
+        </div>
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
+      <a href="index.html#student-listing" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
+    </div>
+  </nav>
+</header>
+
+<script src="auth.js?v=3"></script>
+<script>renderAccountNav();</script>
+
+<main>
+  <section class="give-page">
+    <div class="wrap">
+      <div class="give-intro">
+        <span class="eyebrow">Two ways to give</span>
+        <h1 class="serif">However you'd like to support BrightPath.</h1>
+        <p>Whether it's a personal gift or a company partnership, 100% of it reaches a verified student — never BrightPath's own costs.</p>
+      </div>
+
+      <div class="give-columns">
+        <div class="give-card give-card-individual" id="general-fund-card">
+          <span class="eyebrow">For individuals</span>
+          <h2 class="serif">Give where it's needed most</h2>
+          <p class="give-card-desc">Your gift is allocated to a verified student who needs it most right now — perfect if you'd rather not choose just one.</p>
+          <div class="amount-pills" id="amount-pills"></div>
+          <div class="amount-custom">
+            <label for="general-amount-custom">Or enter your own amount (RM10–RM10,000)</label>
+            <input type="number" id="general-amount-custom" placeholder="e.g. 350" min="10" max="10000" step="1">
+          </div>
+          <div id="general-pledge-area">
+            <button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge RM100 →</button>
+          </div>
+        </div>
+
+        <div class="give-card give-card-corporate" id="corp-mini-card">
+          <span class="eyebrow">For companies</span>
+          <h2 class="serif">Sponsor a cohort of students</h2>
+          <p class="give-card-desc">Partnerships can begin from around RM7,500, depending on the number of students and length of support — with your company recognized on every profile you help fund.</p>
+          <div class="corp-mini-form">
+            <input type="text" id="corp-mini-name" placeholder="Company / organisation name">
+            <div class="corp-mini-row">
+              <input type="text" id="corp-mini-contact" placeholder="Contact person">
+              <input type="tel" id="corp-mini-phone" placeholder="Contact number">
+            </div>
+            <input type="email" id="corp-mini-email" placeholder="Email address">
+          </div>
+          <p class="corp-mini-error" id="corp-mini-error">Please fill in all four details so our team can reach you.</p>
+          <button type="button" class="btn btn-block" onclick="submitMiniCorporateInterest()">Pledge interest →</button>
+        </div>
+      </div>
+
+      <p style="text-align:center;font-size:13.5px;color:var(--ink-soft);margin-top:32px;">Prefer to support one specific student instead? <a href="index.html#student-listing" style="color:var(--teal-dark);font-weight:600;">Discover our students →</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">
+        <span class="logo-mark" style="width:40px;height:40px;"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+        <span class="logo-text"><span class="logo-name" style="font-size:16px;">BrightPath</span><span class="logo-sub">Bursary</span></span>
+      </div>
+      <p class="footer-note">A HalaTuju initiative supporting B40 students across Malaysia after SPM.</p>
+      <p class="logo-tagline" style="margin-top:10px;">Together, we make the <b>next step</b> possible.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html#the-cause">About</a>
+      <a href="index.html#student-listing">Discover our students</a>
+      <a href="give.html">Where it's needed most</a>
+      <a href="corporate.html">For companies</a>
+    </div>
+  </div>
+</footer>
+
+<div class="login-modal-backdrop" id="corp-thanks-backdrop">
+  <div class="login-modal corp-thanks-modal" role="dialog" aria-modal="true" aria-label="Thanks for your interest">
+    <button class="login-modal-close" onclick="closeCorpThanksModal()" aria-label="Close">&times;</button>
+    <div class="corp-thanks-check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h2 style="text-align:center;">Thanks for your interest!</h2>
+    <p class="sub" style="text-align:center;">We've got your details — one of our team members will reach out soon to shape a partnership that fits your organisation.</p>
+    <button type="button" class="btn btn-primary btn-block" onclick="closeCorpThanksModal()">Close</button>
+  </div>
+</div>
+
+<script src="data.js?v=2"></script>
+<script>
+  // General fund pledge — same two-step confirm pattern as a student pledge
+  // (pledgeStudentInFull in index.html): a bare click was recording real
+  // money instantly, so amount selection and commitment are separate steps.
+  var GENERAL_AMOUNT_PRESETS = [50, 100, 200, 500];
+  var GENERAL_MIN = 10, GENERAL_MAX = 10000;
+  var generalAmount = GENERAL_AMOUNT_PRESETS[1];
+  function renderAmountPills(){
+    var wrap = document.getElementById('amount-pills');
+    if(!wrap) return;
+    wrap.innerHTML = GENERAL_AMOUNT_PRESETS.map(function(a){
+      return '<button type="button" class="amount-pill' + (generalAmount === a ? ' is-active' : '') + '" data-amount="' + a + '">' + fmtRM(a) + '</button>';
+    }).join('');
+  }
+  function renderGeneralPledgeButton(){
+    var area = document.getElementById('general-pledge-area');
+    if(!area) return;
+    area.innerHTML = '<button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge ' + fmtRM(generalAmount || 0) + ' &rarr;</button>';
+  }
+  document.addEventListener('click', function(e){
+    var pillBtn = e.target.closest('.amount-pill');
+    if(pillBtn){
+      generalAmount = Number(pillBtn.dataset.amount);
+      document.getElementById('general-amount-custom').value = '';
+      renderAmountPills();
+      renderGeneralPledgeButton();
+    }
+  });
+  document.addEventListener('input', function(e){
+    if(e.target.id === 'general-amount-custom'){
+      // Live-clamp the upper bound and reject decimals/negatives as they type;
+      // the RM10 floor is only enforced when they actually try to pledge, so
+      // typing "1" then "10" then "100" isn't fought at every keystroke.
+      var n = Math.floor(Number(e.target.value)) || 0;
+      if(n < 0) n = 0;
+      if(n > GENERAL_MAX){ n = GENERAL_MAX; e.target.value = n; }
+      generalAmount = n;
+      renderAmountPills();
+      renderGeneralPledgeButton();
+    }
+  });
+  function pledgeGeneralAmount(){
+    var input = document.getElementById('general-amount-custom');
+    if(!generalAmount || generalAmount < GENERAL_MIN){
+      input.focus();
+      input.placeholder = 'Minimum RM' + GENERAL_MIN;
+      return;
+    }
+    var amount = generalAmount;
+    var area = document.getElementById('general-pledge-area');
+    area.innerHTML =
+      '<div class="inline-confirm">' +
+        '<p style="color:#CFE3DB;">Pledge ' + fmtRM(amount) + ' to wherever it&rsquo;s needed most?</p>' +
+        '<div class="inline-confirm-actions">' +
+          '<button type="button" class="btn btn-ghost btn-sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.32);" onclick="renderGeneralPledgeButton()">Cancel</button>' +
+          '<button type="button" class="btn btn-primary btn-sm" onclick="confirmGeneralPledge()">Confirm pledge</button>' +
+        '</div>' +
+      '</div>';
+  }
+  function confirmGeneralPledge(){
+    var amount = generalAmount;
+    requireLogin(function(){
+      var accountName = getSession().name;
+      var nowIso = new Date().toISOString();
+      var rn = receiptNo();
+      addActiveGift({
+        target: "Where it's needed most", giveType: 'general', studentId: null,
+        amount: amount, freq: 'once', pay: null, coverFee: false, fee: 0,
+        status: 'active', startedAt: nowIso
+      });
+      addTransaction({
+        receiptNo: rn, date: nowIso, target: "Where it's needed most", amount: amount,
+        freq: 'once', pay: null, fee: 0, total: amount, donorName: accountName,
+        monthsCovered: Math.round(amount / MONTHLY_RATE)
+      });
+      document.getElementById('general-fund-card').innerHTML =
+        '<span class="eyebrow">For individuals</span>' +
+        '<h2 class="serif">You&rsquo;re in!</h2>' +
+        '<p class="give-card-desc">Thanks for pledging ' + fmtRM(amount) + ' to the BrightPath Bursary — it&rsquo;s confirmed instantly and tracked from your dashboard.</p>' +
+        '<a href="dashboard.html" class="btn btn-primary btn-block">Go to my dashboard</a>';
+    });
+  }
+  renderAmountPills();
+  renderGeneralPledgeButton();
+
+  // Corporate interest — a lighter-weight alternative to corporate.html's full
+  // form, right where a company decision-maker already is. Same four details
+  // a coordinator actually needs to start a conversation: who to call, and how.
+  function submitMiniCorporateInterest(){
+    var name = document.getElementById('corp-mini-name').value.trim();
+    var contact = document.getElementById('corp-mini-contact').value.trim();
+    var phone = document.getElementById('corp-mini-phone').value.trim();
+    var email = document.getElementById('corp-mini-email').value.trim();
+    var emailInput = document.getElementById('corp-mini-email');
+    var errorEl = document.getElementById('corp-mini-error');
+    if(!name || !contact || !phone || !email || !emailInput.checkValidity()){
+      errorEl.style.display = 'block';
+      return;
+    }
+    errorEl.style.display = 'none';
+    addCorporateLead({
+      name: name, contact: contact, phone: phone, email: email,
+      message: '', submittedAt: new Date().toISOString()
+    });
+    ['corp-mini-name', 'corp-mini-contact', 'corp-mini-phone', 'corp-mini-email'].forEach(function(id){
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('corp-thanks-backdrop').classList.add('open');
+  }
+  function closeCorpThanksModal(){
+    document.getElementById('corp-thanks-backdrop').classList.remove('open');
+  }
+  document.getElementById('corp-thanks-backdrop').addEventListener('click', function(e){
+    if(e.target.id === 'corp-thanks-backdrop') closeCorpThanksModal();
+  });
+</script>
+
+</body>
+</html>

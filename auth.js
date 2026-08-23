@@ -87,6 +87,17 @@ function hasPledgedStudent(studentId){
   });
 }
 
+// Shared login gate — used by every page that records a gift (the student
+// listing, a student's profile, the general fund) so "am I logged in" and
+// "how do I ask" only exist in one place.
+function isLoggedIn(){ var sess = getSession(); return !!(sess && sess.name); }
+function requireLogin(cb){
+  if(isLoggedIn()){ cb(); return; }
+  window.onLoginSuccess = function(){ renderAccountNav(); cb(); };
+  openLoginModal();
+}
+function receiptNo(){ return 'BP-' + Math.floor(100000 + Math.random()*900000); }
+
 function getCorporateLeads(){
   try{ return JSON.parse(localStorage.getItem('bp_corporate_leads') || '[]'); }catch(e){ return []; }
 }
@@ -169,7 +180,7 @@ function renderAccountNav(){
   var menu = document.getElementById('account-menu');
   if(session && session.name){
     if(loginLink) loginLink.style.display = 'none';
-    if(startLink) startLink.textContent = getPrimaryActiveGift() ? 'Pledge again' : 'Pledge support';
+    if(startLink) startLink.textContent = getPrimaryActiveGift() ? 'Pledge more' : 'Pledge support';
     if(menu){
       menu.style.display = 'inline-block';
       var trigger = document.getElementById('account-trigger');
@@ -185,8 +196,8 @@ function renderAccountNav(){
 }
 
 // Shared login modal — used everywhere via the nav "Log in" button, plus any
-// page that wants an inline sign-in prompt (e.g. join.html's monthly-giving
-// gate). Deliberately separate from the giving wizard: signing in should never
+// page that wants an inline sign-in prompt. Deliberately separate from the
+// giving wizard: signing in should never
 // force a donor through "how do you want to give" first, and starting a gift
 // should never force an account first (guest checkout stays the default).
 function injectLoginModal(){
@@ -216,7 +227,7 @@ function injectLoginModal(){
           '<div class="login-success-check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 12L10 16L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
           '<h2>You&rsquo;re in, <span id="login-success-name"></span>!</h2>' +
           '<p class="sub">Track your giving, pledge confirmations and updates anytime from your dashboard.</p>' +
-          '<a href="join.html" class="btn btn-primary btn-block" style="margin-bottom:10px;">Continue to giving options &rarr;</a>' +
+          '<a href="index.html#student-listing" class="btn btn-primary btn-block" style="margin-bottom:10px;">Continue to giving options &rarr;</a>' +
           '<button class="btn btn-ghost btn-block" onclick="finishLoginModal()">Continue browsing</button>' +
         '</div>' +
       '</div>' +
@@ -246,8 +257,8 @@ function closeLoginModal(){
   var el = document.getElementById('login-modal-backdrop');
   if(el) el.classList.remove('open');
 }
-// Called after the donor closes the "you're in" success panel. join.html
-// overrides window.onLoginSuccess to update itself in place (so a
+// Called after the donor closes the "you're in" success panel. A page mid-
+// pledge overrides window.onLoginSuccess to update itself in place (so a
 // mid-checkout sign-in doesn't lose the gift they were setting up) — every
 // other page just reloads, which is the simplest way to make every
 // session-dependent bit of that page (dashboard's signed-in view, a pending

@@ -49,24 +49,6 @@
   }
 
 
-  .corp-banner{
-    margin-top:40px;background:var(--cream-2);border:1px solid var(--line);border-radius:var(--radius-md);
-    padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  }
-
-  /* GIFT HEADER — brought up from join.html so it's the first thing seen
-     after the hero, on this same landing page */
-  #give-gift{background:var(--cream-2);}
-  .gift-header-card{text-align:center;max-width:640px;margin:0 auto;}
-  .gift-header-card .eyebrow{margin-bottom:16px;}
-  .gift-header-card h2{font-size:34px;margin-bottom:14px;}
-  .gift-header-card p{color:var(--ink-soft);font-size:15.5px;}
-  .gift-mode-toggle{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:28px 0 16px;}
-  .gift-mode-btn{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;padding:11px 20px;border-radius:100px;border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;transition:all .15s ease;display:inline-flex;}
-  .gift-mode-btn:hover{border-color:var(--ink-soft);}
-  .gift-mode-btn.is-active{background:var(--teal-dark);color:#fff;border-color:var(--teal-dark);}
-  .gift-mode-sub{font-size:13.5px;color:var(--ink-soft);max-width:560px;margin:16px auto 0;}
-
   /* STUDENT LISTING — the full browsable pool, at the bottom of this page.
      One card design, used everywhere a student is shown (item 4): quote,
      family/academic story, what the gift covers, then the amount as a
@@ -85,22 +67,6 @@
   .psc-amount span{display:block;font-family:'Inter',sans-serif;font-size:10.5px;color:var(--ink-soft);font-weight:600;}
   .psc-profile-link{display:block;text-align:center;font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
   .psc-profile-link:hover{color:var(--ink);}
-
-  /* GENERAL FUND — the other half of "Ready to give?", now real instead of
-     a redundant button pointing to a separate page */
-  .general-fund-card{background:var(--teal-dark);color:#fff;border-radius:var(--radius-lg);padding:34px;max-width:520px;margin:0 auto;text-align:center;}
-  .general-fund-card .eyebrow{background:rgba(255,255,255,0.14);color:#fff;}
-  .general-fund-card h2{color:#fff;font-size:23px;margin:14px 0 8px;}
-  .general-fund-card p{color:#CFE3DB;font-size:14px;margin-bottom:24px;}
-  .amount-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
-  .amount-pill{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:10px 20px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);background:transparent;color:#fff;cursor:pointer;transition:all .15s ease;}
-  .amount-pill:hover{border-color:#fff;}
-  .amount-pill.is-active{background:#fff;color:var(--teal-dark);border-color:#fff;}
-  .amount-custom{margin-bottom:22px;}
-  .amount-custom label{display:block;font-size:12.5px;color:#CFE3DB;margin-bottom:8px;}
-  .amount-custom input{width:180px;padding:10px 14px;border-radius:100px;border:1.5px solid rgba(255,255,255,0.32);background:rgba(255,255,255,0.08);color:#fff;font-family:'Inter',sans-serif;font-size:15px;text-align:center;}
-  .amount-custom input::placeholder{color:rgba(255,255,255,0.55);}
-  .amount-custom input:focus{outline:none;border-color:#fff;}
 
   .filter-bar{
     display:flex;align-items:center;gap:12px;flex-wrap:wrap;
@@ -189,8 +155,8 @@
     </div>
     <div class="nav-links">
       <a href="#the-cause">About</a>
-      <a href="#student-listing">Our students</a>
-      <a href="#give">Ways to give</a>
+      <a href="#student-listing">Discover our students</a>
+      <a href="give.html">Where it's needed most</a>
       <a href="#trust">Transparency</a>
     </div>
     <div class="nav-cta">
@@ -202,12 +168,12 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="#give-gift" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
+      <a href="#student-listing" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
 
-<script src="auth.js"></script>
+<script src="auth.js?v=3"></script>
 <script>renderAccountNav();</script>
 
 <main>
@@ -216,15 +182,15 @@
       <div class="hero-grid">
         <div>
           <span class="eyebrow">The cause</span>
-          <h1>Help a brilliant student finish what they started.</h1>
-          <p class="hero-sub">BrightPath connects everyday donors with talented B40 students across Malaysia who have the grades but not the means to continue past SPM. Your gift covers fees, food, lodging and travel — every ringgit, guaranteed.</p>
+          <h1>Gift a talented student their dream degree.</h1>
+          <p class="hero-sub">BrightPath connects everyday donors with talented lower income (B40) students across Malaysia who have outstanding grades but not the means to continue past SPM. Your gift helps them cover fees, food, lodging and travel — every ringgit, guaranteed.</p>
           <div class="hero-trust">
             <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>100% of your gift reaches the student</span>
             <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Cancel anytime, no calls needed</span>
           </div>
           <div class="hero-actions">
-            <a href="#give-gift" class="btn btn-primary">Pledge your support →</a>
-            <a href="#student-listing" class="btn btn-ghost">Meet the students</a>
+            <a href="#student-listing" class="btn btn-primary">Discover our students →</a>
+            <a href="give.html" class="btn btn-ghost">Give where it's needed most</a>
           </div>
         </div>
 
@@ -237,21 +203,6 @@
           </div>
           <p class="hero-stat-quote"><span class="quote-mark">&ldquo;</span>Nearly 500,000 of Malaysia&rsquo;s SPM leavers never continue on to higher studies — many of whom are from B40 families.<span class="quote-mark">&rdquo;</span></p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="give-gift">
-    <div class="wrap">
-      <div class="gift-header-card">
-        <span class="eyebrow">A gift, not a transaction</span>
-        <h2 class="serif">Give the gift of a semester.</h2>
-        <p>Nearly 500,000 Malaysian SPM leavers never continue to higher studies — often for the cost of a bus fare, a textbook, or a semester's meals. Choose exactly how you'd like to give.</p>
-        <div class="gift-mode-toggle">
-          <a href="#student-listing" class="gift-mode-btn is-active">Choose a student, pledge in full</a>
-          <a href="#give" class="gift-mode-btn">Give to the general fund</a>
-        </div>
-        <p class="gift-mode-sub">Every student here is verified by BrightPath. Read their story, then pledge their exact remaining need — no amount to choose, just the gap they have.</p>
       </div>
     </div>
   </section>
@@ -291,37 +242,12 @@
         </div>
         <div class="gap-card">
           <div class="figure">RM3,000</div>
+          <div class="figure-label" style="margin-top:0;font-weight:600;">— RM200 a month</div>
           <div class="figure-label">the average gap between a place earned and a place taken up</div>
           <div class="gap-row"><span>Tuition & fees</span><span>~RM1,300</span></div>
           <div class="gap-row"><span>Food & lodging</span><span>~RM1,200</span></div>
           <div class="gap-row"><span>Travel & books</span><span>~RM500</span></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="give" style="padding-top:0;">
-    <div class="wrap">
-      <div class="general-fund-card" id="general-fund-card">
-        <span class="eyebrow">General fund</span>
-        <h2 class="serif">Pledge to the BrightPath Bursary</h2>
-        <p>Your gift pools into the fund and is distributed to verified students across the platform who need it most — perfect if you'd rather not choose just one.</p>
-        <div class="amount-pills" id="amount-pills"></div>
-        <div class="amount-custom">
-          <label for="general-amount-custom">Or enter your own amount (RM10–RM10,000)</label>
-          <input type="number" id="general-amount-custom" placeholder="e.g. 350" min="10" max="10000" step="1">
-        </div>
-        <div id="general-pledge-area">
-          <button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge RM100 →</button>
-        </div>
-      </div>
-
-      <div class="corp-banner">
-        <div>
-          <h3 style="font-family:'Fraunces',serif;font-size:17.5px;margin-bottom:4px;">Could your company support a cohort of students?</h3>
-          <p style="font-size:14px;color:var(--ink-soft);">Partnerships can begin from around RM7,500, depending on the number of students and length of support — with your company recognized on every profile you help fund.</p>
-        </div>
-        <a href="corporate.html" class="btn btn-ghost btn-sm" style="white-space:nowrap;">For companies →</a>
       </div>
     </div>
   </section>
@@ -374,8 +300,8 @@
       <h2 style="font-size:24px;line-height:1.45;">As the saying goes, <em>&ldquo;Sikit-sikit, lama-lama menjadi bukit.&rdquo;</em>&nbsp;&nbsp;Whether it is a little or a lot, together it all adds up to change a student's life.</h2>
       <p>Join our founding group of donors helping students take their next step across Malaysia.</p>
       <div class="final-cta-actions">
-        <a href="#give-gift" class="btn btn-onteal">Pledge your support →</a>
-        <a href="#student-listing" class="btn" style="border:1.5px solid rgba(255,255,255,0.3);color:#fff;">Browse students</a>
+        <a href="#student-listing" class="btn btn-onteal">Discover our students →</a>
+        <a href="give.html" class="btn" style="border:1.5px solid rgba(255,255,255,0.3);color:#fff;">Give where it's needed most</a>
       </div>
     </div>
   </section>
@@ -414,16 +340,14 @@
     </div>
     <div class="footer-links">
       <a href="#the-cause">About</a>
-      <a href="#student-listing">Our students</a>
-      <a href="#">For coordinators</a>
+      <a href="#student-listing">Discover our students</a>
+      <a href="give.html">Where it's needed most</a>
       <a href="corporate.html">For companies</a>
-      <a href="#">Privacy & PDPA</a>
-      <a href="#">Contact</a>
     </div>
   </div>
 </footer>
 
-<script src="data.js"></script>
+<script src="data.js?v=2"></script>
 <script>
   document.querySelectorAll('a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
@@ -436,20 +360,10 @@
     });
   });
 
-  // Giving actions — pledging a student or the general fund happens right on
-  // this page (no more join.html hop). Every pledge is a two-step confirm
-  // (a bare click was recording real money instantly — too easy to trigger
-  // by accident), then guests are asked to log in via the shared login modal
-  // from auth.js, then the pledge is recorded and the card/panel swaps to a
-  // simple in-place confirmation.
-  function isLoggedIn(){ var sess = getSession(); return !!(sess && sess.name); }
-  function requireLogin(cb){
-    if(isLoggedIn()){ cb(); return; }
-    window.onLoginSuccess = function(){ renderAccountNav(); cb(); };
-    openLoginModal();
-  }
-  function receiptNo(){ return 'BP-' + Math.floor(100000 + Math.random()*900000); }
-
+  // Pledging a student is a two-step confirm (a bare click was recording real
+  // money instantly — too easy to trigger by accident), then guests are asked
+  // to log in via the shared login modal from auth.js, then the pledge is
+  // recorded and the card swaps to a simple in-place confirmation.
   function pledgeStudentInFull(id){
     var s = getStudentById(id);
     if(!s) return;
@@ -502,89 +416,7 @@
     });
   }
 
-  var GENERAL_AMOUNT_PRESETS = [50, 100, 200, 500];
-  var GENERAL_MIN = 10, GENERAL_MAX = 10000;
-  var generalAmount = GENERAL_AMOUNT_PRESETS[1];
-  function renderAmountPills(){
-    var wrap = document.getElementById('amount-pills');
-    if(!wrap) return;
-    wrap.innerHTML = GENERAL_AMOUNT_PRESETS.map(function(a){
-      return '<button type="button" class="amount-pill' + (generalAmount === a ? ' is-active' : '') + '" data-amount="' + a + '">' + fmtRM(a) + '</button>';
-    }).join('');
-  }
-  function renderGeneralPledgeButton(){
-    var area = document.getElementById('general-pledge-area');
-    if(!area) return;
-    area.innerHTML = '<button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge ' + fmtRM(generalAmount || 0) + ' &rarr;</button>';
-  }
-  document.addEventListener('click', function(e){
-    var pillBtn = e.target.closest('.amount-pill');
-    if(pillBtn){
-      generalAmount = Number(pillBtn.dataset.amount);
-      document.getElementById('general-amount-custom').value = '';
-      renderAmountPills();
-      renderGeneralPledgeButton();
-    }
-  });
-  document.addEventListener('input', function(e){
-    if(e.target.id === 'general-amount-custom'){
-      // Live-clamp the upper bound and reject decimals/negatives as they type;
-      // the RM10 floor is only enforced when they actually try to pledge, so
-      // typing "1" then "10" then "100" isn't fought at every keystroke.
-      var n = Math.floor(Number(e.target.value)) || 0;
-      if(n < 0) n = 0;
-      if(n > GENERAL_MAX){ n = GENERAL_MAX; e.target.value = n; }
-      generalAmount = n;
-      renderAmountPills();
-      renderGeneralPledgeButton();
-    }
-  });
-  function pledgeGeneralAmount(){
-    var input = document.getElementById('general-amount-custom');
-    if(!generalAmount || generalAmount < GENERAL_MIN){
-      input.focus();
-      input.placeholder = 'Minimum RM' + GENERAL_MIN;
-      return;
-    }
-    var amount = generalAmount;
-    var area = document.getElementById('general-pledge-area');
-    area.innerHTML =
-      '<div class="inline-confirm">' +
-        '<p style="color:#CFE3DB;">Pledge ' + fmtRM(amount) + ' to the general fund?</p>' +
-        '<div class="inline-confirm-actions">' +
-          '<button type="button" class="btn btn-ghost btn-sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.32);" onclick="renderGeneralPledgeButton()">Cancel</button>' +
-          '<button type="button" class="btn btn-primary btn-sm" onclick="confirmGeneralPledge()">Confirm pledge</button>' +
-        '</div>' +
-      '</div>';
-  }
-  function confirmGeneralPledge(){
-    var amount = generalAmount;
-    requireLogin(function(){
-      var accountName = getSession().name;
-      var nowIso = new Date().toISOString();
-      var rn = receiptNo();
-      addActiveGift({
-        target: 'General fund', giveType: 'general', studentId: null,
-        amount: amount, freq: 'once', pay: null, coverFee: false, fee: 0,
-        status: 'active', startedAt: nowIso
-      });
-      addTransaction({
-        receiptNo: rn, date: nowIso, target: 'General fund', amount: amount,
-        freq: 'once', pay: null, fee: 0, total: amount, donorName: accountName,
-        monthsCovered: Math.round(amount / MONTHLY_RATE)
-      });
-      document.getElementById('general-fund-card').innerHTML =
-        '<span class="eyebrow">General fund</span>' +
-        '<h2 class="serif">You&rsquo;re in!</h2>' +
-        '<p>Thanks for pledging ' + fmtRM(amount) + ' to the BrightPath Bursary — it&rsquo;s confirmed instantly and tracked from your dashboard.</p>' +
-        '<a href="dashboard.html" class="btn btn-primary btn-block">Go to my dashboard</a>';
-    });
-  }
-  renderAmountPills();
-  renderGeneralPledgeButton();
-
   // Student listing — the full browsable pool, at the bottom of this page.
-  // Same filter/sort/card behaviour as students.html, just inlined here.
   (function(){
     var stateSelect = document.getElementById('filter-state');
     var courseSelect = document.getElementById('filter-course');
@@ -592,6 +424,17 @@
     var grid = document.getElementById('student-listing-grid');
     var countEl = document.getElementById('filter-count');
     var emptyEl = document.getElementById('student-listing-empty');
+
+    // A donor can arrive here already mid-gift (paid, but hasn't picked a
+    // student yet) via dashboard.html's "Choose now" link, which passes the
+    // gift id through as ?forGift=. When that's the case, a card's CTA should
+    // assign this existing gift rather than open a brand-new pledge.
+    var forGiftId = new URLSearchParams(window.location.search).get('forGift');
+    var forGift = forGiftId ? getGiftById(forGiftId) : null;
+    var hasPendingMatch = isPendingMatch(forGift) || (getSession() ? isPendingMatch(getPrimaryActiveGift()) : false);
+    function profileLink(s){
+      return 'student-profile.html?id=' + s.id + (forGiftId ? '&forGift=' + encodeURIComponent(forGiftId) : '');
+    }
 
     function unique(arr){ return arr.filter(function(v,i){ return arr.indexOf(v) === i; }); }
     unique(STUDENTS.map(function(s){ return s.state; })).sort().forEach(function(state){
@@ -612,6 +455,8 @@
         ctaHtml = '<button class="btn btn-sm" disabled style="background:var(--teal-light);color:var(--teal-dark);">&check; Fully supported</button>';
       } else if(alreadyMine){
         ctaHtml = '<span class="btn btn-sm" style="background:var(--teal-light);color:var(--teal-dark);">&check; Pledged, thank you</span>';
+      } else if(hasPendingMatch){
+        ctaHtml = '<a href="' + profileLink(s) + '" class="btn btn-primary btn-sm">Choose this student &rarr;</a>';
       } else {
         ctaHtml = '<button class="btn btn-primary btn-sm" onclick="pledgeStudentInFull(' + s.id + ')">Pledge ' + fmtRM(s.goal) + ' &rarr;</button>';
       }
@@ -626,7 +471,7 @@
             '<div class="psc-amount">' + fmtRM(s.goal) + '<span>one-time gift &middot; covers ' + s.months + ' months</span></div>' +
             ctaHtml +
           '</div>' +
-          '<a href="student-profile.html?id=' + s.id + '" class="psc-profile-link">Read full story &rarr;</a>' +
+          '<a href="' + profileLink(s) + '" class="psc-profile-link">Read full story &rarr;</a>' +
         '</div>';
     }
 

@@ -118,8 +118,8 @@
     </a>
     <div class="nav-links">
       <a href="about.html">About</a>
-      <a href="index.html#student-listing">Our students</a>
-      <a href="index.html#give">Ways to give</a>
+      <a href="index.html#student-listing">Discover our students</a>
+      <a href="give.html">Where it's needed most</a>
       <a href="index.html#trust">Transparency</a>
     </div>
     <div class="nav-cta">
@@ -131,13 +131,13 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="index.html#give-gift" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
+      <a href="index.html#student-listing" class="btn btn-primary btn-sm" id="nav-start">Pledge support</a>
     </div>
   </nav>
 </header>
 
-<script src="data.js"></script>
-<script src="auth.js"></script>
+<script src="data.js?v=2"></script>
+<script src="auth.js?v=3"></script>
 <script>renderAccountNav();</script>
 
 <main class="wrap" id="page-root">
@@ -228,11 +228,9 @@
     </div>
     <div class="footer-links">
       <a href="about.html">About</a>
-      <a href="index.html#student-listing">Our students</a>
-      <a href="#">For coordinators</a>
+      <a href="index.html#student-listing">Discover our students</a>
+      <a href="give.html">Where it's needed most</a>
       <a href="corporate.html">For companies</a>
-      <a href="#">Privacy & PDPA</a>
-      <a href="#">Contact</a>
     </div>
   </div>
 </footer>
@@ -277,7 +275,7 @@
       }
 
       var pendingBanner = isPendingMatch(gift)
-        ? '<div class="pay-note" style="margin-bottom:16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V12L14.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'your student') + ' yet. <a href="students.html?forGift=' + gift.id + '" style="color:var(--teal-dark);font-weight:600;">Browse and choose now →</a></div>'
+        ? '<div class="pay-note" style="margin-bottom:16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V12L14.5 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'your student') + ' yet. <a href="index.html?forGift=' + gift.id + '#student-listing" style="color:var(--teal-dark);font-weight:600;">Browse and choose now →</a></div>'
         : '';
 
       return '<div class="panel-card">' +
@@ -314,12 +312,12 @@
       if(gifts.length === 0){
         el.innerHTML = '<div class="panel-card empty-panel">' +
           '<p>You haven\'t started a gift yet.</p>' +
-          '<a href="index.html#give-gift" class="btn btn-primary">Pledge your support →</a>' +
+          '<a href="index.html#student-listing" class="btn btn-primary">Pledge your support →</a>' +
         '</div>';
         return;
       }
       el.innerHTML = gifts.map(giftCardHtml).join('') +
-        '<a href="index.html#give-gift" class="btn btn-ghost btn-sm">+ Start another gift</a>';
+        '<a href="index.html#student-listing" class="btn btn-ghost btn-sm">+ Start another gift</a>';
     }
 
     window.togglePmForm = function(giftId){
@@ -446,7 +444,7 @@
       if(isPendingMatch(gift)){
         return label + '<div class="panel-card empty-panel">' +
           '<p>You haven\'t chosen ' + (gift.giveType === 'mentor' ? 'your mentee' : 'a student') + ' yet, so there\'s nothing to show here. Updates start once you pick who this gift goes to.</p>' +
-          '<a href="students.html?forGift=' + gift.id + '" class="btn btn-primary">Choose now →</a>' +
+          '<a href="index.html?forGift=' + gift.id + '#student-listing" class="btn btn-primary">Choose now →</a>' +
         '</div>';
       }
 
@@ -457,7 +455,7 @@
         note = 'Coordinator-reviewed updates on ' + (s ? s.code : 'your student') + "'s progress — shared roughly once a term.";
       } else {
         updates = GENERAL_FUND_UPDATES;
-        note = "You're funding the general pool, so updates here cover the whole cohort rather than one student.";
+        note = "You're funding wherever it's needed most, so updates here cover the whole cohort rather than one student.";
       }
       var cardsHtml = updates.map(function(u){
         var d = new Date(u.date).toLocaleDateString('en-MY', {day:'numeric', month:'long', year:'numeric'});
@@ -490,7 +488,7 @@
       if(gifts.length === 0){
         el.innerHTML = '<div class="panel-card empty-panel">' +
           '<p>Updates from your coordinator will show up here once you start giving.</p>' +
-          '<a href="index.html#give-gift" class="btn btn-primary">Pledge your support →</a>' +
+          '<a href="index.html#student-listing" class="btn btn-primary">Pledge your support →</a>' +
         '</div>';
         return;
       }
