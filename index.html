@@ -81,58 +81,6 @@
   .empty-state{text-align:center;padding:60px 20px;color:var(--ink-soft);font-size:14.5px;display:none;}
   .funded-divider{grid-column:1/-1;text-align:center;font-size:13px;color:var(--ink-soft);padding:14px 0;border-top:1px solid var(--line);margin-top:6px;}
 
-  /* TRUST */
-  .trust-list{display:flex;flex-direction:column;gap:20px;}
-  .trust-item{display:flex;gap:14px;align-items:flex-start;}
-  .trust-item i{width:38px;height:38px;border-radius:10px;background:var(--teal-light);color:var(--teal);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .trust-item h3{font-size:15.5px;margin-bottom:3px;}
-  .trust-item p{font-size:13.5px;color:var(--ink-soft);}
-
-  .belief-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;padding-top:32px;border-top:1px solid var(--line);}
-  @media (max-width:760px){ .belief-row{grid-template-columns:1fr 1fr;} }
-  @media (max-width:480px){ .belief-row{grid-template-columns:1fr;} }
-  .belief-item{
-    display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;
-    background:var(--white);border-radius:var(--radius-md);padding:28px 18px;box-shadow:var(--shadow-card);
-    transition:transform .15s ease;
-  }
-  .belief-item:hover{transform:translateY(-3px);}
-  .belief-item i{width:60px;height:60px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .belief-item i svg{width:26px;height:26px;}
-  .belief-item p{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.4;}
-
-  /* THE GAP + HALATUJU */
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
-  @media (max-width:860px){ .split{grid-template-columns:1fr;} }
-  .split h2{font-size:26px;margin-bottom:14px;}
-  .split p{font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:14px;}
-  .split p:last-child{margin-bottom:0;}
-
-  .gap-card{
-    background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);
-    padding:32px;position:relative;
-  }
-  .gap-card .figure{font-family:'Fraunces',serif;font-size:46px;font-weight:600;color:var(--teal);}
-  .gap-card .figure-label{font-size:13.5px;color:var(--ink-soft);margin-top:4px;}
-  .gap-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-top:1px solid var(--line);}
-  .gap-row:first-of-type{border-top:none;}
-  .gap-row span:first-child{font-size:13.5px;color:var(--ink-soft);}
-  .gap-row span:last-child{font-weight:700;font-family:'Fraunces',serif;}
-
-  .halatuju-card{
-    background:var(--teal-dark);color:#fff;border-radius:var(--radius-lg);padding:40px;
-    display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;
-  }
-  @media (max-width:700px){ .halatuju-card{grid-template-columns:1fr;} }
-  .halatuju-mark{
-    width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,0.12);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;
-  }
-  .halatuju-card h2{color:#fff;font-size:24px;margin-bottom:12px;}
-  .halatuju-card p{color:#CFE3DB;font-size:15px;line-height:1.7;margin-bottom:12px;}
-  .halatuju-card p:last-child{margin-bottom:0;}
-  .halatuju-card a{color:#fff;text-decoration:underline;font-weight:600;}
 
   /* FINAL CTA */
   .final-cta{
@@ -157,7 +105,6 @@
       <a href="#the-cause">About</a>
       <a href="#student-listing">Discover our students</a>
       <a href="give.html">Where it's needed most</a>
-      <a href="#trust">Transparency</a>
     </div>
     <div class="nav-cta">
       <div class="account-menu" id="account-menu" style="display:none;">
@@ -202,94 +149,6 @@
             <figure><img src="assets/student-ai-4.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
           </div>
           <p class="hero-stat-quote"><span class="quote-mark">&ldquo;</span>Nearly 500,000 of Malaysia&rsquo;s SPM leavers never continue on to higher studies — many of whom are from B40 families.<span class="quote-mark">&rdquo;</span></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="trust">
-    <div class="wrap">
-      <div style="max-width:640px;margin:0 auto;">
-        <div class="section-head center">
-          <span class="eyebrow">Why donors trust BrightPath Bursary</span>
-        </div>
-        <div class="trust-list">
-          <div class="trust-item">
-            <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 10V8C6 5.24 8.24 3 11 3C13.24 3 15.13 4.47 15.77 6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><rect x="4" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/></svg></i>
-            <div><h3>Complete anonymity</h3><p>You never see names or contact details, only an anonymous student profile. Identities are protected both ways.</p></div>
-          </div>
-          <div class="trust-item">
-            <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6V12C4 17 7.5 20.5 12 22C16.5 20.5 20 17 20 12V6L12 2Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12L11 14L15.5 9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></i>
-            <div><h3>Every ringgit accountable</h3><p>Funds will be administered by an independent trust foundation and released against verified study milestones — never handed directly to a student. (The foundation is currently being established.)</p></div>
-          </div>
-          <div class="trust-item">
-            <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="8.5" cy="8" r="2.8" stroke="currentColor" stroke-width="1.7"/><path d="M2.5 19C2.5 15.5 5.2 13.5 8.5 13.5C11.8 13.5 14.5 15.5 14.5 19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="16" cy="7.5" r="2.3" stroke="currentColor" stroke-width="1.7"/><path d="M14.5 13.7C17.2 13.9 19.5 15.8 19.5 19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>
-            <div><h3>Real, verified impact</h3><p>Each student is income-verified and interviewed, so your support reaches a genuine B40 family.</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="gap" style="padding-top:0;">
-    <div class="wrap">
-      <div class="split">
-        <div>
-          <span class="eyebrow">The gap no one talks about</span>
-          <h2 style="margin-top:16px;">A place isn't the same as a path.</h2>
-          <p>Getting accepted is only the first hurdle. For a B40 household, the RM3,000 needed to actually show up — registration fees, food, a place to stay, the bus fare home — is often the harder one. Miss it, and a hard-earned place quietly lapses. Nothing about that student's ability changed; only their bank balance did.</p>
-          <p>BrightPath connects everyday donors directly to students in exactly that position — so a good SPM result is never wasted for lack of RM3,000.</p>
-        </div>
-        <div class="gap-card">
-          <div class="figure">RM3,000</div>
-          <div class="figure-label" style="margin-top:0;font-weight:600;">— RM200 a month</div>
-          <div class="figure-label">the average gap between a place earned and a place taken up</div>
-          <div class="gap-row"><span>Tuition & fees</span><span>~RM1,300</span></div>
-          <div class="gap-row"><span>Food & lodging</span><span>~RM1,200</span></div>
-          <div class="gap-row"><span>Travel & books</span><span>~RM500</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding-top:0;">
-    <div class="wrap">
-      <div class="halatuju-card">
-        <div class="halatuju-mark">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3L4 7V12C4 17 7.5 20.5 12 21C16.5 20.5 20 17 20 12V7L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12L11 14L15.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div>
-          <span class="eyebrow" style="background:rgba(255,255,255,0.14);color:#fff;margin-bottom:14px;">Built alongside HalaTuju</span>
-          <h2>We start where HalaTuju leaves off.</h2>
-          <p><a href="https://halatuju.xyz" target="_blank" rel="noopener">HalaTuju</a> already solves the first half of this problem for free — its eligibility engine matches a student's SPM or STPM results against entry requirements across 1,300+ courses at 800+ public institutions, so no one settles for an expensive private college simply because they didn't know a subsidised public place was within reach.</p>
-          <p>But qualifying for a heavily-subsidised place doesn't make it free. BrightPath picks up exactly where that matching ends: once a student has a confirmed place and a coordinator-verified, anonymized profile, BrightPath opens the remaining RM3,000 gap up to donors like you — and reports funding status straight back to the HalaTuju team, so every verified student is tracked from application to graduation.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="believe" style="padding-top:0;">
-    <div class="wrap">
-      <div class="section-head center">
-        <span class="eyebrow">What we believe</span>
-        <h2>A simple idea, underneath everything we build.</h2>
-      </div>
-      <div class="belief-row">
-        <div class="belief-item">
-          <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.5C4 6.5 6.4 4 9.5 4C11 4 12.3 4.7 13 5.8C13.7 4.7 15 4 16.5 4C19.6 4 22 6.5 22 9.5C22 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></i>
-          <p>No one is poorer by giving.</p>
-        </div>
-        <div class="belief-item">
-          <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M5 20C5 16.5 8 14 12 14C16 14 19 16.5 19 20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>
-          <p>No one is wealthy by receiving.</p>
-        </div>
-        <div class="belief-item">
-          <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 6C4 6 8 5 12 7C16 5 20 6 20 6V17C20 17 16 16 12 18C8 16 4 17 4 17V6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 7V18" stroke="currentColor" stroke-width="1.7"/></svg></i>
-          <p>Education is the greatest wealth.</p>
-        </div>
-        <div class="belief-item">
-          <i><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="2.3" stroke="currentColor" stroke-width="1.7"/><path d="M4 19C4 19 9 13 12 13C15 13 14 8 18 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></i>
-          <p>Together, we build a brighter path.</p>
         </div>
       </div>
     </div>
