@@ -176,11 +176,9 @@ function renderAccountNav(){
   injectLoginModal();
   var session = getSession();
   var loginLink = document.getElementById('nav-login');
-  var startLink = document.getElementById('nav-start');
   var menu = document.getElementById('account-menu');
   if(session && session.name){
     if(loginLink) loginLink.style.display = 'none';
-    if(startLink) startLink.textContent = getPrimaryActiveGift() ? 'Pledge more' : 'Pledge support';
     if(menu){
       menu.style.display = 'inline-block';
       var trigger = document.getElementById('account-trigger');
