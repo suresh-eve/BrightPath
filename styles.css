@@ -51,7 +51,7 @@ button{font-family:'Inter',sans-serif;}
 
 .eyebrow{
   display:inline-flex;align-items:center;gap:6px;
-  font-size:12.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
   color:var(--teal);background:var(--teal-light);
   padding:6px 12px;border-radius:100px;
 }
@@ -70,7 +70,7 @@ button{font-family:'Inter',sans-serif;}
 /* TESTIMONIAL WIDGET — shared photo gallery + rotating student-quote carousel.
    Used identically on index.html and give.html; data + rotation logic live in
    data.js (TESTIMONIALS, initTestimonialCarousel) so both pages stay in sync. */
-.hero-trust{display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--ink-soft);margin-bottom:22px;}
+.hero-trust{display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--ink-soft);margin-bottom:22px;}
 .hero-trust-item{display:flex;align-items:center;gap:8px;}
 .hero-trust-icon{width:24px;height:24px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
@@ -80,7 +80,7 @@ button{font-family:'Inter',sans-serif;}
 .hero-photo-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
 .hero-stat-quote{font-family:'Fraunces',serif;font-size:17px;line-height:1.55;color:var(--ink);text-align:center;font-style:italic;max-width:380px;margin-inline:auto;min-height:82px;transition:opacity .25s ease;}
 .hero-stat-quote .quote-mark{font-size:34px;font-style:normal;color:var(--teal);line-height:0;vertical-align:-9px;}
-.hero-stat-tag{text-align:center;font-size:12.5px;font-weight:600;color:var(--teal-dark);margin-top:12px;letter-spacing:0.01em;transition:opacity .25s ease;}
+.hero-stat-tag{text-align:center;font-size:13px;font-weight:600;color:var(--teal-dark);margin-top:12px;letter-spacing:0.01em;transition:opacity .25s ease;}
 .hero-quote-dots{display:flex;justify-content:center;gap:8px;margin-top:18px;}
 .hero-quote-dot{width:7px;height:7px;padding:0;border-radius:50%;border:none;background:var(--line);cursor:pointer;transition:background .2s ease, transform .2s ease;}
 .hero-quote-dot.is-active{background:var(--teal-dark);transform:scale(1.35);}
@@ -110,7 +110,7 @@ button{font-family:'Inter',sans-serif;}
 .btn-ghost:hover{border-color:var(--ink-soft);background:rgba(255,255,255,0.5);}
 .btn-onteal{background:#fff;color:var(--teal-dark);}
 .btn-onteal:hover{background:var(--cream);}
-.btn-sm{padding:9px 16px;font-size:13.5px;}
+.btn-sm{padding:9px 16px;font-size:14px;}
 .btn-block{width:100%;}
 .btn[disabled]{opacity:0.45;cursor:not-allowed;}
 
@@ -127,10 +127,10 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;height:74
 .logo-text{display:flex;flex-direction:column;line-height:1.05;}
 .logo-name{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--ink);}
 .logo-sub{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:1px;}
-.logo-tagline{font-family:'Fraunces',serif;font-style:italic;font-size:12.5px;color:var(--ink-soft);}
+.logo-tagline{font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--ink-soft);}
 .logo-tagline b{color:var(--brand-gold);font-weight:600;font-style:normal;}
 .nav-links{display:flex;align-items:center;gap:30px;}
-.nav-links a{font-size:14.5px;font-weight:500;color:var(--ink-soft);}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-soft);}
 .nav-links a:hover,.nav-links a.active{color:var(--ink);}
 .nav-cta{display:flex;align-items:center;gap:18px;}
 
@@ -140,7 +140,7 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;height:74
   background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);
   box-shadow:var(--shadow-card);padding:6px;
 }
-.account-dropdown a{display:block;padding:9px 12px;font-size:13.5px;font-weight:500;color:var(--ink);border-radius:8px;}
+.account-dropdown a{display:block;padding:9px 12px;font-size:14px;font-weight:500;color:var(--ink);border-radius:8px;}
 .account-dropdown a:hover{background:var(--cream);}
 
 .status-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;}
@@ -154,18 +154,16 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;height:74
   .logo-name{font-size:17px;}
   .logo-sub{font-size:9.5px;}
   .nav-cta{gap:8px;}
-  .nav-cta .btn-sm{padding:8px 12px;font-size:12.5px;}
+  .nav-cta .btn-sm{padding:8px 13px;font-size:13px;}
 }
 @media (max-width:400px){
   .hi-prefix{display:none;}
   .logo-name{font-size:15px;}
   .nav-cta{gap:6px;}
-  .nav-cta .btn-sm{padding:6px 8px;font-size:11.5px;}
 }
 @media (max-width:340px){
   .logo-name{font-size:14px;}
   .nav-cta{gap:3px;}
-  .nav-cta .btn-sm{padding:5px 5px;font-size:10px;}
 }
 
 section{padding:76px 0;}
@@ -177,7 +175,7 @@ section{padding:76px 0;}
 
 .progress-track{height:7px;border-radius:100px;background:var(--cream-2);overflow:hidden;}
 .progress-fill{height:100%;border-radius:100px;background:var(--teal);}
-.progress-label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-soft);margin-top:7px;}
+.progress-label{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft);margin-top:7px;}
 
 .avatar-block{border-radius:var(--radius-md);position:relative;overflow:hidden;}
 .avatar-block .blob{position:absolute;border-radius:50%;background:rgba(255,255,255,0.16);}
@@ -190,9 +188,9 @@ section{padding:76px 0;}
 footer{padding:40px 0 32px;border-top:1px solid var(--line);}
 .footer-grid{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px;}
 .footer-links{display:flex;gap:26px;flex-wrap:wrap;}
-.footer-links a{font-size:13.5px;color:var(--ink-soft);}
+.footer-links a{font-size:14px;color:var(--ink-soft);}
 .footer-links a:hover{color:var(--ink);}
-.footer-note{font-size:12.5px;color:var(--ink-soft);max-width:340px;}
+.footer-note{font-size:13px;color:var(--ink-soft);max-width:340px;}
 @media (max-width:640px){
   .footer-grid{flex-direction:column;gap:24px;}
   .footer-links{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;width:100%;}
@@ -215,16 +213,16 @@ footer{padding:40px 0 32px;border-top:1px solid var(--line);}
 }
 .login-modal-close:hover{background:var(--line);color:var(--ink);}
 .login-modal h2{font-size:21px;margin-bottom:8px;}
-.login-modal .sub{font-size:13.5px;color:var(--ink-soft);margin-bottom:20px;}
+.login-modal .sub{font-size:14px;color:var(--ink-soft);margin-bottom:20px;}
 .login-modal input[type="email"],.login-modal input[type="text"]{
   width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1px solid var(--line);
-  font-family:'Inter',sans-serif;font-size:14.5px;background:var(--cream);margin-bottom:14px;
+  font-family:'Inter',sans-serif;font-size:14px;background:var(--cream);margin-bottom:14px;
 }
 .login-modal input:focus{outline:none;border-color:var(--teal);}
 .sso-btn{
   display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
   padding:12px 16px;border-radius:100px;border:1.5px solid var(--line);background:var(--white);
-  font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;cursor:pointer;margin-bottom:10px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:14px;cursor:pointer;margin-bottom:10px;
   transition:border-color .15s ease, background .15s ease;
 }
 .sso-btn:hover{border-color:var(--ink-soft);background:var(--cream);}
