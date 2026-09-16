@@ -147,7 +147,7 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;height:74
 .status-active{background:var(--teal-light);color:var(--teal-dark);}
 .status-paused{background:var(--amber-light);color:var(--amber-dark);}
 .status-cancelled{background:var(--cream-2);color:var(--ink-soft);}
-@media (max-width:780px){ .nav-links{display:none;} .nav-give{display:none;} }
+@media (max-width:780px){ .nav-links{display:none;} .nav-give{display:none;} #nav-start{display:none;} }
 @media (max-width:480px){
   .wrap,.wrap-narrow{padding:0 16px;}
   .logo-mark{width:34px;height:34px;}
