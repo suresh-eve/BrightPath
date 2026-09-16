@@ -21,11 +21,16 @@
 <link rel="stylesheet" href="styles.css">
 <style>
   .give-page{padding:64px 0 80px;}
-  .give-intro{text-align:center;max-width:600px;margin:0 auto 40px;}
-  .give-intro h1{font-size:32px;margin:14px 0 10px;}
-  .give-intro p{color:var(--ink-soft);font-size:15.5px;}
+  .give-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:start;}
+  @media (max-width:900px){
+    .give-grid{grid-template-columns:1fr;}
+    .give-grid .hero-visual{max-width:380px;margin:0 auto;}
+  }
 
-  .give-single{max-width:460px;margin:0 auto;}
+  .give-intro{margin-bottom:32px;}
+  .give-intro h1{font-size:32px;margin:14px 0 18px;}
+
+  .give-single{max-width:460px;margin:0;}
 
   .give-card{border-radius:var(--radius-lg);padding:34px;text-align:center;display:flex;flex-direction:column;color:#fff;}
   .give-card .eyebrow{align-self:center;background:rgba(255,255,255,0.16);color:#fff;margin-bottom:16px;}
@@ -75,30 +80,47 @@
 <main>
   <section class="give-page">
     <div class="wrap">
-      <div class="give-intro">
-        <span class="eyebrow">General giving</span>
-        <h1 class="serif">One gift, wherever it helps most.</h1>
-        <p>100% of your gift reaches a verified B40 student — never BrightPath's own operating costs.</p>
-      </div>
+      <div class="give-grid">
+        <div>
+          <div class="give-intro">
+            <span class="eyebrow">General giving</span>
+            <h1 class="serif">Give now, to the student who needs it most.</h1>
+            <div class="hero-trust">
+              <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>100% of your gift reaches the student</span>
+              <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Verified B40 student</span>
+            </div>
+          </div>
 
-      <div class="give-single">
-        <div class="give-card give-card-individual" id="general-fund-card">
-          <span class="eyebrow">For individuals</span>
-          <h2 class="serif">Give where it's needed most</h2>
-          <p class="give-card-desc">Your gift is allocated to a verified student who needs it most right now — perfect if you'd rather not choose just one.</p>
-          <div class="amount-pills" id="amount-pills"></div>
-          <div class="amount-custom">
-            <label for="general-amount-custom">Or enter your own amount (RM10–RM10,000)</label>
-            <input type="number" id="general-amount-custom" placeholder="e.g. 350" min="10" max="10000" step="1">
+          <div class="give-single">
+            <div class="give-card give-card-individual" id="general-fund-card">
+              <span class="eyebrow">For individuals</span>
+              <div class="amount-pills" id="amount-pills"></div>
+              <div class="amount-custom">
+                <label for="general-amount-custom">Or enter your own amount (RM10–RM10,000)</label>
+                <input type="number" id="general-amount-custom" placeholder="e.g. 350" min="10" max="10000" step="1">
+              </div>
+              <div id="general-pledge-area">
+                <button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge RM50 →</button>
+              </div>
+            </div>
           </div>
-          <div id="general-pledge-area">
-            <button class="btn btn-primary btn-block" id="general-pledge-btn" onclick="pledgeGeneralAmount()">Pledge RM100 →</button>
+
+          <p style="font-size:13.5px;color:var(--ink-soft);margin-top:32px;">Prefer to support one specific student instead? <a href="index.html#student-listing" style="color:var(--teal-dark);font-weight:600;">Discover our students →</a></p>
+          <p style="font-size:13.5px;color:var(--ink-soft);margin-top:8px;">Represent a company instead? <a href="corporate.html" style="color:var(--teal-dark);font-weight:600;">Explore corporate partnerships →</a></p>
+        </div>
+
+        <div class="hero-visual" id="give-testimonial-widget">
+          <div class="hero-photo-gallery">
+            <figure><img src="assets/student-ai-1.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+            <figure><img src="assets/student-ai-2.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+            <figure><img src="assets/student-ai-3.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
+            <figure><img src="assets/student-ai-4.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
           </div>
+          <p class="hero-stat-quote"></p>
+          <p class="hero-stat-tag"></p>
+          <div class="hero-quote-dots"></div>
         </div>
       </div>
-
-      <p style="text-align:center;font-size:13.5px;color:var(--ink-soft);margin-top:32px;">Prefer to support one specific student instead? <a href="index.html#student-listing" style="color:var(--teal-dark);font-weight:600;">Discover our students →</a></p>
-      <p style="text-align:center;font-size:13.5px;color:var(--ink-soft);margin-top:8px;">Represent a company instead? <a href="corporate.html" style="color:var(--teal-dark);font-weight:600;">Explore corporate partnerships →</a></p>
     </div>
   </section>
 </main>
@@ -126,7 +148,7 @@
   // General fund pledge — same two-step confirm pattern as a student pledge
   // (pledgeStudentInFull in index.html): a bare click was recording real
   // money instantly, so amount selection and commitment are separate steps.
-  var GENERAL_AMOUNT_PRESETS = [50, 100, 200, 500];
+  var GENERAL_AMOUNT_PRESETS = [18, 50, 88];
   var GENERAL_MIN = 10, GENERAL_MAX = 10000;
   var generalAmount = GENERAL_AMOUNT_PRESETS[1];
   function renderAmountPills(){
@@ -206,6 +228,7 @@
   }
   renderAmountPills();
   renderGeneralPledgeButton();
+  initTestimonialCarousel('give-testimonial-widget');
 </script>
 
 </body>

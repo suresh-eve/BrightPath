@@ -67,6 +67,27 @@ button{font-family:'Inter',sans-serif;}
 .covers-row{display:flex;flex-wrap:wrap;gap:6px;}
 .covers-chip{font-size:11px;font-weight:600;padding:4px 9px;border-radius:100px;background:var(--cream-2);color:var(--ink-soft);text-transform:capitalize;}
 
+/* TESTIMONIAL WIDGET — shared photo gallery + rotating student-quote carousel.
+   Used identically on index.html and give.html; data + rotation logic live in
+   data.js (TESTIMONIALS, initTestimonialCarousel) so both pages stay in sync. */
+.hero-trust{display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--ink-soft);margin-bottom:22px;}
+.hero-trust-item{display:flex;align-items:center;gap:8px;}
+.hero-trust-icon{width:24px;height:24px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+.hero-visual{position:relative;}
+.hero-photo-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:360px;margin:0 auto 24px;}
+.hero-photo-gallery figure{margin:0;border-radius:50%;overflow:hidden;box-shadow:var(--shadow-card);position:relative;aspect-ratio:1/1;background:var(--cream-2);}
+.hero-photo-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.hero-stat-quote{font-family:'Fraunces',serif;font-size:17px;line-height:1.55;color:var(--ink);text-align:center;font-style:italic;max-width:380px;margin-inline:auto;min-height:82px;transition:opacity .25s ease;}
+.hero-stat-quote .quote-mark{font-size:34px;font-style:normal;color:var(--teal);line-height:0;vertical-align:-9px;}
+.hero-stat-tag{text-align:center;font-size:12.5px;font-weight:600;color:var(--teal-dark);margin-top:12px;letter-spacing:0.01em;transition:opacity .25s ease;}
+.hero-quote-dots{display:flex;justify-content:center;gap:8px;margin-top:18px;}
+.hero-quote-dot{width:7px;height:7px;padding:0;border-radius:50%;border:none;background:var(--line);cursor:pointer;transition:background .2s ease, transform .2s ease;}
+.hero-quote-dot.is-active{background:var(--teal-dark);transform:scale(1.35);}
+@media (max-width:480px){
+  .hero-photo-gallery{max-width:280px;gap:14px;}
+}
+
 /* INLINE CONFIRM — a one-click accidental pledge is a real donor-trust risk,
    so every pledge action (student card, general fund, profile page) shows
    this "are you sure" step before anything is actually recorded. */

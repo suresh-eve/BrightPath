@@ -26,26 +26,13 @@
   .hero h1{font-size:44px;line-height:1.14;margin:18px 0 20px;letter-spacing:-0.01em;}
   .hero-sub{font-size:17.5px;color:var(--ink-soft);max-width:460px;margin-bottom:30px;}
   .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-  .hero-trust{display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--ink-soft);margin-bottom:22px;}
   .hero-avatars{display:flex;align-items:center;}
   .hero-avatars .av{width:26px;height:26px;border-radius:50%;border:2px solid var(--cream);margin-left:-8px;}
   .hero-avatars .av:first-child{margin-left:0;}
-  .hero-trust-item{display:flex;align-items:center;gap:8px;}
-  .hero-trust-icon{width:24px;height:24px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-
-  .hero-visual{position:relative;}
-  .hero-photo-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:360px;margin:0 auto 24px;}
-  .hero-photo-gallery figure{margin:0;border-radius:50%;overflow:hidden;box-shadow:var(--shadow-card);position:relative;aspect-ratio:1/1;background:var(--cream-2);}
-  .hero-photo-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
-  .hero-stat-quote{font-family:'Fraunces',serif;font-size:17px;line-height:1.55;color:var(--ink);text-align:center;font-style:italic;max-width:380px;margin-inline:auto;}
-  .hero-stat-quote .quote-mark{font-size:34px;font-style:normal;color:var(--teal);line-height:0;vertical-align:-9px;}
   @media (max-width:900px){
     .hero-grid{grid-template-columns:1fr;}
     .hero h1{font-size:34px;}
     .hero-visual{max-width:380px;margin:0 auto;}
-  }
-  @media (max-width:480px){
-    .hero-photo-gallery{max-width:280px;gap:14px;}
   }
 
 
@@ -81,16 +68,6 @@
   .empty-state{text-align:center;padding:60px 20px;color:var(--ink-soft);font-size:14.5px;display:none;}
   .funded-divider{grid-column:1/-1;text-align:center;font-size:13px;color:var(--ink-soft);padding:14px 0;border-top:1px solid var(--line);margin-top:6px;}
 
-
-  /* FINAL CTA */
-  .final-cta{
-    background:var(--teal-dark);border-radius:var(--radius-lg);
-    padding:56px 48px;text-align:center;color:#fff;margin:0 32px;
-    max-width:1120px;margin-inline:auto;
-  }
-  .final-cta h2{color:#fff;font-size:28px;margin-bottom:12px;}
-  .final-cta p{color:#CFE3DB;font-size:15.5px;margin-bottom:28px;max-width:440px;margin-inline:auto;}
-  .final-cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
 </style>
 </head>
 <body>
@@ -110,7 +87,7 @@
         </div>
       </div>
       <a href="#" class="btn btn-ghost btn-sm" id="nav-login">Log in</a>
-      <a href="give.html" class="btn btn-ghost btn-sm nav-give">Give where it's needed most</a>
+      <a href="give.html" class="btn btn-ghost btn-sm nav-give">Make your Gift</a>
       <a href="#student-listing" class="btn btn-primary btn-sm" id="nav-start">Discover our students &rarr;</a>
     </div>
   </nav>
@@ -126,25 +103,27 @@
         <div>
           <span class="eyebrow">The cause</span>
           <h1>Gift a talented student their dream degree.</h1>
-          <p class="hero-sub">BrightPath connects everyday donors with talented lower income (B40) students across Malaysia who have outstanding grades but not the means to continue past SPM. Your gift helps them cover fees, food, lodging and travel — every ringgit, guaranteed.</p>
+          <p class="hero-sub">BrightPath connects sponsors with talented lower income (B40) students with good grades but not the means to pursue a tertiary education. Your gift helps them cover food, lodging and transport — every ringgit, guaranteed.</p>
           <div class="hero-trust">
             <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>100% of your gift reaches the student</span>
-            <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Cancel anytime, no calls needed</span>
+            <span class="hero-trust-item"><i class="hero-trust-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Verified B40 student</span>
           </div>
           <div class="hero-actions">
             <a href="#student-listing" class="btn btn-primary">Discover our students →</a>
-            <a href="give.html" class="btn btn-ghost">Give where it's needed most</a>
+            <a href="give.html" class="btn btn-ghost">Gift Now</a>
           </div>
         </div>
 
-        <div class="hero-visual">
+        <div class="hero-visual" id="home-testimonial-widget">
           <div class="hero-photo-gallery">
             <figure><img src="assets/student-ai-1.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
             <figure><img src="assets/student-ai-2.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
             <figure><img src="assets/student-ai-3.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
             <figure><img src="assets/student-ai-4.jpg" alt="AI-generated illustration of a Malaysian student" loading="lazy"></figure>
           </div>
-          <p class="hero-stat-quote"><span class="quote-mark">&ldquo;</span>Nearly 500,000 of Malaysia&rsquo;s SPM leavers never continue on to higher studies — many of whom are from B40 families.<span class="quote-mark">&rdquo;</span></p>
+          <p class="hero-stat-quote"></p>
+          <p class="hero-stat-tag"></p>
+          <div class="hero-quote-dots"></div>
         </div>
       </div>
     </div>
@@ -154,8 +133,8 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">The public pool</span>
-        <h2>Every one of these students has already been verified.</h2>
-        <p>Citizenship, household income, grades and a place at a Malaysian institution are all checked before a profile appears here. Every student is identified by a code, never a name — sponsors receive progress updates without ever seeing who a student is.</p>
+        <h2>Make your gift, and lift a family out of poverty</h2>
+        <p>These students' family income (B40), grades and a place at a Malaysian government tertiary institution has been verified by our reviewers.</p>
       </div>
       <div class="filter-bar">
         <select id="filter-state"><option value="">All states</option></select>
@@ -171,16 +150,7 @@
     </div>
   </section>
 
-  <section style="padding:32px 0 32px;">
-    <div class="final-cta">
-      <h2 style="font-size:24px;line-height:1.45;">As the saying goes, <em>&ldquo;Sikit-sikit, lama-lama menjadi bukit.&rdquo;</em>&nbsp;&nbsp;Whether it is a little or a lot, together it all adds up to change a student's life.</h2>
-      <p>Join our founding group of donors helping students take their next step across Malaysia.</p>
-      <div class="final-cta-actions">
-        <a href="#student-listing" class="btn btn-onteal">Discover our students →</a>
-        <a href="give.html" class="btn" style="border:1.5px solid rgba(255,255,255,0.3);color:#fff;">Give where it's needed most</a>
-      </div>
-    </div>
-  </section>
+
 </main>
 
 <footer>
@@ -356,6 +326,8 @@
     window.renderStudentListing = render;
     render();
   })();
+
+  initTestimonialCarousel('home-testimonial-widget');
 </script>
 
 </body>
