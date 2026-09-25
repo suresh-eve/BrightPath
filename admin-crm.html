@@ -198,8 +198,13 @@
       <label for="compose-body">Message</label>
       <textarea id="compose-body"></textarea>
     </div>
+    <div class="compose-field">
+      <label for="compose-test-email">Send to (real email)</label>
+      <input type="email" id="compose-test-email" placeholder="you@example.com">
+    </div>
     <button type="button" class="btn btn-primary btn-block" id="compose-send-btn" onclick="sendCompose()">Send &rarr;</button>
-    <p style="font-size:11.5px;color:var(--ink-soft);margin-top:10px;">Prototype note: this records the send in the activity log below — it does not deliver a real email. See the bottom of this page for how to wire that up for real.</p>
+    <p class="compose-recipients" id="compose-send-status" style="display:none;"></p>
+    <p style="font-size:11.5px;color:var(--ink-soft);margin-top:10px;">Phase 1 (email only): this sends a real email via Brevo. Students don't have a real email address on file in this prototype yet, so every send in this phase goes to the address above regardless of how many students are selected — swap this for each student's real address once that data exists.</p>
   </div>
 </div>
 
@@ -368,6 +373,13 @@
     document.getElementById('compose-subject').value = t.subject;
     document.getElementById('compose-body').value = t.body.replace(/\{\{code\}\}/g, codeLabel);
   }
+  function resetComposeSendState(){
+    document.getElementById('compose-test-email').value = '';
+    document.getElementById('compose-send-status').style.display = 'none';
+    var btn = document.getElementById('compose-send-btn');
+    btn.disabled = false;
+    btn.textContent = 'Send →';
+  }
   function openCompose(studentId){
     var s = getStudentById(studentId);
     if(!s) return;
@@ -375,6 +387,7 @@
     document.getElementById('compose-recipients').textContent = 'To: ' + s.code + ' (' + s.state + ')';
     fillTemplateOptions();
     applyTemplate();
+    resetComposeSendState();
     document.getElementById('compose-backdrop').classList.add('open');
   }
   function openBulkCompose(){
@@ -384,6 +397,7 @@
     document.getElementById('compose-recipients').textContent = 'To: ' + overdue.length + ' overdue students (' + overdue.map(function(s){ return s.code; }).join(', ') + ')';
     fillTemplateOptions();
     applyTemplate();
+    resetComposeSendState();
     document.getElementById('compose-backdrop').classList.add('open');
   }
   function closeCompose(){
@@ -396,16 +410,55 @@
     var subject = document.getElementById('compose-subject').value.trim();
     var body = document.getElementById('compose-body').value.trim();
     var templateId = document.getElementById('compose-template').value;
+    var testEmail = document.getElementById('compose-test-email').value.trim();
+    var statusEl = document.getElementById('compose-send-status');
+    var btn = document.getElementById('compose-send-btn');
     if(!subject || !body || !composeTargets.length) return;
+    if(!testEmail){
+      statusEl.textContent = 'Enter an email address to send to.';
+      statusEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    statusEl.style.display = 'none';
+
     var nowIso = new Date().toISOString();
-    composeTargets.forEach(function(s){
-      addCommsLog({
-        studentId: s.id, templateId: templateId, subject: subject, channel: 'email',
-        body: body.replace(/\{\{code\}\}/g, s.code), sentAt: nowIso, sentBy: (getAdminSession() || {}).name || 'Admin'
+    var sends = composeTargets.map(function(s){
+      var personalizedBody = body.replace(/\{\{code\}\}/g, s.code);
+      return fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ to: testEmail, subject: subject, body: personalizedBody })
+      }).then(function(r){
+        return r.json().catch(function(){ return null; }).then(function(data){
+          return { ok: r.ok, s: s, personalizedBody: personalizedBody, data: data };
+        });
+      }).catch(function(err){
+        return { ok: false, s: s, personalizedBody: personalizedBody, data: { error: String(err) } };
       });
     });
-    closeCompose();
-    renderAll();
+
+    Promise.all(sends).then(function(results){
+      results.filter(function(r){ return r.ok; }).forEach(function(r){
+        addCommsLog({
+          studentId: r.s.id, templateId: templateId, subject: subject, channel: 'email',
+          body: r.personalizedBody, sentAt: nowIso, sentBy: (getAdminSession() || {}).name || 'Admin'
+        });
+      });
+      btn.disabled = false;
+      btn.textContent = 'Send →';
+      var failed = results.filter(function(r){ return !r.ok; });
+      if(failed.length){
+        statusEl.textContent = failed.length + ' of ' + results.length + ' failed to send — check the server logs (' +
+          (failed[0].data && failed[0].data.error ? failed[0].data.error : 'unknown error') + ').';
+        statusEl.style.display = 'block';
+      } else {
+        closeCompose();
+      }
+      renderAll();
+    });
   }
 
   renderAll();
