@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student communications — BrightPath Admin</title>
+<link rel="icon" type="image/png" href="assets/logo-icon.png">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .admin-header{border-bottom:1px solid var(--line);background:var(--white);}
+  .admin-header .wrap{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;}
+  .admin-header .logo-sub{color:var(--brand-gold);}
+
+  .admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;}
+  @media (max-width:640px){ .admin-stats{grid-template-columns:1fr;} }
+  .admin-stat-card{background:var(--white);border-radius:var(--radius-md);box-shadow:var(--shadow-card);padding:20px 22px;}
+  .admin-stat-num{font-family:'Fraunces',serif;font-size:28px;font-weight:600;}
+  .admin-stat-num.coral{color:var(--coral-dark);}
+  .admin-stat-lbl{font-size:13px;color:var(--ink-soft);margin-top:2px;}
+
+  .tab-bar{display:flex;gap:8px;margin:8px 0 24px;border-bottom:1px solid var(--line);}
+  .tab-btn{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--ink-soft);
+    background:none;border:none;padding:10px 4px;margin-right:24px;cursor:pointer;
+    border-bottom:2px solid transparent;
+  }
+  .tab-btn.active{color:var(--ink);border-color:var(--teal);}
+  .tab-panel{display:none;}
+  .tab-panel.current{display:block;}
+
+  .badge-ontrack{background:var(--teal-light);color:var(--teal-dark);}
+  .badge-duesoon{background:var(--amber-light);color:var(--amber-dark);}
+  .badge-overdue{background:var(--coral-light);color:var(--coral-dark);}
+
+  .roster-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
+  .roster-filters{display:flex;gap:8px;flex-wrap:wrap;}
+  .roster-filter-btn{
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:100px;
+    border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;
+  }
+  .roster-filter-btn.is-active{background:var(--teal-dark);color:#fff;border-color:var(--teal-dark);}
+
+  table.roster{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);overflow:hidden;}
+  table.roster th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.03em;color:var(--ink-soft);padding:14px 18px;border-bottom:1px solid var(--line);background:var(--cream-2);}
+  table.roster td{padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  table.roster tr:last-child td{border-bottom:none;}
+  table.roster .t-code{font-family:'Fraunces',serif;font-size:15px;}
+  .roster-days{color:var(--ink-soft);}
+  @media (max-width:760px){
+    table.roster, table.roster thead, table.roster tbody, table.roster th, table.roster td, table.roster tr{ display:block; }
+    table.roster thead{display:none;}
+    table.roster tr{padding:14px 18px;}
+    table.roster td{padding:4px 0;border-bottom:none;}
+    table.roster tr:not(:last-child){border-bottom:1px solid var(--line);}
+  }
+
+  .activity-item{display:flex;gap:14px;padding:16px 20px;background:var(--white);border-radius:var(--radius-md);box-shadow:var(--shadow-card);margin-bottom:10px;}
+  .activity-item .t-code{font-family:'Fraunces',serif;font-size:15px;}
+  .activity-meta{font-size:12px;color:var(--ink-soft);margin-bottom:4px;}
+  .activity-subject{font-size:13.5px;font-weight:600;}
+  .empty-panel{text-align:center;padding:50px 20px;color:var(--ink-soft);font-size:14px;}
+
+  .compose-field{margin-bottom:14px;text-align:left;}
+  .compose-field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;}
+  .compose-field select,.compose-field input,.compose-field textarea{
+    width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1px solid var(--line);
+    font-family:'Inter',sans-serif;font-size:14px;background:var(--cream);box-sizing:border-box;
+  }
+  .compose-field textarea{resize:vertical;min-height:140px;line-height:1.5;}
+  .compose-field select:focus,.compose-field input:focus,.compose-field textarea:focus{outline:none;border-color:var(--teal);}
+  .compose-recipients{font-size:13px;color:var(--ink-soft);margin-bottom:16px;}
+
+  .channel-tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;padding:2px 8px;border-radius:100px;margin-left:8px;}
+  .channel-tag.email{background:var(--cream-2);color:var(--ink-soft);}
+  .channel-tag.whatsapp{background:#DCF8C6;color:#075E54;}
+
+  .wa-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+  @media (max-width:860px){ .wa-grid{grid-template-columns:1fr;} }
+  .wa-note{font-size:11.5px;color:var(--ink-soft);margin-top:14px;}
+  .wa-sent-confirm{color:var(--teal-dark);font-size:13px;font-weight:600;margin-top:12px;display:none;}
+
+  .wa-phone{background:#E5DDD5;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:26px 18px;}
+  .wa-phone-header{display:flex;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid rgba(0,0,0,0.08);}
+  .wa-phone-avatar{width:32px;height:32px;border-radius:50%;background:var(--teal-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:14px;}
+  .wa-phone-name{font-size:14px;font-weight:600;}
+  .wa-phone-sub{font-size:11.5px;color:#5B6B59;}
+  .wa-bubble{background:#DCF8C6;border-radius:10px;padding:10px 12px;max-width:92%;margin-left:auto;font-size:13.5px;line-height:1.5;white-space:pre-wrap;color:#111;}
+  .wa-bubble-time{display:block;text-align:right;font-size:10.5px;color:#5b6b59;margin-top:6px;}
+  .wa-buttons{margin-top:8px;max-width:92%;margin-left:auto;}
+  .wa-quick-reply{background:#fff;border-radius:8px;padding:9px 10px;font-size:13px;text-align:center;color:#00A5F4;font-weight:600;margin-top:6px;box-shadow:0 1px 1px rgba(0,0,0,0.08);}
+</style>
+</head>
+<body>
+
+<header class="admin-header">
+  <div class="wrap">
+    <div class="logo">
+      <span class="logo-mark"><img src="assets/logo-icon.png" alt="BrightPath"></span>
+      <span class="logo-text"><span class="logo-name">BrightPath</span><span class="logo-sub">Admin</span></span>
+    </div>
+    <button type="button" class="btn btn-ghost btn-sm" onclick="adminSignOut()">Sign out</button>
+  </div>
+</header>
+
+<script src="auth.js?v=3"></script>
+<script>requireAdmin();</script>
+
+<main class="wrap" style="padding:32px;">
+  <div class="section-head" style="margin-bottom:0;">
+    <span class="eyebrow">Student communications</span>
+    <h1 style="font-size:26px;margin-top:10px;">Notifications centre</h1>
+    <p style="font-size:14.5px;color:var(--ink-soft);">Track who's due for a semester update, and send a reminder in a couple of clicks.</p>
+  </div>
+
+  <div class="admin-stats">
+    <div class="admin-stat-card"><div class="admin-stat-num" id="stat-total">–</div><div class="admin-stat-lbl">Students in the pool</div></div>
+    <div class="admin-stat-card"><div class="admin-stat-num coral" id="stat-overdue">–</div><div class="admin-stat-lbl">Overdue for an update</div></div>
+    <div class="admin-stat-card"><div class="admin-stat-num" id="stat-sent">–</div><div class="admin-stat-lbl">Reminders sent (last 30 days)</div></div>
+  </div>
+
+  <div class="tab-bar">
+    <button type="button" class="tab-btn active" data-tab="roster" onclick="switchTab('roster')">Roster</button>
+    <button type="button" class="tab-btn" data-tab="whatsapp" onclick="switchTab('whatsapp')">WhatsApp broadcast</button>
+    <button type="button" class="tab-btn" data-tab="activity" onclick="switchTab('activity')">Activity log</button>
+  </div>
+
+  <div class="tab-panel current" id="tab-roster">
+    <div class="roster-toolbar">
+      <div class="roster-filters" id="roster-filters"></div>
+      <button type="button" class="btn btn-primary btn-sm" id="bulk-send-btn" onclick="openBulkCompose()">Send reminder to all overdue</button>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="roster">
+        <thead>
+          <tr><th>Student</th><th>State &middot; course</th><th>Last update</th><th>Days since</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody id="roster-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-whatsapp">
+    <div class="wa-grid">
+      <div>
+        <div class="compose-field">
+          <label for="wa-template">Template</label>
+          <select id="wa-template" onchange="renderWaPreview()"></select>
+        </div>
+        <div class="compose-field">
+          <label for="wa-audience">Send to</label>
+          <select id="wa-audience" onchange="renderWaPreview()">
+            <option value="all">All students</option>
+            <option value="overdue">Overdue for update</option>
+          </select>
+        </div>
+        <p class="compose-recipients" id="wa-recipients"></p>
+        <button type="button" class="btn btn-primary btn-block" onclick="sendWaBroadcast()">Send broadcast &rarr;</button>
+        <p class="wa-sent-confirm" id="wa-sent-confirm">Sent &check;</p>
+        <p class="wa-note">Prototype note: this simulates the broadcast into the activity log below — it isn't connected to a real WhatsApp Business number. See <code>mental-health-checkin-protocol.md</code> in this project for the escalation plan behind the check-in template, and the earlier recommendation (Glific, free &amp; purpose-built for NGOs) for what would send this for real.</p>
+      </div>
+      <div class="wa-phone">
+        <div class="wa-phone-header">
+          <div class="wa-phone-avatar">BP</div>
+          <div>
+            <div class="wa-phone-name">BrightPath</div>
+            <div class="wa-phone-sub">WhatsApp Business &middot; preview</div>
+          </div>
+        </div>
+        <div class="wa-bubble" id="wa-preview-text"></div>
+        <div class="wa-buttons" id="wa-preview-buttons"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-activity">
+    <div id="activity-list"></div>
+  </div>
+</main>
+
+<div class="login-modal-backdrop" id="compose-backdrop">
+  <div class="login-modal" role="dialog" aria-modal="true" aria-label="Send reminder" style="max-width:480px;text-align:left;">
+    <button class="login-modal-close" onclick="closeCompose()" aria-label="Close">&times;</button>
+    <h2>Send a reminder</h2>
+    <p class="compose-recipients" id="compose-recipients"></p>
+    <div class="compose-field">
+      <label for="compose-template">Template</label>
+      <select id="compose-template" onchange="applyTemplate()"></select>
+    </div>
+    <div class="compose-field">
+      <label for="compose-subject">Subject</label>
+      <input type="text" id="compose-subject">
+    </div>
+    <div class="compose-field">
+      <label for="compose-body">Message</label>
+      <textarea id="compose-body"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary btn-block" id="compose-send-btn" onclick="sendCompose()">Send &rarr;</button>
+    <p style="font-size:11.5px;color:var(--ink-soft);margin-top:10px;">Prototype note: this records the send in the activity log below — it does not deliver a real email. See the bottom of this page for how to wire that up for real.</p>
+  </div>
+</div>
+
+<script src="data.js?v=2"></script>
+<script>
+  var TEMPLATES = [
+    { id: 'progress', label: 'Semester progress request',
+      subject: 'Quick update for your BrightPath sponsors 💛',
+      body: "Hi {{code}},\n\nHope this semester is going well! Your sponsors would love a short update — a few lines on how classes are going and anything you're proud of lately.\n\nNo pressure on length, just enough for us to pass along. Thank you for everything you're working toward.\n\nWarmly,\nThe BrightPath team" },
+    { id: 'checkin', label: 'Quick check-in',
+      subject: "How's this semester going?",
+      body: "Hi {{code}},\n\nJust checking in — how has this semester been treating you? Let us know if there's anything you need from us, or any news you'd like to share with your sponsors.\n\nTake care,\nThe BrightPath team" }
+  ];
+
+  var WA_TEMPLATES = [
+    { id: 'checkin_poll', label: 'Monthly check-in poll', type: 'poll',
+      body: "Hi {{code}} 👋 Quick monthly check-in from BrightPath — how are you feeling about things this month?",
+      buttons: ['🙂 Doing well', '😐 Okay', '😔 Struggling'] },
+    { id: 'sem_reminder', label: 'Semester progress reminder', type: 'text',
+      body: "Hi {{code}} 👋 Just a friendly nudge — could you share a quick update on how this semester's going? Your sponsors would love to hear from you 💛",
+      buttons: ['Reply here'] }
+  ];
+
+  var STATUS_ORDER = ['ontrack', 'duesoon', 'overdue'];
+  var STATUS_LABEL = { ontrack: 'On track', duesoon: 'Due soon', overdue: 'Overdue' };
+  var currentFilter = 'all';
+  var composeTargets = []; // array of student objects currently being composed to
+
+  function daysSince(iso){
+    return Math.floor((Date.now() - new Date(iso).getTime()) / (1000 * 60 * 60 * 24));
+  }
+  function statusFor(days){
+    if(days > 90) return 'overdue';
+    if(days > 60) return 'duesoon';
+    return 'ontrack';
+  }
+
+  function renderStats(){
+    var overdue = STUDENTS.filter(function(s){ return statusFor(daysSince(s.lastUpdateAt)) === 'overdue'; });
+    var cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+    var sentRecently = getCommsLog().filter(function(c){ return new Date(c.sentAt).getTime() >= cutoff; });
+    document.getElementById('stat-total').textContent = STUDENTS.length;
+    document.getElementById('stat-overdue').textContent = overdue.length;
+    document.getElementById('stat-sent').textContent = sentRecently.length;
+  }
+
+  function renderFilters(){
+    var counts = { all: STUDENTS.length, ontrack: 0, duesoon: 0, overdue: 0 };
+    STUDENTS.forEach(function(s){ counts[statusFor(daysSince(s.lastUpdateAt))]++; });
+    var items = [['all', 'All']].concat(STATUS_ORDER.map(function(k){ return [k, STATUS_LABEL[k]]; }));
+    document.getElementById('roster-filters').innerHTML = items.map(function(item){
+      var key = item[0], label = item[1];
+      return '<button type="button" class="roster-filter-btn' + (currentFilter === key ? ' is-active' : '') +
+        '" onclick="setFilter(\'' + key + '\')">' + label + ' (' + counts[key] + ')</button>';
+    }).join('');
+  }
+  function setFilter(key){ currentFilter = key; renderAll(); }
+
+  function renderRoster(){
+    var list = STUDENTS.filter(function(s){
+      return currentFilter === 'all' || statusFor(daysSince(s.lastUpdateAt)) === currentFilter;
+    }).sort(function(a, b){ return daysSince(b.lastUpdateAt) - daysSince(a.lastUpdateAt); });
+
+    document.getElementById('roster-body').innerHTML = list.map(function(s){
+      var days = daysSince(s.lastUpdateAt);
+      var status = statusFor(days);
+      var dateLabel = new Date(s.lastUpdateAt).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' });
+      var lastReminder = getLastReminderForStudent(s.id);
+      return '<tr>' +
+        '<td><span class="t-code">' + s.code + '</span></td>' +
+        '<td>' + s.state + ' &middot; ' + s.course + '</td>' +
+        '<td>' + dateLabel + '</td>' +
+        '<td class="roster-days">' + days + ' days' + (lastReminder ? '<br><span style="font-size:11.5px;">reminded ' + daysSince(lastReminder.sentAt) + 'd ago</span>' : '') + '</td>' +
+        '<td><span class="badge badge-' + status + '">' + STATUS_LABEL[status] + '</span></td>' +
+        '<td><button type="button" class="btn btn-ghost btn-sm" onclick="openCompose(' + s.id + ')">Send reminder</button></td>' +
+      '</tr>';
+    }).join('') || '<tr><td colspan="6"><div class="empty-panel">No students match this filter.</div></td></tr>';
+  }
+
+  function renderActivity(){
+    var log = getCommsLog();
+    var el = document.getElementById('activity-list');
+    if(!log.length){
+      el.innerHTML = '<div class="empty-panel">No reminders sent yet — anything you send from the Roster tab will show up here.</div>';
+      return;
+    }
+    el.innerHTML = log.map(function(c){
+      var s = getStudentById(c.studentId);
+      var d = new Date(c.sentAt).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      var channel = c.channel || 'email';
+      return '<div class="activity-item">' +
+        '<div>' +
+          '<div class="activity-meta">' + d + ' &middot; <span class="t-code">' + (s ? s.code : 'Unknown student') + '</span>' +
+            '<span class="channel-tag ' + channel + '">' + (channel === 'whatsapp' ? 'WhatsApp' : 'Email') + '</span></div>' +
+          '<div class="activity-subject">' + c.subject + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderAll(){
+    renderStats();
+    renderFilters();
+    renderRoster();
+    renderActivity();
+  }
+
+  function switchTab(tab){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab === tab); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('current'); });
+    document.getElementById('tab-' + tab).classList.add('current');
+    if(tab === 'whatsapp') renderWaPreview();
+  }
+
+  // --- WhatsApp broadcast (prototype) ---
+  function waTargets(){
+    var audience = document.getElementById('wa-audience').value;
+    if(audience === 'overdue') return STUDENTS.filter(function(s){ return statusFor(daysSince(s.lastUpdateAt)) === 'overdue'; });
+    return STUDENTS;
+  }
+  function fillWaTemplateOptions(){
+    var sel = document.getElementById('wa-template');
+    if(sel.options.length) return;
+    sel.innerHTML = WA_TEMPLATES.map(function(t){ return '<option value="' + t.id + '">' + t.label + '</option>'; }).join('');
+  }
+  function renderWaPreview(){
+    fillWaTemplateOptions();
+    var t = WA_TEMPLATES.find(function(t){ return t.id === document.getElementById('wa-template').value; }) || WA_TEMPLATES[0];
+    var targets = waTargets();
+    var codeLabel = targets.length === 1 ? targets[0].code : '{{code}}';
+    document.getElementById('wa-preview-text').innerHTML =
+      t.body.replace(/\{\{code\}\}/g, codeLabel).replace(/\n/g, '<br>') +
+      '<span class="wa-bubble-time">10:02 &check;&check;</span>';
+    document.getElementById('wa-preview-buttons').innerHTML =
+      t.buttons.map(function(b){ return '<div class="wa-quick-reply">' + b + '</div>'; }).join('');
+    document.getElementById('wa-recipients').textContent = 'To: ' + targets.length + ' student' + (targets.length === 1 ? '' : 's') +
+      (targets.length ? ' (' + targets.slice(0, 6).map(function(s){ return s.code; }).join(', ') + (targets.length > 6 ? ', …' : '') + ')' : '');
+    document.getElementById('wa-sent-confirm').style.display = 'none';
+  }
+  function sendWaBroadcast(){
+    var t = WA_TEMPLATES.find(function(t){ return t.id === document.getElementById('wa-template').value; }) || WA_TEMPLATES[0];
+    var targets = waTargets();
+    if(!targets.length) return;
+    var nowIso = new Date().toISOString();
+    targets.forEach(function(s){
+      addCommsLog({
+        studentId: s.id, templateId: t.id, channel: 'whatsapp', subject: t.label,
+        body: t.body.replace(/\{\{code\}\}/g, s.code), pollOptions: t.type === 'poll' ? t.buttons : null,
+        sentAt: nowIso, sentBy: (getAdminSession() || {}).name || 'Admin'
+      });
+    });
+    document.getElementById('wa-sent-confirm').textContent = 'Sent to ' + targets.length + ' student' + (targets.length === 1 ? '' : 's') + ' ✓';
+    document.getElementById('wa-sent-confirm').style.display = 'block';
+    renderAll();
+  }
+
+  // --- Compose modal ---
+  function fillTemplateOptions(){
+    document.getElementById('compose-template').innerHTML = TEMPLATES.map(function(t){
+      return '<option value="' + t.id + '">' + t.label + '</option>';
+    }).join('');
+  }
+  function applyTemplate(){
+    var t = TEMPLATES.find(function(t){ return t.id === document.getElementById('compose-template').value; }) || TEMPLATES[0];
+    var codeLabel = composeTargets.length === 1 ? composeTargets[0].code : '{{code}}';
+    document.getElementById('compose-subject').value = t.subject;
+    document.getElementById('compose-body').value = t.body.replace(/\{\{code\}\}/g, codeLabel);
+  }
+  function openCompose(studentId){
+    var s = getStudentById(studentId);
+    if(!s) return;
+    composeTargets = [s];
+    document.getElementById('compose-recipients').textContent = 'To: ' + s.code + ' (' + s.state + ')';
+    fillTemplateOptions();
+    applyTemplate();
+    document.getElementById('compose-backdrop').classList.add('open');
+  }
+  function openBulkCompose(){
+    var overdue = STUDENTS.filter(function(s){ return statusFor(daysSince(s.lastUpdateAt)) === 'overdue'; });
+    if(!overdue.length){ return; }
+    composeTargets = overdue;
+    document.getElementById('compose-recipients').textContent = 'To: ' + overdue.length + ' overdue students (' + overdue.map(function(s){ return s.code; }).join(', ') + ')';
+    fillTemplateOptions();
+    applyTemplate();
+    document.getElementById('compose-backdrop').classList.add('open');
+  }
+  function closeCompose(){
+    document.getElementById('compose-backdrop').classList.remove('open');
+  }
+  document.getElementById('compose-backdrop').addEventListener('click', function(e){
+    if(e.target.id === 'compose-backdrop') closeCompose();
+  });
+  function sendCompose(){
+    var subject = document.getElementById('compose-subject').value.trim();
+    var body = document.getElementById('compose-body').value.trim();
+    var templateId = document.getElementById('compose-template').value;
+    if(!subject || !body || !composeTargets.length) return;
+    var nowIso = new Date().toISOString();
+    composeTargets.forEach(function(s){
+      addCommsLog({
+        studentId: s.id, templateId: templateId, subject: subject, channel: 'email',
+        body: body.replace(/\{\{code\}\}/g, s.code), sentAt: nowIso, sentBy: (getAdminSession() || {}).name || 'Admin'
+      });
+    });
+    closeCompose();
+    renderAll();
+  }
+
+  renderAll();
+</script>
+
+</body>
+</html>

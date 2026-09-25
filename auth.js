@@ -98,6 +98,43 @@ function requireLogin(cb){
 }
 function receiptNo(){ return 'BP-' + Math.floor(100000 + Math.random()*900000); }
 
+// --- Admin / CRM prototype ---
+// A client-side-only gate for the internal admin tool. This is NOT real
+// security — there is no backend to enforce it, so anyone who knows the
+// admin.html URL and reads this file can see the password. It exists only
+// to demo the CRM workflow; see admin-login.html for the production-auth
+// note aimed at whoever picks this up next.
+function getAdminSession(){
+  try{ return JSON.parse(localStorage.getItem('bp_admin_session') || 'null'); }catch(e){ return null; }
+}
+function setAdminSession(session){
+  try{ localStorage.setItem('bp_admin_session', JSON.stringify(session)); }catch(e){}
+}
+function requireAdmin(){
+  if(!getAdminSession()){ window.location.href = 'admin-login.html'; }
+}
+function adminSignOut(){
+  try{ localStorage.removeItem('bp_admin_session'); }catch(e){}
+  window.location.href = 'admin-login.html';
+}
+
+// Every reminder sent to a student — the single source of truth for both
+// the roster's "last reminder sent" column and the activity log, so the
+// two views can never drift out of sync.
+function getCommsLog(){
+  try{ return JSON.parse(localStorage.getItem('bp_comms_log') || '[]'); }catch(e){ return []; }
+}
+function addCommsLog(entry){
+  var list = getCommsLog();
+  entry.id = entry.id || ('c_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+  list.unshift(entry);
+  try{ localStorage.setItem('bp_comms_log', JSON.stringify(list)); }catch(e){}
+  return entry;
+}
+function getLastReminderForStudent(studentId){
+  return getCommsLog().find(function(c){ return c.studentId === studentId; }) || null;
+}
+
 function getCorporateLeads(){
   try{ return JSON.parse(localStorage.getItem('bp_corporate_leads') || '[]'); }catch(e){ return []; }
 }
